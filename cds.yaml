@@ -548,65 +548,25 @@ paths:
           description: Curb Policy ID
   /events/events:
     get:
-      summary: Fetch curb events
+      summary: Fetch Event Events
       tags: []
-      responses: 
-          '200':
-          description: Events Found
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  version:
-                    type: string
-                  time_zone:
-                    type: string
-                  last_updated:
-                    $ref: '#/components/schemas/timestamp'
-                  currency:
-                    type: string
-                  author:
-                    type: string
-                  license_url:
-                    type: string
-                  data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        spaces:
-                          type: array
-                          items:
-                            $ref: '#/components/schemas/curb-space'
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '500':
-          description: SERVER_ERROR
-        '501':
-          description: NOT_IMPLEMENTED
-        '503':
-          description: SERVICE_UNAVAILABLE
+      responses: {}
       operationId: get-events-events
   /events/status:
     get:
-      summary: Fetch curb status
+      summary: Fetch Event Status
       tags: []
       responses: {}
       operationId: get-events-status
   /metrics/sessions:
     get:
-      summary: Fetch metric sessions
+      summary: Fetch Metric Session
       tags: []
       responses: {}
       operationId: get-metrics-sessions
   /metrics/aggregates:
     get:
-      summary: Fetch metric aggregates
+      summary: Fetch Metric Aggregates
       tags: []
       responses: {}
       operationId: get-metrics-aggregates
