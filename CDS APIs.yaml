@@ -2,7 +2,7 @@ openapi: 3.1.0
 x-stoplight:
   id: 4wvvx7c8j5ymv
 info:
-  title: CDS - Curb Data Specification
+  title: Curb Data Specification (CDS) APIs
   version: '1.0'
   summary: 'CDS is a data specification to help cities manage their curb zone programs and surrounding areas, and measure the utilization and impact.'
   description: 'The Curb Data Specification (CDS), a project of the Open Mobility Foundation (OMF), is a data standard and set of Application Programming Interfaces (APIs) that helps cities manage and companies use dynamic curb zones that optimize loading activities of people and goods, and measure the impact of these programs.'
