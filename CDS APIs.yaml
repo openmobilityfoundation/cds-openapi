@@ -597,7 +597,7 @@ components:
       type: integer
       minimum: 100000000000
       maximum: 99999999999999
-      x-internal: true
+      x-internal: false
     unit-of-time:
       description: An enumeration for units of time.
       type: string
@@ -609,21 +609,21 @@ components:
         - week
         - month
         - year
-      x-internal: true
+      x-internal: false
     uuid:
       type: string
       format: uuid
-      x-internal: true
+      x-internal: false
     latitude:
       type: number
       minimum: -90
       maximum: 90
-      x-internal: true
+      x-internal: false
     longitude:
       type: number
       minimum: -180
       maximum: 180
-      x-internal: true
+      x-internal: false
     curb-zone:
       type: object
       properties:
