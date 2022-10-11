@@ -11,3 +11,4 @@ enum:
   - week
   - month
   - year
+x-internal: true

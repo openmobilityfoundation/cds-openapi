@@ -597,6 +597,7 @@ components:
       type: integer
       minimum: 100000000000
       maximum: 99999999999999
+      x-internal: true
     unit-of-time:
       description: An enumeration for units of time.
       type: string
@@ -608,17 +609,21 @@ components:
         - week
         - month
         - year
+      x-internal: true
     uuid:
       type: string
       format: uuid
+      x-internal: true
     latitude:
       type: number
       minimum: -90
       maximum: 90
+      x-internal: true
     longitude:
       type: number
       minimum: -180
       maximum: 180
+      x-internal: true
     curb-zone:
       type: object
       properties:
@@ -819,6 +824,7 @@ components:
         last_updated_date: 1552678594428
         start_date: 1552678594428
       description: A contiguous region of curb space on a single block face that is regulated in a particular way.
+      x-internal: false
     curb-area:
       type: object
       properties:
@@ -882,6 +888,7 @@ components:
         curb_zone_ids:
           - 7d8a5885-e949-4ac9-afb7-fa4d43b68530
       description: A particular neighborhood or area of interest that includes one or more Curb Zones.
+      x-internal: false
     curb-space:
       type: object
       properties:
@@ -965,6 +972,7 @@ components:
         available: false
         availability_time: 1657213115826
       description: An individual demarcated space within a Curb Zone.
+      x-internal: false
     curb-policy:
       type: object
       properties:
