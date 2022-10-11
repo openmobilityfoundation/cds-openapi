@@ -103,6 +103,8 @@ paths:
           in: query
           name: radius
           description: 'Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Must be used together with `lat` and `lng`. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat` and `max_lng`.'
+      tags:
+        - Curbs API
   /curbs/areas:
     get:
       summary: Query Curb Areas
@@ -186,6 +188,8 @@ paths:
           in: query
           name: radius
           description: 'Returns only Curb Areas that are within radius centimeters of the point identified by lat/lng. Must be used together with `lat` and `lng`. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat` and `max_lng`.'
+      tags:
+        - Curbs API
   /curbs/spaces:
     get:
       summary: Query Curb Spaces
@@ -269,6 +273,8 @@ paths:
           in: query
           name: radius
           description: 'Returns only Curb Spaces that are within radius centimeters of the point identified by lat/lng. Must be used together with `lat` and `lng`. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat` and `max_lng`.'
+      tags:
+        - Curbs API
   /curbs/policies:
     get:
       summary: Query Curb Policies
@@ -321,6 +327,8 @@ paths:
           in: query
           name: ids
           description: Comma-separated list of Policy IDs.
+      tags:
+        - Curbs API
   '/curbs/zones/{id}':
     get:
       summary: Fetch a Curb Zone
@@ -384,6 +392,8 @@ paths:
           in: query
           name: show_historic
           description: 'Whether to return historic, retired curb zone data.'
+      tags:
+        - Curbs API
   '/curbs/areas/{id}':
     get:
       summary: Fetch a Curb Area
@@ -437,6 +447,8 @@ paths:
           in: path
           required: true
           description: Curb Area ID
+      tags:
+        - Curbs API
   '/curbs/spaces/{id}':
     get:
       summary: Fetch a Curb Space
@@ -495,6 +507,8 @@ paths:
           in: query
           name: time
           description: Availability data (if supplied) will be returned as of this time.
+      tags:
+        - Curbs API
   '/curbs/policies/{id}':
     get:
       summary: Fetch a Curb Policy
@@ -546,28 +560,34 @@ paths:
           in: path
           required: true
           description: Curb Policy ID
+      tags:
+        - Curbs API
   /events/events:
     get:
       summary: Fetch Event Events
-      tags: []
+      tags:
+        - Events API
       responses: {}
       operationId: get-events-events
   /events/status:
     get:
       summary: Fetch Event Status
-      tags: []
+      tags:
+        - Events API
       responses: {}
       operationId: get-events-status
   /metrics/sessions:
     get:
       summary: Fetch Metric Session
-      tags: []
+      tags:
+        - Metrics API
       responses: {}
       operationId: get-metrics-sessions
   /metrics/aggregates:
     get:
       summary: Fetch Metric Aggregates
-      tags: []
+      tags:
+        - Metrics API
       responses: {}
       operationId: get-metrics-aggregates
 components:
