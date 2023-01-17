@@ -1183,5 +1183,136 @@ components:
               - rideshare
               - electric
       description: An object that allows or prohibits a particular set of users from using a particular curb at a particular time or times.
+    curb-event:
+      title: curb-event
+      x-stoplight:
+        id: 8w78dbvkx495z
+      type: object
+      properties:
+        event_id:
+          $ref: '#/components/schemas/uuid'
+          description: The globally unique identifier of the event that occurred.
+        event_type:
+          type: string
+          enum:
+            - comms_lost
+            - comms_restored
+            - decommissioned
+            - park_start
+            - park_end
+            - scheduled_report
+            - enter_area
+            - exit_area
+          description: |-
+            The type of event that has occurred.
+
+            Possible values are defined in an enumeration.
+        event_purpose:
+          type: string
+          enum:
+            - construction
+            - delivery
+            - emergency_use
+            - parking
+            - passenger_transport
+            - special_events
+            - waste_management
+            - device_maintenance
+            - autonomous
+            - ems
+            - fire
+            - food_delivery
+            - parcel_delivery
+            - police
+            - public_transit
+            - ride_hail
+            - road_maintenance
+            - service_vehicles
+            - taxi
+            - utility_work
+            - vehicle_charging
+            - vehicle_parking
+            - vending
+            - unspecified
+          description: |-
+            **Conditionally Required**
+
+            General event purpose that the vehicle performed during its event, discernible by observation, sensors, or self-reported in copany data feeds. New event purposes MAY be generated to reflect local curb uses, but when possible, the following well-known recommended values should be used. It may not always be knowable, but where it is possible this information should be conveyed.
+
+            If multiple purposes apply, then use the more descriptive/specific value.
+        event_location:
+          type: string
+          description: The geographic point location where the event occurred.
+        event_time:
+          $ref: '#/components/schemas/timestamp'
+        event_publication_time:
+          $ref: '#/components/schemas/timestamp'
+          description: Time at which the event became available for consumption by this API.
+        event_session_id:
+          $ref: '#/components/schemas/uuid'
+        curb_zone_id:
+          type: string
+        curb_area_id:
+          type: string
+        curb_space_id:
+          type: string
+        data_source_type:
+          type: string
+          enum:
+            - data_feed
+            - camera
+            - above_ground
+            - in_ground
+            - meter
+            - payment
+            - in_person
+            - other
+          description: 'The set of possible categories of sources that are sending this event. '
+        data_source_operator_id:
+          type: string
+        data_source_operator_name:
+          type: string
+        data_source_device_id:
+          type: string
+        data_source_manufacturer:
+          type: string
+        data_source_model:
+          type: string
+        sensor_status_is_commissioned:
+          type: string
+        sensor_status_is_online:
+          type: string
+        vehicle_id:
+          type: string
+        vehicle_license_plate:
+          type: string
+        vehicle_permit_number:
+          type: string
+        vehicle_length:
+          type: string
+        vehicle_type:
+          type: string
+        vehicle_propulsion_types:
+          type: string
+        vehicle_blocked_lane_types:
+          type: string
+        curb_occupants:
+          type: string
+        actual_cost:
+          type: integer
+      required:
+        - event_id
+        - event_type
+        - event_location
+        - event_time
+        - event_publication_time
   securitySchemes: {}
-security: []
+  responses:
+    '501':
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            properties:
+              id:
+                type: string
