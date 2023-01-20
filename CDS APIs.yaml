@@ -1250,12 +1250,31 @@ components:
           description: Time at which the event became available for consumption by this API.
         event_session_id:
           $ref: '#/components/schemas/uuid'
+          description: 'May be provided to tie known connected `park_start`and `park_end` event types together by a unique session ID. '
+        curb_area_ids:
+          type: array
+          description: 'Unique IDs of the Curb Area(s) where the event occurred. Since Curb Areas may overlap, an event may occur in more than one. '
+          items:
+            $ref: '#/components/schemas/uuid'
         curb_zone_id:
-          type: string
-        curb_area_id:
-          type: string
+          $ref: '#/components/schemas/uuid'
+          description: |
+            Unique ID of the Curb Zone where the event occurred.
+
+            Required for events that occurred at a known Curb Zone for ALL event_types.
         curb_space_id:
-          type: string
+          $ref: '#/components/schemas/uuid'
+          description: |
+            Unique ID of the Curb Space where the event occured.
+
+            Required for events that occurred at a known Curb Space, if known and used, for these event types:
+            * `park_start`
+
+            * `park_end`
+
+            * `enter_area`
+
+            * `exit_area`
         data_source_type:
           type: string
           enum:
@@ -1267,23 +1286,53 @@ components:
             - payment
             - in_person
             - other
-          description: 'The set of possible categories of sources that are sending this event. '
+          description: The set of possible categories of sources that are sending this event. '
         data_source_operator_id:
-          type: string
+          $ref: '#/components/schemas/uuid'
+          description: |-
+            Unique identifier of the entity responsible for operating the event data source.
+
+            For example, IDs can identify a fleet operator sending a data feed, or the organization (company or city) operating the sensor.
+
+            **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
         data_source_operator_name:
           type: string
+          description: |-
+            Name of the provider responsible for operating the vehicle, device, or sensor at the time of the event.
+
+            May be sent along with `data_source_operator_id` or on its own for small operators at the discretion of the city.
         data_source_device_id:
           type: string
+          description: |-
+            Unique identifier of this event source, whether sensor, vehicle, camera, etc. Allows agencies to connect related Events as they are recorded by the same source.
+
+            If coming from a provider, this is a generated UUID they use and not the same as the external vehicle_id.
+
+            **If this field is needed for your use cases, review the OMF's [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).**
         data_source_manufacturer:
           type: string
+          description: Manufacturer of the data source hardware or vehicle reporting event data.
         data_source_model:
           type: string
+          description: Manufacturer of the data source hardware or vehicle reporting event data.
         sensor_status_is_commissioned:
-          type: string
+          type: boolean
+          description: |-
+            If a sensor was used to capture this event, the commissioned status at the time that the event was reported.
+
+            Indicates whether the sensor is currently in a state where it should be reporting data.
         sensor_status_is_online:
-          type: string
+          type: boolean
+          description: |-
+            If a sensor was used to capture this event, the online status at the time that the event was reported.
+
+            Indicates whether the sensor is currently online and reporting data.
         vehicle_id:
           type: string
+          description: |-
+            A vehicle identifier visible externally on the vehicle itself.
+
+            **If this field is needed for your use cases, review the OMF's [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).**
         vehicle_license_plate:
           type: string
         vehicle_permit_number:
@@ -1306,6 +1355,8 @@ components:
         - event_location
         - event_time
         - event_publication_time
+        - data_source_type
+        - data_source_device_id
   securitySchemes: {}
   responses:
     '501':
