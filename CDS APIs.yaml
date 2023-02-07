@@ -46,7 +46,7 @@ paths:
                         zones:
                           type: array
                           items:
-                            $ref: '#/components/schemas/curb-zone'
+                            $ref: '#/components/schemas/curb_zone'
         '400':
           description: BAD_REQUEST
         '401':
@@ -134,7 +134,7 @@ paths:
                         areas:
                           type: array
                           items:
-                            $ref: '#/components/schemas/curb-area'
+                            $ref: '#/components/schemas/curb_area'
         '400':
           description: BAD_REQUEST
         '401':
@@ -219,7 +219,7 @@ paths:
                         spaces:
                           type: array
                           items:
-                            $ref: '#/components/schemas/curb-space'
+                            $ref: '#/components/schemas/curb_space'
         '400':
           description: BAD_REQUEST
         '401':
@@ -304,7 +304,7 @@ paths:
                         policies:
                           type: array
                           items:
-                            $ref: '#/components/schemas/curb-policy'
+                            $ref: '#/components/schemas/curb_policy'
         '400':
           description: BAD_REQUEST
         '401':
@@ -356,7 +356,7 @@ paths:
                       type: object
                       properties:
                         zone:
-                          $ref: '#/components/schemas/curb-zone'
+                          $ref: '#/components/schemas/curb_zone'
         '400':
           description: BAD_REQUEST
         '401':
@@ -421,7 +421,7 @@ paths:
                       type: object
                       properties:
                         area:
-                          $ref: '#/components/schemas/curb-area'
+                          $ref: '#/components/schemas/curb_area'
         '400':
           description: BAD_REQUEST
         '401':
@@ -476,7 +476,7 @@ paths:
                       type: object
                       properties:
                         space:
-                          $ref: '#/components/schemas/curb-space'
+                          $ref: '#/components/schemas/curb_space'
         '400':
           description: BAD_REQUEST
         '401':
@@ -536,7 +536,7 @@ paths:
                       type: object
                       properties:
                         policy:
-                          $ref: '#/components/schemas/curb-policy'
+                          $ref: '#/components/schemas/curb_policy'
         '400':
           description: BAD_REQUEST
         '401':
@@ -596,6 +596,7 @@ components:
       minimum: 100000000000
       maximum: 99999999999999
       x-internal: false
+      title: timestamp
     unit-of-time:
       description: An enumeration for units of time.
       type: string
@@ -608,21 +609,25 @@ components:
         - month
         - year
       x-internal: false
+      title: unit-of-time
     uuid:
       type: string
       format: uuid
       x-internal: false
+      title: uuid
     latitude:
       type: number
       minimum: -90
       maximum: 90
       x-internal: false
+      title: latitude
     longitude:
       type: number
       minimum: -180
       maximum: 180
       x-internal: false
-    curb-zone:
+      title: longitude
+    curb_zone:
       type: object
       properties:
         curb_zone_id:
@@ -823,7 +828,10 @@ components:
         start_date: 1552678594428
       description: A contiguous region of curb space on a single block face that is regulated in a particular way.
       x-internal: false
-    curb-area:
+      x-stoplight:
+        id: 202654569fa9e
+      title: curb_area
+    curb_area:
       type: object
       properties:
         curb_area_id:
@@ -887,7 +895,10 @@ components:
           - 7d8a5885-e949-4ac9-afb7-fa4d43b68530
       description: A particular neighborhood or area of interest that includes one or more Curb Zones.
       x-internal: false
-    curb-space:
+      x-stoplight:
+        id: e2235c918423f
+      title: curb_area
+    curb_space:
       type: object
       properties:
         curb_space_id:
@@ -971,7 +982,10 @@ components:
         availability_time: 1657213115826
       description: An individual demarcated space within a Curb Zone.
       x-internal: false
-    curb-policy:
+      x-stoplight:
+        id: acc7fbb358869
+      title: curb_space
+    curb_policy:
       type: object
       properties:
         curb_policy_id:
@@ -1183,10 +1197,13 @@ components:
               - rideshare
               - electric
       description: An object that allows or prohibits a particular set of users from using a particular curb at a particular time or times.
-    curb-event:
-      title: curb-event
       x-stoplight:
-        id: 8w78dbvkx495z
+        id: a3aab507b1c7e
+      title: curb_policy
+    curb-event:
+      title: curb_event
+      x-stoplight:
+        id: cb0b7ebce9771
       type: object
       properties:
         event_id:
@@ -1327,6 +1344,12 @@ components:
             If a sensor was used to capture this event, the online status at the time that the event was reported.
 
             Indicates whether the sensor is currently online and reporting data.
+        sensor_status_is_online - copy:
+          type: boolean
+          description: |-
+            If a sensor was used to capture this event, the online status at the time that the event was reported.
+
+            Indicates whether the sensor is currently online and reporting data.
         vehicle_id:
           type: string
           description: |-
@@ -1335,20 +1358,85 @@ components:
             **If this field is needed for your use cases, review the OMF's [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).**
         vehicle_license_plate:
           type: string
+          description: |-
+            The consistently placed vehicle license plate, usable by ALPR systems, when required for curb use.
+
+            This field is potentially sensitive (depending on local, state, and national laws) and a data privacy framework is recommended for collecting, retention, deletion, obfuscation, and security. If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy)
         vehicle_permit_number:
           type: string
+          description: 'If applicable, the assigned permit numbe for this vehicle from the city agency.'
         vehicle_length:
-          type: string
+          type: integer
+          description: |-
+            Appoximate length of the vehicle that performed the event, in centimeters.
+
+            Required for sources capable of determining vehicle length.
         vehicle_type:
-          type: string
+          $ref: '#/components/schemas/vehicle_type'
+          description: |-
+            Type of the vehicle that performed the event.
+
+            Required for sources capable of determining vehicle type.
         vehicle_propulsion_types:
           type: string
+          enum:
+            - human
+            - electric_assist
+            - electric
+            - combustion
+          description: |-
+            List of propulsion types used by the vehicle that performed the event.
+
+            Required for sources capable of determining vehicle propulsion type.
         vehicle_blocked_lane_types:
           type: string
+          description: |-
+            Type(s) of lane blocked by the vehicle performing the event. If no lanes are blocked by the vehicle performing the event, the array should be empty.
+
+            Required for sources capable of determining it for the following event_types: `park_start`
+          enum:
+            - travel_lane
+            - turn_lane
+            - bike_lane
+            - bus_lane
+            - parking
+            - shoulder
+            - median
+            - sidewalk
+            - unspecified
         curb_occupants:
-          type: string
+          type: object
+          description: |-
+            Current occupants of the Curb Zone. If the sensor is capable of identifying the linear location of the vehicle, then elements are sorted in ascending order according to the start property of the linear reference. Otherwise, elements appear in no particular order.
+
+            Required for sources capable of determining it for the following event_types: `park_start`, `park_end`, `scheduled_report`
+          properties:
+            type:
+              $ref: '#/components/schemas/vehicle_type'
+            length:
+              type: number
+              description: |-
+                The approximate length in centimeters of the vehicle.
+
+                Required when the event source is capable of determining vehicle length.
+            linear_location:
+              type: array
+              description: |-
+                A two-element array that specifies the start and end of the occupant’s linear location relative to the start of the Curb Zone in that order.
+
+                Required when the event source is capable of determining the linear location of occupants.
+              minItems: 2
+              maxItems: 2
+              items:
+                type: number
+                minimum: 0
+                maximum: 0
         actual_cost:
           type: integer
+          description: |-
+            If available from the source, the actual cost, in the currency defined in currency, paid by the curb user for this event.
+
+            All costs should be given as integers in the currency's smallest unit. As an example, to represent $1 USD, specify an amount of 100 (for 100 cents).
       required:
         - event_id
         - event_type
@@ -1357,6 +1445,27 @@ components:
         - event_publication_time
         - data_source_type
         - data_source_device_id
+    vehicle_type:
+      title: vehicle_type
+      x-stoplight:
+        id: zc8pejs5x7n8g
+      type: string
+      enum:
+        - bicyle
+        - cargo_bicycle
+        - car
+        - scooter
+        - moped
+        - motorcycle
+        - truck
+        - van
+        - freight
+        - other
+        - unspecified
+      description: |-
+        Type of the vehicle that performed the event.
+
+        Required for sources capable of determining vehicle type.
   securitySchemes: {}
   responses:
     '501':
