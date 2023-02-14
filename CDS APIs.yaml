@@ -565,7 +565,30 @@ paths:
       summary: Fetch Event Events
       tags:
         - Events API
-      responses: {}
+      responses:
+        '200':
+          description: 'OK: operation successful.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/curb-event'
       operationId: get-events-events
   /events/status:
     get:
@@ -1201,7 +1224,7 @@ components:
         id: a3aab507b1c7e
       title: curb_policy
     curb-event:
-      title: curb_event
+      title: curb-event
       x-stoplight:
         id: cb0b7ebce9771
       type: object
@@ -1466,6 +1489,44 @@ components:
         Type of the vehicle that performed the event.
 
         Required for sources capable of determining vehicle type.
+    rest-response-time_zone:
+      title: rest_response_time_zone
+      type: string
+      description: |-
+        The time zone that applies to parking regulations in this dataset.
+
+        MUST be a valid [TZ database time zone name](https://www.iana.org/time-zones) (ex: "US/Eastern" or "Europe/Paris").
+    rest-response-version:
+      title: rest-response-version
+      x-stoplight:
+        id: 3bxwqr73eu79g
+      type: string
+      description: The version of CDS that the API conforms to.
+      example: 1.0.0
+    rest-response-last_updated:
+      $ref: '#/components/schemas/timestamp'
+      x-stoplight:
+        id: mwudsha7oso9v
+      description: The last time the data in this API was updated.
+    rest-response-currency:
+      title: rest-response-currency
+      x-stoplight:
+        id: 1y7ea7wbdav1u
+      type: string
+      description: 'The ISO 4217 3-letter code for the currency in which rates for curb usage are denominated. All costs should be given as integers in the currency''s smallest unit. As an example, to represent `$1 USD`, specify an amount of `100` (for 100 cents).'
+      example: '100'
+    rest-response-author:
+      title: rest-response-author
+      x-stoplight:
+        id: mhmufpclryjhz
+      type: string
+      description: The name of the organization that produces and maintains this data.
+    rest-response-license_url:
+      title: rest-response-license_url
+      x-stoplight:
+        id: beyxkbcgpflk1
+      type: string
+      description: The licensing terms under which this data is provided.
   securitySchemes: {}
   responses:
     '501':
