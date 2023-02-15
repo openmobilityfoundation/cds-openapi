@@ -27,17 +27,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -115,17 +115,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -200,17 +200,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -285,17 +285,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -339,17 +339,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -404,17 +404,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -459,17 +459,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -519,17 +519,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-version'
                   time_zone:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-time_zone'
                   last_updated:
-                    $ref: '#/components/schemas/timestamp'
+                    $ref: '#/components/schemas/rest-response-last_updated'
                   currency:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-currency'
                   author:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-author'
                   license_url:
-                    type: string
+                    $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: array
                     items:
@@ -595,21 +595,84 @@ paths:
       summary: Fetch Event Status
       tags:
         - Events API
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: object
       operationId: get-events-status
   /metrics/sessions:
     get:
       summary: Fetch Metric Session
       tags:
         - Metrics API
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: object
       operationId: get-metrics-sessions
   /metrics/aggregates:
     get:
       summary: Fetch Metric Aggregates
       tags:
         - Metrics API
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: object
       operationId: get-metrics-aggregates
 components:
   schemas:
