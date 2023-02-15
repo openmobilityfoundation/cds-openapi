@@ -7,4 +7,6 @@ This is the OpenAPI schema for [CDS](https://github.com/openmobilityfoundation/c
 
 A browseable schema is available on [Stoplight](https://stoplight.io/) at [https://openmobilityfnd.stoplight.io/docs/cds-openapi](https://openmobilityfnd.stoplight.io/docs/cds-openapi).
 
-The schema versions are organized by repo branches, e.g. the latest **v1.0.0-dev** is on the [v1.0.0-dev branch](https://github.com/openmobilityfoundation/cds-openapi/tree/v1.0.0-dev).
+The CDS schema versions are organized by repo branches. For example, the latest **v1.0.0-dev** is on the [v1.0.0-dev branch](https://github.com/openmobilityfoundation/cds-openapi/tree/v1.0.0-dev).
+
+Within each branch, there is a single YAML file that defines each CDS API (curbs, events, metrics). 
