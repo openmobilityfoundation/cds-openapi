@@ -590,6 +590,22 @@ paths:
                     items:
                       $ref: '#/components/schemas/curb-event'
       operationId: get-events-events
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: curb_area_id
+          description: 'The ID of a Curb Area. If specified, only return events occurring within this area.'
+        - schema:
+            type: string
+          in: query
+          name: curb_zone_id
+          description: 'The ID of a Curb Zone. If specified, only return events occurring within this zone.'
+        - schema:
+            type: string
+          in: query
+          name: curb_space_id
+          description: 'The ID of a Curb Space. If specified, only return events occurring within this space.'
   /events/status:
     get:
       summary: Fetch Event Status
@@ -617,7 +633,46 @@ paths:
                     $ref: '#/components/schemas/rest-response-license_url'
                   data:
                     type: object
+                    properties:
+                      status:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            data_source_device_id:
+                              $ref: '#/components/schemas/uuid'
+                              description: 'Unique identifier of this event source, whether sensor, vehicle, camera, etc.'
+                            data_source_type:
+                              $ref: '#/components/schemas/data_source_type'
+                              description: General category of the source creating the event.
+                            data_source_operator_id:
+                              type: string
+                            sensor_status_is_commissioned:
+                              type: string
+                            sensor_status_is_online:
+                              type: string
+                          required:
+                            - data_source_device_id
+                            - data_source_type
+        '501':
+          description: Not Implemented
       operationId: get-events-status
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: curb_area_id
+          description: 'The ID of a Curb Area. If specified, only return events occurring within this area.'
+        - schema:
+            type: string
+          in: query
+          name: curb_zone_id
+          description: 'The ID of a Curb Zone. If specified, only return events occurring within this zone.'
+        - schema:
+            type: string
+          in: query
+          name: curb_space_id
+          description: 'The ID of a Curb Space. If specified, only return events occurring within this space.'
   /metrics/sessions:
     get:
       summary: Fetch Metric Session
@@ -1073,22 +1128,48 @@ components:
       title: curb_space
     curb_policy:
       type: object
+      example:
+        curb_policy_id: cd0996d7-3765-4f0b-a72e-7caf7cf3fe21
+        published_date: 1552678594428
+        priority: 1
+        data_source_operator_id:
+          - b2046faf-2bc2-4f0e-b784-7cc746138555
+          - aba63473-351c-4624-93ab-456db34f83a6
+          - 984cae91-3a11-49eb-b68c-d325a6cc8970
+        time_spans:
+          - days_of_week:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+            time_of_day_start: '10:00'
+            time_of_day_end: '16:00'
+        rules:
+          - activity: parking
+            max_stay: 15
+            user_classes:
+              - rideshare
+              - electric
+      description: An object that allows or prohibits a particular set of users from using a particular curb at a particular time or times.
+      x-stoplight:
+        id: a3aab507b1c7e
+      title: curb_policy
       properties:
         curb_policy_id:
-          allOf:
-            - $ref: '#/components/schemas/uuid'
-            - description: An ID that uniquely identifies this exact policy across Curb Zones.
+          $ref: '#/components/schemas/uuid'
+          description: An ID that uniquely identifies this exact policy across Curb Zones.
         published_date:
-          allOf:
-            - $ref: '#/components/schemas/timestamp'
-            - description: The date/time that this policy was first published in this data feed.
+          $ref: '#/components/schemas/timestamp'
         priority:
           type: integer
           description: 'Specifies which other policies this one takes precedence over. If two Policies on the same Curb Zone have overlapping Time Spans and apply to the same user class, the one that applies at a given time is the one with the lowest priority.'
         rules:
           type: array
+          description: The rule(s) that this policy applies.
           items:
             type: object
+            description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
             properties:
               activity:
                 type: string
@@ -1108,18 +1189,16 @@ components:
                 type: integer
                 description: 'The length of time (in units of max_stay_unit) for which the curb may be used under this regulation. If not specified, the curb may be used under this regulation indefinitely.'
               max_stay_unit:
-                allOf:
-                  - $ref: '#/components/schemas/unit-of-time'
-                  - description: The Unit of Time associated with the max_stay value.
+                $ref: '#/components/schemas/unit-of-time'
               no_return:
                 type: integer
                 description: The length of time (in units of no_return_unit) that a user must vacate a Curb Zone before being allowed to return for another stay.
               no_return_unit:
-                allOf:
-                  - $ref: '#/components/schemas/unit-of-time'
-                  - description: The Unit of Time associated with the no_return value.
+                $ref: '#/components/schemas/unit-of-time'
+                description: The Unit of Time associated with the no_return value.
               user_classes:
                 type: array
+                description: A user class represents any class of vehicles that is regulated by a city with respect to curb space.
                 items:
                   type: string
                   enum:
@@ -1152,19 +1231,19 @@ components:
                     - utilities
                     - vending
                     - waste_management
-                description: A user class represents any class of vehicles that is regulated by a city with respect to curb space.
               rate:
                 type: array
+                description: The cost of using this Curb Zone when this regulation applies.
                 items:
                   type: object
+                  description: A Rate defines the amount a user of the curb needs to pay when a given rule applies.
                   properties:
                     rate:
                       type: integer
                       description: The rate for this space in cents (or the smallest denomination of local currency) per rate_unit.
                     rate_unit:
-                      allOf:
-                        - $ref: '#/components/schemas/unit-of-time'
-                        - description: The unit of time associated with the rate.
+                      $ref: '#/components/schemas/unit-of-time'
+                      description: The unit of time associated with the rate.
                     rate_unit_period:
                       type: string
                       enum:
@@ -1186,25 +1265,19 @@ components:
                   required:
                     - rate
                     - rate_unit
-                  description: A Rate defines the amount a user of the curb needs to pay when a given rule applies.
-                description: The cost of using this Curb Zone when this regulation applies.
             required:
               - activity
-            description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
-          description: The rule(s) that this policy applies.
         time_spans:
           type: array
+          description: 'If specified, this regulation only applies at the times defined within.'
           items:
             type: object
+            description: 'A Time Span defines a period of time (that may occur once or repeatedly) during which a given regulation applies. When multiple fields are combined, all criteria must be met in order for a given Time Span to apply.'
             properties:
               start_date:
-                allOf:
-                  - $ref: '#/components/schemas/timestamp'
-                  - description: 'The earliest point in time that this Time Span could apply. If unspecified, the Time Span applies to all matching periods arbitrarily far in the past.'
+                $ref: '#/components/schemas/timestamp'
               end_date:
-                allOf:
-                  - $ref: '#/components/schemas/timestamp'
-                  - description: 'The latest point in time that this Time Span could apply. If unspecified, the Time Span applies to all matching periods arbitrarily far in the future.'
+                $ref: '#/components/schemas/timestamp'
               days_of_week:
                 type: string
                 enum:
@@ -1218,18 +1291,18 @@ components:
                 description: An array of days of the week when this Time Span applies.
               days_of_month:
                 type: array
+                description: An array of days of the month when this Time Span applies.
                 items:
                   type: integer
                   minimum: 1
                   maximum: 31
-                description: An array of days of the month when this Time Span applies.
               months:
                 type: array
+                description: 'If specified, this Time Span applies only during these months (1=January, 12=December).'
                 items:
                   type: integer
                   minimum: 1
                   maximum: 12
-                description: 'If specified, this Time Span applies only during these months (1=January, 12=December).'
               time_of_day_start:
                 type: string
                 description: 'The local time that this Time Span starts to apply, as 24-hour "HH:MM".'
@@ -1247,45 +1320,16 @@ components:
               designated_period_except:
                 type: boolean
                 description: 'If specified and true, this Time Span applies at all times not matching the named designated period.'
-            description: 'A Time Span defines a period of time (that may occur once or repeatedly) during which a given regulation applies. When multiple fields are combined, all criteria must be met in order for a given Time Span to apply.'
-          description: 'If specified, this regulation only applies at the times defined within.'
         data_source_operator_id:
           type: array
-          items:
-            $ref: '#/components/schemas/uuid'
           description: An array of Data Source Operator IDs that this policy only applies to.
+          items:
+            $ref: '#/components/schemas/operator_id'
       required:
         - curb_policy_id
         - published_date
         - priority
         - rules
-      example:
-        curb_policy_id: cd0996d7-3765-4f0b-a72e-7caf7cf3fe21
-        published_date: 1552678594428
-        priority: 1
-        data_source_operator_id:
-          - b2046faf-2bc2-4f0e-b784-7cc746138555
-          - aba63473-351c-4624-93ab-456db34f83a6
-          - 984cae91-3a11-49eb-b68c-d325a6cc8970
-        time_spans:
-          - days_of_week:
-              - mon
-              - tue
-              - wed
-              - thu
-              - fri
-            time_of_day_start: '10:00'
-            time_of_day_end: '16:00'
-        rules:
-          - activity: parking
-            max_stay: 15
-            user_classes:
-              - rideshare
-              - electric
-      description: An object that allows or prohibits a particular set of users from using a particular curb at a particular time or times.
-      x-stoplight:
-        id: a3aab507b1c7e
-      title: curb_policy
     curb-event:
       title: curb-event
       x-stoplight:
@@ -1379,16 +1423,7 @@ components:
 
             * `exit_area`
         data_source_type:
-          type: string
-          enum:
-            - data_feed
-            - camera
-            - above_ground
-            - in_ground
-            - meter
-            - payment
-            - in_person
-            - other
+          $ref: '#/components/schemas/data_source_type'
           description: The set of possible categories of sources that are sending this event. '
         data_source_operator_id:
           $ref: '#/components/schemas/uuid'
@@ -1531,6 +1566,21 @@ components:
         - event_publication_time
         - data_source_type
         - data_source_device_id
+    data_source_type:
+      title: Data Source Type
+      x-stoplight:
+        id: 807f64500e804
+      type: string
+      enum:
+        - data_feed
+        - camera
+        - above_ground
+        - in_ground
+        - meter
+        - payment
+        - in_person
+        - other
+      description: The set of possible categories of sources that are sending this event.
     vehicle_type:
       title: vehicle_type
       x-stoplight:
@@ -1552,6 +1602,15 @@ components:
         Type of the vehicle that performed the event.
 
         Required for sources capable of determining vehicle type.
+    operator_id:
+      $ref: '#/components/schemas/uuid'
+      x-stoplight:
+        id: jts5h9b4s9c8v
+      description: |-
+        Unique identifier of the entity responsible for operating the event data source.
+
+        Can be global from the [OMF list](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/data_source_operators.csv) of operators or defined per city.
+      title: Operator ID
     rest-response-time_zone:
       title: rest_response_time_zone
       type: string
