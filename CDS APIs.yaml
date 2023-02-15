@@ -1624,7 +1624,7 @@ components:
         The time zone that applies to parking regulations in this dataset.
 
         MUST be a valid [TZ database time zone name](https://www.iana.org/time-zones) (ex: "US/Eastern" or "Europe/Paris").
-      x-internal: true
+      x-internal: false
     rest-response-version:
       title: REST Response - Version
       x-stoplight:
@@ -1632,13 +1632,13 @@ components:
       type: string
       description: The version of CDS that the API conforms to.
       example: 1.0.0
-      x-internal: true
+      x-internal: false
     rest-response-last_updated:
       $ref: '#/components/schemas/timestamp'
       x-stoplight:
         id: mwudsha7oso9v
       description: The last time the data in this API was updated.
-      x-internal: true
+      x-internal: false
       title: REST Response - Last Updated
     rest-response-currency:
       title: REST Response - Currency
@@ -1647,21 +1647,21 @@ components:
       type: string
       description: 'The ISO 4217 3-letter code for the currency in which rates for curb usage are denominated. All costs should be given as integers in the currency''s smallest unit. As an example, to represent `$1 USD`, specify an amount of `100` (for 100 cents).'
       example: '100'
-      x-internal: true
+      x-internal: false
     rest-response-author:
       title: REST Response - Author
       x-stoplight:
         id: mhmufpclryjhz
       type: string
       description: The name of the organization that produces and maintains this data.
-      x-internal: true
+      x-internal: false
     rest-response-license_url:
       title: REST Response - License URL
       x-stoplight:
         id: beyxkbcgpflk1
       type: string
       description: The licensing terms under which this data is provided.
-      x-internal: true
+      x-internal: false
   securitySchemes: {}
   responses:
     '501':
