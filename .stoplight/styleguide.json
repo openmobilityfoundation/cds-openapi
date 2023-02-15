@@ -1,5 +1,5 @@
 {
-  "name": "CDS OpenAPI",
+  "name": "Curb Data Specification OpenAPI",
   "description": "",
   "spectralExtends": [],
   "extends": [
@@ -13,6 +13,11 @@
   ],
   "aliases": {},
   "rules": {},
+  "inheritedOverrides": {
+    "api-servers": {
+      "severity": "off"
+    }
+  },
   "extendedStyleguides": [
     {
       "id": "cHJqOjEyMzU4Ng",
