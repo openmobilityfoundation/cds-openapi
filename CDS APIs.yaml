@@ -727,65 +727,17 @@ paths:
           $ref: '#/components/responses/501'
       operationId: get-metrics-sessions
       parameters:
-        - schema:
-            type: string
-            enum:
-              - area
-              - zone
-              - space
-          in: query
-          name: curb_place_type
-          description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
-        - schema:
-            type: string
-          in: query
-          name: curb_place_id
-          description: '**Required with `curb_place_type`. The ID of this single curb place. If specified, only return data contained within this area.'
-        - schema:
-            type: string
-          in: query
-          name: min_lat
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: min_lng
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: max_lat
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: max_lng
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: lat
-          description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
-        - schema:
-            type: string
-          in: query
-          name: lng
-          description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
-        - schema:
-            type: string
-          in: query
-          name: radius
-          description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
-        - schema:
-            type: string
-          in: query
-          name: start_time
-          description: The start of the time period to return data where the value is inclusive.
-        - schema:
-            type: string
-          in: query
-          name: end_time
-          description: The end of the time period to return data where the value is inclusive.
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
       description: |-
         ## Required Query Parameters
         The following sets of query parameters are required if `ANY` parameter in the set are provided.
@@ -823,65 +775,17 @@ paths:
           $ref: '#/components/responses/501'
       operationId: get-metrics-aggregates
       parameters:
-        - schema:
-            type: string
-            enum:
-              - area
-              - zone
-              - space
-          in: query
-          name: curb_place_type
-          description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
-        - schema:
-            type: string
-          in: query
-          name: curb_place_id
-          description: '**Required with `curb_place_type`. The ID of this single curb place. If specified, only return data contained within this area.'
-        - schema:
-            type: string
-          in: query
-          name: min_lat
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: min_lng
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: max_lat
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: max_lng
-          description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
-        - schema:
-            type: string
-          in: query
-          name: lat
-          description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
-        - schema:
-            type: string
-          in: query
-          name: lng
-          description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
-        - schema:
-            type: string
-          in: query
-          name: radius
-          description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
-        - schema:
-            type: string
-          in: query
-          name: start_time
-          description: The start of the time period to return data where the value is inclusive.
-        - schema:
-            type: string
-          in: query
-          name: end_time
-          description: The end of the time period to return data where the value is inclusive.
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
       description: |-
         ## Required Query Parameters
         The following sets of query parameters are required if `ANY` parameter in the set are provided.
@@ -1852,3 +1756,81 @@ components:
             properties:
               id:
                 type: string
+  parameters:
+    curb_place_type:
+      name: curb_place_type
+      in: query
+      required: false
+      schema:
+        type: string
+      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
+    curb_place_id:
+      name: curb_place_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
+    min_lat:
+      name: min_lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
+    min_lng:
+      name: min_lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
+    max_lat:
+      name: max_lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
+    max_lng:
+      name: max_lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding box. If one of these parameters is specified, all four MUST be. If specified only return Curb Zones that intersect the supplied bounding box.'
+    lat:
+      name: lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
+    lng:
+      name: lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
+    radius:
+      name: radius
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. If one of these parameters is specified, all three MUST be. Returns only Curb Zones that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point.'
+    start_time:
+      name: start_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The start of the time period to return data where the value is inclusive.
+    end_time:
+      name: end_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The end of the time period to return data where the value is inclusive.
