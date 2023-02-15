@@ -188,6 +188,7 @@ paths:
           description: 'Returns only Curb Areas that are within radius centimeters of the point identified by lat/lng. Must be used together with `lat` and `lng`. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat` and `max_lng`.'
       tags:
         - Curbs API
+      security: []
   /curbs/spaces:
     get:
       summary: Query Curb Spaces
@@ -273,6 +274,7 @@ paths:
           description: 'Returns only Curb Spaces that are within radius centimeters of the point identified by lat/lng. Must be used together with `lat` and `lng`. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat` and `max_lng`.'
       tags:
         - Curbs API
+      security: []
   /curbs/policies:
     get:
       summary: Query Curb Policies
@@ -327,6 +329,7 @@ paths:
           description: Comma-separated list of Policy IDs.
       tags:
         - Curbs API
+      security: []
   '/curbs/zones/{id}':
     get:
       summary: Fetch a Curb Zone
@@ -392,6 +395,7 @@ paths:
           description: 'Whether to return historic, retired curb zone data.'
       tags:
         - Curbs API
+      security: []
   '/curbs/areas/{id}':
     get:
       summary: Fetch a Curb Area
@@ -447,6 +451,7 @@ paths:
           description: Curb Area ID
       tags:
         - Curbs API
+      security: []
   '/curbs/spaces/{id}':
     get:
       summary: Fetch a Curb Space
@@ -507,6 +512,7 @@ paths:
           description: Availability data (if supplied) will be returned as of this time.
       tags:
         - Curbs API
+      security: []
   '/curbs/policies/{id}':
     get:
       summary: Fetch a Curb Policy
@@ -560,6 +566,7 @@ paths:
           description: Curb Policy ID
       tags:
         - Curbs API
+      security: []
   /events/events:
     get:
       summary: Fetch Event Events
@@ -606,6 +613,7 @@ paths:
           in: query
           name: curb_space_id
           description: 'The ID of a Curb Space. If specified, only return events occurring within this space.'
+      description: ''
   /events/status:
     get:
       summary: Fetch Event Status
@@ -1662,7 +1670,30 @@ components:
       type: string
       description: The licensing terms under which this data is provided.
       x-internal: false
-  securitySchemes: {}
+  securitySchemes:
+    JSON Web Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: |-
+        SON Web Token ([JWT](https://jwt.io/introduction/)) is **RECOMMENDED** as the token format.
+
+        JWTs provide a safe, secure way to verify the identity of an agency and provide access to MDS resources without providing access to other, potentially sensitive data.
+
+        Implementers **MAY** include any metadata in the JWT they wish that helps to route, log, permission, or debug agency requests, leaving their internal implementation flexible.
+    OAuth 2.0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
+      description: |-
+        OAuth 2.0's `client_credentials` grant type (outlined in [RFC6749](https://tools.ietf.org/html/rfc6749#section-4.4)) is **RECOMMENDED** as the authentication and authorization scheme.
+
+        OAuth 2.0 is an industry standard authorization framework with a variety of existing tooling. The client_credentials grant type facilitates generation of tokens that can be used for access by agencies and distributed to data partners.
+
+        If implementers use this auth scheme, they **MAY** choose to specify token scopes that define access parameters like allowable time ranges. These guidelines **SHOULD** be encoded into the returned token in a parseable way.
   responses:
     '501':
       description: Not Implemented
