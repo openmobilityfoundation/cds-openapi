@@ -646,11 +646,13 @@ paths:
                               $ref: '#/components/schemas/data_source_type'
                               description: General category of the source creating the event.
                             data_source_operator_id:
-                              type: string
+                              $ref: '#/components/schemas/operator_id'
                             sensor_status_is_commissioned:
-                              type: string
+                              type: boolean
+                              description: 'If a sensor was used to capture this event, the commissioned status at the time that the event was reported. Indicates whether the sensor is currently in a state where it should be reporting data.'
                             sensor_status_is_online:
-                              type: string
+                              type: boolean
+                              description: 'If a sensor was used to capture this event, the online status at the time that the event was reported. Indicates whether the sensor is currently online and reporting data.'
                           required:
                             - data_source_device_id
                             - data_source_type
@@ -1426,7 +1428,7 @@ components:
           $ref: '#/components/schemas/data_source_type'
           description: The set of possible categories of sources that are sending this event. '
         data_source_operator_id:
-          $ref: '#/components/schemas/uuid'
+          $ref: '#/components/schemas/operator_id'
           description: |-
             Unique identifier of the entity responsible for operating the event data source.
 
@@ -1609,8 +1611,12 @@ components:
       description: |-
         Unique identifier of the entity responsible for operating the event data source.
 
-        Can be global from the [OMF list](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/data_source_operators.csv) of operators or defined per city.
+        For example, IDs can identify a fleet operator sending a data feed, or the organization (company or city) operating the sensor.
+
+        **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
       title: Operator ID
+      examples:
+        - 55b617b9-730e-485e-83de-5e1a35fdc352
     rest-response-time_zone:
       title: rest_response_time_zone
       type: string
