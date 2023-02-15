@@ -733,43 +733,6 @@ paths:
       operationId: get-metrics-aggregates
 components:
   schemas:
-    timestamp:
-      description: Timestamp in milliseconds since Epoch.
-      type: integer
-      minimum: 100000000000
-      maximum: 99999999999999
-      x-internal: false
-      title: timestamp
-    unit-of-time:
-      description: An enumeration for units of time.
-      type: string
-      enum:
-        - second
-        - minute
-        - hour
-        - day
-        - week
-        - month
-        - year
-      x-internal: false
-      title: unit-of-time
-    uuid:
-      type: string
-      format: uuid
-      x-internal: false
-      title: uuid
-    latitude:
-      type: number
-      minimum: -90
-      maximum: 90
-      x-internal: false
-      title: latitude
-    longitude:
-      type: number
-      minimum: -180
-      maximum: 180
-      x-internal: false
-      title: longitude
     curb_zone:
       type: object
       properties:
@@ -973,7 +936,7 @@ components:
       x-internal: false
       x-stoplight:
         id: 202654569fa9e
-      title: curb_area
+      title: Model - Curb Zone
     curb_area:
       type: object
       properties:
@@ -1040,7 +1003,7 @@ components:
       x-internal: false
       x-stoplight:
         id: e2235c918423f
-      title: curb_area
+      title: Model - Curb Area
     curb_space:
       type: object
       properties:
@@ -1127,7 +1090,7 @@ components:
       x-internal: false
       x-stoplight:
         id: acc7fbb358869
-      title: curb_space
+      title: Model - Curb Space
     curb_policy:
       type: object
       example:
@@ -1156,7 +1119,7 @@ components:
       description: An object that allows or prohibits a particular set of users from using a particular curb at a particular time or times.
       x-stoplight:
         id: a3aab507b1c7e
-      title: curb_policy
+      title: Model - Curb Policy
       properties:
         curb_policy_id:
           $ref: '#/components/schemas/uuid'
@@ -1333,7 +1296,7 @@ components:
         - priority
         - rules
     curb-event:
-      title: curb-event
+      title: Model - Curb Event
       x-stoplight:
         id: cb0b7ebce9771
       type: object
@@ -1568,6 +1531,43 @@ components:
         - event_publication_time
         - data_source_type
         - data_source_device_id
+    timestamp:
+      description: Timestamp in milliseconds since Epoch.
+      type: integer
+      minimum: 100000000000
+      maximum: 99999999999999
+      x-internal: false
+      title: Timestamp
+    unit-of-time:
+      description: An enumeration for units of time.
+      type: string
+      enum:
+        - second
+        - minute
+        - hour
+        - day
+        - week
+        - month
+        - year
+      x-internal: false
+      title: Unit of Time
+    uuid:
+      type: string
+      format: uuid
+      x-internal: false
+      title: UUID
+    latitude:
+      type: number
+      minimum: -90
+      maximum: 90
+      x-internal: false
+      title: Latitude
+    longitude:
+      type: number
+      minimum: -180
+      maximum: 180
+      x-internal: false
+      title: Longitude
     data_source_type:
       title: Data Source Type
       x-stoplight:
@@ -1582,9 +1582,9 @@ components:
         - payment
         - in_person
         - other
-      description: The set of possible categories of sources that are sending this event.
+      description: The set of possible categories of sources that can publish a Curb Event.
     vehicle_type:
-      title: vehicle_type
+      title: Vehicle Type
       x-stoplight:
         id: zc8pejs5x7n8g
       type: string
@@ -1618,7 +1618,7 @@ components:
       examples:
         - 55b617b9-730e-485e-83de-5e1a35fdc352
     rest-response-time_zone:
-      title: rest_response_time_zone
+      title: REST Response - Time Zone
       type: string
       description: |-
         The time zone that applies to parking regulations in this dataset.
@@ -1626,7 +1626,7 @@ components:
         MUST be a valid [TZ database time zone name](https://www.iana.org/time-zones) (ex: "US/Eastern" or "Europe/Paris").
       x-internal: true
     rest-response-version:
-      title: rest-response-version
+      title: REST Response - Version
       x-stoplight:
         id: 3bxwqr73eu79g
       type: string
@@ -1639,8 +1639,9 @@ components:
         id: mwudsha7oso9v
       description: The last time the data in this API was updated.
       x-internal: true
+      title: REST Response - Last Updated
     rest-response-currency:
-      title: rest-response-currency
+      title: REST Response - Currency
       x-stoplight:
         id: 1y7ea7wbdav1u
       type: string
@@ -1648,14 +1649,14 @@ components:
       example: '100'
       x-internal: true
     rest-response-author:
-      title: rest-response-author
+      title: REST Response - Author
       x-stoplight:
         id: mhmufpclryjhz
       type: string
       description: The name of the organization that produces and maintains this data.
       x-internal: true
     rest-response-license_url:
-      title: rest-response-license_url
+      title: REST Response - License URL
       x-stoplight:
         id: beyxkbcgpflk1
       type: string
