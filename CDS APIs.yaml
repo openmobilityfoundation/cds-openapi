@@ -605,20 +605,59 @@ paths:
                   license_url:
                     $ref: '#/components/schemas/rest-response-license_url'
                   data:
-                    type: object
-                    properties:
-                      curb_place_type:
-                        type: string
-                      curb_place_id:
-                        type: string
-                      min_lat:
-                        $ref: '#/components/schemas/latitude'
-                      min_lng:
-                        $ref: '#/components/schemas/longitude'
-                      max_lat:
-                        $ref: '#/components/schemas/latitude'
-                      max_lng:
-                        $ref: '#/components/schemas/longitude'
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        session_type:
+                          type: string
+                          enum:
+                            - parking
+                            - area
+                          description: The type of session that happened for this event.
+                        event_session_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: 'If known and recorded to tie two Events together, then include the `event_session_id` from the [Curb Event](./docs/cds-openapi/6754f1a684eb4)'
+                        event_id_start:
+                          $ref: '#/components/schemas/uuid'
+                          description: The globally unique identifier of the start/enter event that occurred.
+                        event_id_end:
+                          $ref: '#/components/schemas/uuid'
+                          description: The globally unique identifier of the end/exit event that occurred.
+                        event_location_start_latitude:
+                          $ref: '#/components/schemas/latitude'
+                          description: The geographic latitude point location where the start/enter of the event occurred.
+                        event_location_start_longitude:
+                          $ref: '#/components/schemas/longitude'
+                          description: The geographic longitude point location where the start/enter of the event occurred.
+                        event_location_end_latitude:
+                          $ref: '#/components/schemas/latitude'
+                          description: The geographic latitude point location where the end/exit of the event occurred.
+                        event_location_end_longitude:
+                          $ref: '#/components/schemas/longitude'
+                          description: The geographic longitude point location where the end/exit of the event occurred.
+                        event_time_start:
+                          $ref: '#/components/schemas/timestamp'
+                          description: Timestamp (date/time) at which the event started with the `park_start` or `enter_area` event types.
+                        event_time_end:
+                          $ref: '#/components/schemas/timestamp'
+                          description: Timestamp (date/time) at which the event occurred.
+                        curb_area_ids:
+                          type: array
+                          description: 'Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one. Required for events that occurred in a known Curb Area for these event_types: `enter_area`, `exit_area`, `park_start`, `park_end`.'
+                          items:
+                            $ref: '#/components/schemas/uuid'
+                        curb_zone_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: Unique ID of the Curb Zone where the event occurred. Required for events that occurred at a known Curb Zone for **ALL** event types.
+                        curb_space_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: 'Unique ID of the Curb Space where the event occurred. Required for events that occurred at a known Curb Space for these event_types: `park_start`, `park_end`, `enter_area`, `exit_area`.'
+                        vehicle_length:
+                          type: number
+                          description: 'Approximate length of the vehicle that performed the event, in centimeters. Required for sources capable of determining vehicle length.'
+                        vehicle_type:
+                          $ref: '#/components/schemas/vehicle_type'
         '501':
           $ref: '#/components/responses/501'
       operationId: get-metrics-sessions
@@ -1519,6 +1558,7 @@ components:
       maximum: 90
       x-internal: false
       title: Latitude
+      description: ''
     longitude:
       type: number
       minimum: -180
