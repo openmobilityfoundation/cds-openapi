@@ -658,6 +658,8 @@ paths:
                           description: 'Approximate length of the vehicle that performed the event, in centimeters. Required for sources capable of determining vehicle length.'
                         vehicle_type:
                           $ref: '#/components/schemas/vehicle_type'
+                      required:
+                        - session_type
         '501':
           $ref: '#/components/responses/501'
       operationId: get-metrics-sessions
