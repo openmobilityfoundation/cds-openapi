@@ -780,6 +780,84 @@ paths:
         * `lat`, `lng`, `radius`
 components:
   schemas:
+    timestamp:
+      description: Timestamp in milliseconds since Epoch.
+      type: integer
+      minimum: 100000000000
+      maximum: 99999999999999
+      x-internal: false
+      title: Timestamp
+    uuid:
+      type: string
+      format: uuid
+      x-internal: false
+      title: UUID
+    latitude:
+      type: number
+      minimum: -90
+      maximum: 90
+      x-internal: false
+      title: Latitude
+      description: ''
+    longitude:
+      type: number
+      minimum: -180
+      maximum: 180
+      x-internal: false
+      title: Longitude
+    data_source_type:
+      title: Data Source Type
+      x-stoplight:
+        id: 807f64500e804
+      type: string
+      enum:
+        - data_feed
+        - camera
+        - above_ground
+        - in_ground
+        - meter
+        - payment
+        - in_person
+        - other
+      description: The set of possible categories of sources that can publish a Curb Event.
+    vehicle_type:
+      title: Vehicle Type
+      x-stoplight:
+        id: zc8pejs5x7n8g
+      type: string
+      enum:
+        - bicyle
+        - cargo_bicycle
+        - car
+        - scooter
+        - moped
+        - motorcycle
+        - truck
+        - van
+        - freight
+        - other
+        - unspecified
+      description: |-
+        Type of the vehicle that performed the event.
+
+        Required for sources capable of determining vehicle type.
+    operator_id:
+      $ref: '#/components/schemas/uuid'
+      x-stoplight:
+        id: jts5h9b4s9c8v
+      description: |-
+        Unique identifier of the entity responsible for operating the event data source.
+
+        For example, IDs can identify a fleet operator sending a data feed, or the organization (company or city) operating the sensor.
+
+        **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
+      title: Operator ID
+      examples:
+        - 55b617b9-730e-485e-83de-5e1a35fdc352
+
+
+
+
     curb_zone:
       type: object
       properties:
@@ -1578,13 +1656,6 @@ components:
         - event_publication_time
         - data_source_type
         - data_source_device_id
-    timestamp:
-      description: Timestamp in milliseconds since Epoch.
-      type: integer
-      minimum: 100000000000
-      maximum: 99999999999999
-      x-internal: false
-      title: Timestamp
     unit-of-time:
       description: An enumeration for units of time.
       type: string
@@ -1598,73 +1669,6 @@ components:
         - year
       x-internal: false
       title: Unit of Time
-    uuid:
-      type: string
-      format: uuid
-      x-internal: false
-      title: UUID
-    latitude:
-      type: number
-      minimum: -90
-      maximum: 90
-      x-internal: false
-      title: Latitude
-      description: ''
-    longitude:
-      type: number
-      minimum: -180
-      maximum: 180
-      x-internal: false
-      title: Longitude
-    data_source_type:
-      title: Data Source Type
-      x-stoplight:
-        id: 807f64500e804
-      type: string
-      enum:
-        - data_feed
-        - camera
-        - above_ground
-        - in_ground
-        - meter
-        - payment
-        - in_person
-        - other
-      description: The set of possible categories of sources that can publish a Curb Event.
-    vehicle_type:
-      title: Vehicle Type
-      x-stoplight:
-        id: zc8pejs5x7n8g
-      type: string
-      enum:
-        - bicyle
-        - cargo_bicycle
-        - car
-        - scooter
-        - moped
-        - motorcycle
-        - truck
-        - van
-        - freight
-        - other
-        - unspecified
-      description: |-
-        Type of the vehicle that performed the event.
-
-        Required for sources capable of determining vehicle type.
-    operator_id:
-      $ref: '#/components/schemas/uuid'
-      x-stoplight:
-        id: jts5h9b4s9c8v
-      description: |-
-        Unique identifier of the entity responsible for operating the event data source.
-
-        For example, IDs can identify a fleet operator sending a data feed, or the organization (company or city) operating the sensor.
-
-        **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
-      title: Operator ID
-      examples:
-        - 55b617b9-730e-485e-83de-5e1a35fdc352
     rest-response-time_zone:
       title: REST Response - Time Zone
       type: string
