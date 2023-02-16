@@ -854,10 +854,6 @@ components:
       title: Operator ID
       examples:
         - 55b617b9-730e-485e-83de-5e1a35fdc352
-
-
-
-
     curb_zone:
       type: object
       properties:
@@ -1673,6 +1669,8 @@ components:
       title: REST Response - Time Zone
       type: string
       description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
         The time zone that applies to parking regulations in this dataset.
 
         MUST be a valid [TZ database time zone name](https://www.iana.org/time-zones) (ex: "US/Eastern" or "Europe/Paris").
@@ -1682,14 +1680,20 @@ components:
       x-stoplight:
         id: 3bxwqr73eu79g
       type: string
-      description: The version of CDS that the API conforms to.
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The version of CDS that the API conforms to.
       example: 1.0.0
       x-internal: false
     rest-response-last_updated:
       $ref: '#/components/schemas/timestamp'
       x-stoplight:
         id: mwudsha7oso9v
-      description: The last time the data in this API was updated.
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The last time the data in this API was updated.
       x-internal: false
       title: REST Response - Last Updated
     rest-response-currency:
@@ -1697,7 +1701,10 @@ components:
       x-stoplight:
         id: 1y7ea7wbdav1u
       type: string
-      description: 'The ISO 4217 3-letter code for the currency in which rates for curb usage are denominated. All costs should be given as integers in the currency''s smallest unit. As an example, to represent `$1 USD`, specify an amount of `100` (for 100 cents).'
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The ISO 4217 3-letter code for the currency in which rates for curb usage are denominated. All costs should be given as integers in the currency's smallest unit. As an example, to represent `$1 USD`, specify an amount of `100` (for 100 cents).
       example: '100'
       x-internal: false
     rest-response-author:
@@ -1705,14 +1712,20 @@ components:
       x-stoplight:
         id: mhmufpclryjhz
       type: string
-      description: The name of the organization that produces and maintains this data.
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The name of the organization that produces and maintains this data.
       x-internal: false
     rest-response-license_url:
       title: REST Response - License URL
       x-stoplight:
         id: beyxkbcgpflk1
       type: string
-      description: The licensing terms under which this data is provided.
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The licensing terms under which this data is provided.
       x-internal: false
   securitySchemes:
     JSON Web Token:
