@@ -705,7 +705,56 @@ paths:
                   license_url:
                     $ref: '#/components/schemas/rest-response-license_url'
                   data:
-                    type: object
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        curb_place_type:
+                          type: string
+                          description: The type of curb place this aggregate applies to from the Curbs API.
+                          enum:
+                            - area
+                            - zone
+                            - space
+                        curb_place_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: The ID of this curb place.
+                        metric_type:
+                          type: string
+                          enum:
+                            - total_sessions
+                            - turnover
+                            - average_dwell_time
+                            - occupancy_percent
+                          description: 'The metric this aggregate applies to. These calaculations are defined by the OMF in detail [here](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology).'
+                        date:
+                          type: string
+                          description: 'The date the event occured in ISO 8601 format, local timezone, in "YYYY-MM-DD" format.'
+                          example: '2021-04-01'
+                          format: date
+                        hour:
+                          type: integer
+                          description: 'The hour of the day the event occured in ISO 8601 format, local timezone, in "hh" format.'
+                          example: '23'
+                        value:
+                          type: number
+                          description: The results of the calculations for this metric. Note that "-1" means that the sensor/source was offline for the majority of the time.
+                          example: '"2.9" "0.05"'
+                      required:
+                        - curb_place_type
+                        - curb_place_id
+                        - metric_type
+                        - date
+                        - hour
+                        - value
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - author
+                  - license_url
+                  - data
         '501':
           $ref: '#/components/responses/501'
       operationId: get-metrics-aggregates
