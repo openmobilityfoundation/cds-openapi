@@ -1,0 +1,1861 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 4wvvx7c8j5ymv
+tags:
+  - name: Curbs API
+    description: The Curbs API is a REST API allowing cities to specify areas of interest along the curb along with the rules for using them
+  - name: Events API
+    description: 'The Events API is a REST API allowing real-time and historic events at the curb to be sent to cities, and the ability to check on the status of any sensors.'
+  - name: Metrics API
+    description: The Metrics API is a REST API allowing historic metrics calculations based on Event activity that happened at defined Curb places
+info:
+  title: Curb Data Specification
+  version: 1.0.0
+  summary: 'CDS is a data specification to help cities manage their curb zone programs and surrounding areas, and measure the utilization and impact.'
+  description: 'The Curb Data Specification (CDS), a project of the Open Mobility Foundation (OMF), is a data standard and set of Application Programming Interfaces (APIs) that helps cities manage and companies use dynamic curb zones that optimize loading activities of people and goods, and measure the impact of these programs.'
+  contact:
+    url: 'https://github.com/openmobilityfoundation/curb-data-specification/'
+    name: Open Mobility Foundation
+    email: info@openmobilityfoundation.org
+  license:
+    name: Creative Commons Attribution 4.0 International Public License
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.htmlhttps://github.com/openmobilityfoundation/curb-data-specification/blob/0706316a7bfb0d6b5104c75608d8f66cb8101fe7/LICENCE'
+servers: []
+paths:
+  /curbs/zones:
+    get:
+      summary: Get Curb Zones
+      responses:
+        '200':
+          description: Zones Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        zones:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/curb_zone'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-zones
+      description: 'This required endpoint must be implemented by every Curbs API server. If attaching policies to curb zones, the Query Curb Policies endpoint is also required.'
+      parameters:
+        - schema:
+            $ref: '#/components/schemas/uuid'
+          in: query
+          name: area
+          description: 'The ID of a Curb Area. If specified, only return Curb Zones contained within this area.'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+      tags:
+        - Curbs API
+  /curbs/areas:
+    get:
+      summary: Get Curb Areas
+      responses:
+        '200':
+          description: Areas Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        areas:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/curb_area'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-areas
+      description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+      tags:
+        - Curbs API
+      security: []
+  /curbs/spaces:
+    get:
+      summary: Get Curb Spaces
+      responses:
+        '200':
+          description: Spaces Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        spaces:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/curb_space'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-spaces
+      description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+      tags:
+        - Curbs API
+      security: []
+  /curbs/policies:
+    get:
+      summary: Get Curb Policies
+      responses:
+        '200':
+          description: Policies Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        policies:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/curb_policy'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-policies
+      description: 'Optional endpoint, but required if Curb Zones contain policy_id references. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: ids
+          description: Comma-separated list of Policy IDs.
+      tags:
+        - Curbs API
+      security: []
+  '/curbs/zones/{id}':
+    get:
+      summary: Get a single Curb Zone
+      responses:
+        '200':
+          description: Zone Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        zone:
+                          $ref: '#/components/schemas/curb_zone'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-zone
+      description: 'Fetch a single Curb Zone by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Zone ID
+        - schema:
+            $ref: '#/components/schemas/timestamp'
+          in: query
+          name: time
+          description: 'The Curb Zone object will only be returned if its validity period includes this time; otherwise, the server should reply with 404 Not Found.'
+        - schema:
+            type: boolean
+          in: query
+          name: show_historic
+          description: 'Whether to return historic, retired curb zone data.'
+      tags:
+        - Curbs API
+      security: []
+  '/curbs/areas/{id}':
+    get:
+      summary: Get a single Curb Area
+      responses:
+        '200':
+          description: Area Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        area:
+                          $ref: '#/components/schemas/curb_area'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-area
+      description: 'Fetch a single Curb Area by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Area ID
+      tags:
+        - Curbs API
+      security: []
+  '/curbs/spaces/{id}':
+    get:
+      summary: Get a single Curb Space
+      responses:
+        '200':
+          description: Space Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        space:
+                          $ref: '#/components/schemas/curb_space'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-space
+      description: 'Fetch a single Curb Space by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Space ID
+        - schema:
+            $ref: '#/components/schemas/timestamp'
+          in: query
+          name: time
+          description: Availability data (if supplied) will be returned as of this time.
+      tags:
+        - Curbs API
+      security: []
+  '/curbs/policies/{id}':
+    get:
+      summary: Get a single Curb Policy
+      responses:
+        '200':
+          description: Policy Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        policy:
+                          $ref: '#/components/schemas/curb_policy'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-policy
+      description: Fetch a single Curb Policy by ID.
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Policy ID
+      tags:
+        - Curbs API
+      security: []
+  /events/events:
+    get:
+      summary: Get Events
+      tags:
+        - Events API
+      responses:
+        '200':
+          description: 'OK: operation successful.'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/curb-event'
+      operationId: get-events-events
+      parameters:
+        - $ref: '#/components/parameters/curb_area_id'
+        - $ref: '#/components/parameters/curb_zone_id'
+        - $ref: '#/components/parameters/curb_space_id'
+      description: ''
+  /events/status:
+    get:
+      summary: Get Status
+      tags:
+        - Events API
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            data_source_device_id:
+                              $ref: '#/components/schemas/uuid'
+                              description: 'Unique identifier of this event source, whether sensor, vehicle, camera, etc.'
+                            data_source_type:
+                              $ref: '#/components/schemas/data_source_type'
+                              description: General category of the source creating the event.
+                            data_source_operator_id:
+                              $ref: '#/components/schemas/operator_id'
+                            sensor_status_is_commissioned:
+                              type: boolean
+                              description: 'If a sensor was used to capture this event, the commissioned status at the time that the event was reported. Indicates whether the sensor is currently in a state where it should be reporting data.'
+                            sensor_status_is_online:
+                              type: boolean
+                              description: 'If a sensor was used to capture this event, the online status at the time that the event was reported. Indicates whether the sensor is currently online and reporting data.'
+                          required:
+                            - data_source_device_id
+                            - data_source_type
+        '501':
+          $ref: '#/components/responses/501'
+      operationId: get-events-status
+      parameters:
+        - $ref: '#/components/parameters/curb_area_id'
+        - $ref: '#/components/parameters/curb_zone_id'
+        - $ref: '#/components/parameters/curb_space_id'
+  /metrics/sessions:
+    get:
+      summary: Get Sessions
+      tags:
+        - Metrics API
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        session_type:
+                          type: string
+                          enum:
+                            - parking
+                            - area
+                          description: The type of session that happened for this event.
+                        event_session_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: 'If known and recorded to tie two Events together, then include the `event_session_id` from the [Curb Event](./docs/cds-openapi/6754f1a684eb4)'
+                        event_id_start:
+                          $ref: '#/components/schemas/uuid'
+                          description: The globally unique identifier of the start/enter event that occurred.
+                        event_id_end:
+                          $ref: '#/components/schemas/uuid'
+                          description: The globally unique identifier of the end/exit event that occurred.
+                        event_location_start_latitude:
+                          $ref: '#/components/schemas/latitude'
+                          description: The geographic latitude point location where the start/enter of the event occurred.
+                        event_location_start_longitude:
+                          $ref: '#/components/schemas/longitude'
+                          description: The geographic longitude point location where the start/enter of the event occurred.
+                        event_location_end_latitude:
+                          $ref: '#/components/schemas/latitude'
+                          description: The geographic latitude point location where the end/exit of the event occurred.
+                        event_location_end_longitude:
+                          $ref: '#/components/schemas/longitude'
+                          description: The geographic longitude point location where the end/exit of the event occurred.
+                        event_time_start:
+                          $ref: '#/components/schemas/timestamp'
+                          description: Timestamp (date/time) at which the event started with the `park_start` or `enter_area` event types.
+                        event_time_end:
+                          $ref: '#/components/schemas/timestamp'
+                          description: Timestamp (date/time) at which the event occurred.
+                        curb_area_ids:
+                          type: array
+                          description: 'Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one. Required for events that occurred in a known Curb Area for these event_types: `enter_area`, `exit_area`, `park_start`, `park_end`.'
+                          items:
+                            $ref: '#/components/schemas/uuid'
+                        curb_zone_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: Unique ID of the Curb Zone where the event occurred. Required for events that occurred at a known Curb Zone for **ALL** event types.
+                        curb_space_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: 'Unique ID of the Curb Space where the event occurred. Required for events that occurred at a known Curb Space for these event_types: `park_start`, `park_end`, `enter_area`, `exit_area`.'
+                        vehicle_length:
+                          type: number
+                          description: 'Approximate length of the vehicle that performed the event, in centimeters. Required for sources capable of determining vehicle length.'
+                        vehicle_type:
+                          $ref: '#/components/schemas/vehicle_type'
+                      required:
+                        - session_type
+        '501':
+          $ref: '#/components/responses/501'
+      operationId: get-metrics-sessions
+      parameters:
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
+      description: |-
+        ## Required Query Parameters
+        The following sets of query parameters are required if `ANY` parameter in the set are provided.
+        * `curb_place_type`, `curb_place_id`
+        * `min_lat`, `min_lng`, `max_lat`, `max_lng`
+        * `lat`, `lng`, `radius`
+  /metrics/aggregates:
+    get:
+      summary: Get Aggregates
+      tags:
+        - Metrics API
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: '#/components/schemas/rest-response-version'
+                  time_zone:
+                    $ref: '#/components/schemas/rest-response-time_zone'
+                  last_updated:
+                    $ref: '#/components/schemas/rest-response-last_updated'
+                  currency:
+                    $ref: '#/components/schemas/rest-response-currency'
+                  author:
+                    $ref: '#/components/schemas/rest-response-author'
+                  license_url:
+                    $ref: '#/components/schemas/rest-response-license_url'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        curb_place_type:
+                          type: string
+                          description: The type of curb place this aggregate applies to from the Curbs API.
+                          enum:
+                            - area
+                            - zone
+                            - space
+                        curb_place_id:
+                          $ref: '#/components/schemas/uuid'
+                          description: The ID of this curb place.
+                        metric_type:
+                          type: string
+                          enum:
+                            - total_sessions
+                            - turnover
+                            - average_dwell_time
+                            - occupancy_percent
+                          description: 'The metric this aggregate applies to. These calaculations are defined by the OMF in detail [here](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology).'
+                        date:
+                          type: string
+                          description: 'The date the event occured in ISO 8601 format, local timezone, in "YYYY-MM-DD" format.'
+                          example: '2021-04-01'
+                          format: date
+                        hour:
+                          type: integer
+                          description: 'The hour of the day the event occured in ISO 8601 format, local timezone, in "hh" format.'
+                          example: '23'
+                        value:
+                          type: number
+                          description: The results of the calculations for this metric. Note that "-1" means that the sensor/source was offline for the majority of the time.
+                          example: '"2.9" "0.05"'
+                      required:
+                        - curb_place_type
+                        - curb_place_id
+                        - metric_type
+                        - date
+                        - hour
+                        - value
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - author
+                  - license_url
+                  - data
+        '501':
+          $ref: '#/components/responses/501'
+      operationId: get-metrics-aggregates
+      parameters:
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
+      description: |-
+        ## Required Query Parameters
+        The following sets of query parameters are required if `ANY` parameter in the set are provided.
+        * `curb_place_type`, `curb_place_id`
+        * `min_lat`, `min_lng`, `max_lat`, `max_lng`
+        * `lat`, `lng`, `radius`
+components:
+  schemas:
+    timestamp:
+      description: Timestamp in milliseconds since Epoch.
+      type: integer
+      minimum: 100000000000
+      maximum: 99999999999999
+      x-internal: false
+      title: Timestamp
+    uuid:
+      type: string
+      format: uuid
+      x-internal: false
+      title: UUID
+    latitude:
+      type: number
+      minimum: -90
+      maximum: 90
+      x-internal: false
+      title: Latitude
+      description: ''
+    longitude:
+      type: number
+      minimum: -180
+      maximum: 180
+      x-internal: false
+      title: Longitude
+    data_source_type:
+      title: Data Source Type
+      x-stoplight:
+        id: 807f64500e804
+      type: string
+      enum:
+        - data_feed
+        - camera
+        - above_ground
+        - in_ground
+        - meter
+        - payment
+        - in_person
+        - other
+      description: The set of possible categories of sources that can publish a Curb Event.
+    vehicle_type:
+      title: Vehicle Type
+      x-stoplight:
+        id: zc8pejs5x7n8g
+      type: string
+      enum:
+        - bicyle
+        - cargo_bicycle
+        - car
+        - scooter
+        - moped
+        - motorcycle
+        - truck
+        - van
+        - freight
+        - other
+        - unspecified
+      description: |-
+        Type of the vehicle that performed the event.
+
+        Required for sources capable of determining vehicle type.
+    operator_id:
+      $ref: '#/components/schemas/uuid'
+      x-stoplight:
+        id: jts5h9b4s9c8v
+      description: |-
+        Unique identifier of the entity responsible for operating the event data source.
+
+        For example, IDs can identify a fleet operator sending a data feed, or the organization (company or city) operating the sensor.
+
+        **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
+      title: Operator ID
+      examples:
+        - 55b617b9-730e-485e-83de-5e1a35fdc352
+    curb_zone:
+      type: object
+      properties:
+        curb_zone_id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+            - description: The ID of this Curb Zone.
+        geometry:
+          type: object
+          properties:
+            type:
+              type: string
+            coordinates:
+              type: array
+              items:
+                type: number
+          required:
+            - type
+            - coordinates
+          description: The spatial extent of this curb zone.
+        curb_policy_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/uuid'
+          description: 'An array of IDs of Policy objects. Together, these define the regulations of this Curb Zone.'
+        prev_policies:
+          type: array
+          items:
+            type: object
+            properties:
+              curb_policy_ids:
+                type: array
+                items:
+                  $ref: '#/components/schemas/uuid'
+                description: 'An array of IDs of Policy objects. Together, these define the previous regulations of this Curb Zone.'
+              start_date:
+                allOf:
+                  - $ref: '#/components/schemas/timestamp'
+                  - description: The date/time that this policy started being active for this curb location.
+              end_date:
+                allOf:
+                  - $ref: '#/components/schemas/timestamp'
+                  - description: The date/time that this policy ended being active for this curb location.
+            required:
+              - curb_policy_ids
+              - start_date
+              - end_date
+          description: An array of information about what previous policies applied to a curb zone and when.
+        published_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The date/time that this curb zone was first published in this data feed.
+        last_updated_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The date/time that the properties of ths curb zone were last updated.
+        prev_curb_zone_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/uuid'
+          description: An array of IDs of previous curb zone objects. They are listed in order with the most recent ones first.
+        start_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The earliest time that the data for this curb location is known to be valid.
+        end_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The time at which the data for this curb location ceases to be valid.
+        location_references:
+          type: array
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+                format: url
+                description: An identifier for the source of the linear reference. This MUST be a URL pointing to more information about the underlying map or reference system.
+              ref_id:
+                type: string
+                description: The linear feature being referenced (usually a street or curb segment).
+              start:
+                type: integer
+                description: The distance (in centimeters) from the start of the referenced linear feature to the start of the Curb Zone.
+                minimum: 0
+              end:
+                type: integer
+                description: 'The distance (in centimeters) from the start of the referenced linear feature to the end of the Curb Zone. ''end'' MAY be smaller than start, implying that the direction of the Curb Zone is opposite to the direction of the referenced linear feature.'
+                minimum: 0
+              side:
+                type: string
+                enum:
+                  - left
+                  - right
+                description: 'If the referenced linear feature is a roadway, the side of the roadway on which the Curb Zone may be found, when heading from the start to the end of the feature in its native orientation.'
+            required:
+              - source
+              - ref_id
+              - start
+              - end
+            description: 'A linear reference defines a Curb Zone''s position by reference to a linear feature, like a street centerline or edge-of-pavement line.'
+          description: One or more linear references for this Curb Zone.
+        name:
+          type: string
+          description: A human-readable name for this Curb Zone that identifies it to end users.
+        user_zone_id:
+          type: string
+          description: 'An identifier that can be used to refer to this Curb Zone on physical signage as well as within mobile applications, typically for payment purposes.'
+        street_name:
+          type: string
+          description: The name of the street that this Curb Zone is on.
+        cross_street_start_name:
+          type: string
+          description: The name of the cross street at or before the start of this Curb Zone.
+        cross_street_end_name:
+          type: string
+          description: The name of the cross street at the end of this Curb Zone.
+        length:
+          type: integer
+          description: 'The length, in centimeters, of the Curb Zone when projected along the street centerline. Note that this is the definitive length of the curb area, and not the edge length of the geographic polygon.'
+          exclusiveMinimum: 0
+        available_space_lengths:
+          type: array
+          items:
+            type: integer
+          description: 'If availability information is present, an array of numbers containing the lengths (in centimeters) of all known non-overlapping available spaces within this Curb Zone.'
+        availability_time:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: 'If availability information is present, the timestamp corresponding to the most recent time that availability was computed for this zone.'
+        width:
+          type: integer
+          description: 'The width, in centimeters, that the Curb Zone occupies from the curb to the roadway lane.'
+          exclusiveMinimum: 0
+        parking_angle:
+          type: string
+          enum:
+            - parallel
+            - perpendicular
+            - angled
+          description: The angle in which passenger vehicles in this Curb Zone are meant to park.
+        num_spaces:
+          type: integer
+          description: The number of demarcated spaces within this Curb Zone.
+        street_side:
+          type: string
+          enum:
+            - 'N'
+            - NE
+            - E
+            - SE
+            - S
+            - SW
+            - W
+            - NW
+          description: The cardinal or subcardinal direction representing the side of the roadway that this curb is on.
+        median:
+          type: boolean
+          description: 'If "true", this curb location is on the median of a street, rather than its edge.'
+        entire_roadway:
+          type: boolean
+          description: 'If "true", this curb location takes up the entire width of the roadway (which may be impassible for through traffic when the Curb Zone is being used for parking or loading).'
+        curb_area_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/uuid'
+          description: The ID(s) of the Curb Areas that this Curb Zone is a part of.
+        curb_space_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/uuid'
+          description: The ID(s) of the Curb Spaces that this Curb Zone contains.
+      required:
+        - curb_zone_id
+        - geometry
+        - curb_policy_ids
+        - published_date
+        - last_updated_date
+        - start_date
+      example:
+        curb_zone_id: 7d8a5885-e949-4ac9-afb7-fa4d43b68530
+        geometry:
+          type: Polygon
+          coordinates:
+            - - - -73.982105
+                - 40.767932
+              - - -73.973694
+                - 40.764551
+              - - -73.949318
+                - 40.796918
+              - - -73.958416
+                - 40.800686
+              - - -73.982105
+                - 40.767932
+        curb_policy_ids:
+          - cd0996d7-3765-4f0b-a72e-7caf7cf3fe21
+        published_date: 1552678594428
+        last_updated_date: 1552678594428
+        start_date: 1552678594428
+      description: A contiguous region of curb space on a single block face that is regulated in a particular way.
+      x-internal: false
+      x-stoplight:
+        id: 202654569fa9e
+      title: Model - Curb Zone
+    curb_area:
+      type: object
+      properties:
+        curb_area_id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+            - description: The ID for the Curb Area.
+        geometry:
+          type: object
+          properties:
+            type:
+              type: string
+            coordinates:
+              type: array
+              items:
+                type: number
+          required:
+            - type
+            - coordinates
+          description: The spatial extent of this curb location.
+        name:
+          type: string
+          description: The name of this curb area for reference.
+        published_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The date/time that this curb area was first published in this data feed.
+        last_updated_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The date/time that the properties of ths curb area were last updated.
+        curb_zone_ids:
+          type: array
+          items:
+            $ref: '#/components/schemas/uuid'
+          description: The IDs of all the Curb Zones included within this Curb Area at the requested time.
+      required:
+        - curb_area_id
+        - geometry
+        - published_date
+        - last_updated_date
+        - curb_zone_ids
+      example:
+        curb_area_id: 91eb651d-f91f-4ba2-9553-75ca368c7e1f
+        geometry:
+          type: Polygon
+          coordinates:
+            - - - -73.982105
+                - 40.767932
+              - - -73.973694
+                - 40.764551
+              - - -73.949318
+                - 40.796918
+              - - -73.958416
+                - 40.800686
+              - - -73.982105
+                - 40.767932
+        name: Central business district
+        published_date: 1552678594428
+        last_updated_date: 1552678594428
+        curb_zone_ids:
+          - 7d8a5885-e949-4ac9-afb7-fa4d43b68530
+      description: A particular neighborhood or area of interest that includes one or more Curb Zones.
+      x-internal: false
+      x-stoplight:
+        id: e2235c918423f
+      title: Model - Curb Area
+    curb_space:
+      type: object
+      properties:
+        curb_space_id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+            - description: The ID of the Curb Space.
+        geometry:
+          type: object
+          properties:
+            type:
+              type: string
+            coordinates:
+              type: array
+              items:
+                type: number
+          required:
+            - type
+            - coordinates
+          description: The spatial extent of this curb location.
+        name:
+          type: string
+          description: The name of this curb space for reference.
+        published_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The date/time that this curb area was first published in this data feed.
+        last_updated_date:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: The date/time that the properties of ths curb area were last updated.
+        curb_zone_id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+            - description: The ID of the Curb Zone this space is within.
+        space_number:
+          type: integer
+          description: 'The sequence number of this space within its Zone. If specified, two spaces within the same Curb Zone MUST NOT share a space number, and space numbers SHOULD be consecutive positive integers starting at 1.'
+        length:
+          type: integer
+          description: Length in centimeters of this Space.
+        width:
+          type: integer
+          description: Width in centimeters of this Space.
+        available:
+          type: boolean
+          description: Whether this space is available for vehicles to park in at the specified time.
+        availability_time:
+          allOf:
+            - $ref: '#/components/schemas/timestamp'
+            - description: 'If availability information is present, the most recent time that availability was computed for this space.'
+      required:
+        - curb_space_id
+        - geometry
+        - published_date
+        - last_updated_date
+        - curb_zone_id
+        - length
+      example:
+        curb_space_id: 47c877ce-2670-4300-9ec2-6a1f3af707b6
+        geometry:
+          type: Polygon
+          coordinates:
+            - - - -73.982105
+                - 40.767932
+              - - -73.973694
+                - 40.764551
+              - - -73.949318
+                - 40.796918
+              - - -73.958416
+                - 40.800686
+              - - -73.982105
+                - 40.767932
+        name: A487
+        published_date: 1552678594428
+        last_updated_date: 1552678594428
+        curb_zone_id: 7d8a5885-e949-4ac9-afb7-fa4d43b68530
+        space_number: 487
+        length: 550
+        width: 260
+        available: false
+        availability_time: 1657213115826
+      description: An individual demarcated space within a Curb Zone.
+      x-internal: false
+      x-stoplight:
+        id: acc7fbb358869
+      title: Model - Curb Space
+    curb_policy:
+      type: object
+      example:
+        curb_policy_id: cd0996d7-3765-4f0b-a72e-7caf7cf3fe21
+        published_date: 1552678594428
+        priority: 1
+        data_source_operator_id:
+          - b2046faf-2bc2-4f0e-b784-7cc746138555
+          - aba63473-351c-4624-93ab-456db34f83a6
+          - 984cae91-3a11-49eb-b68c-d325a6cc8970
+        time_spans:
+          - days_of_week:
+              - mon
+              - tue
+              - wed
+              - thu
+              - fri
+            time_of_day_start: '10:00'
+            time_of_day_end: '16:00'
+        rules:
+          - activity: parking
+            max_stay: 15
+            user_classes:
+              - rideshare
+              - electric
+      description: An object that allows or prohibits a particular set of users from using a particular curb at a particular time or times.
+      x-stoplight:
+        id: a3aab507b1c7e
+      title: Model - Curb Policy
+      properties:
+        curb_policy_id:
+          $ref: '#/components/schemas/uuid'
+          description: An ID that uniquely identifies this exact policy across Curb Zones.
+        published_date:
+          $ref: '#/components/schemas/timestamp'
+        priority:
+          type: integer
+          description: 'Specifies which other policies this one takes precedence over. If two Policies on the same Curb Zone have overlapping Time Spans and apply to the same user class, the one that applies at a given time is the one with the lowest priority.'
+        rules:
+          type: array
+          description: The rule(s) that this policy applies.
+          items:
+            type: object
+            description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
+            properties:
+              activity:
+                type: string
+                enum:
+                  - parking
+                  - no parking
+                  - loading
+                  - no loading
+                  - unloading
+                  - no unloading
+                  - stopping
+                  - no stopping
+                  - travel
+                  - no travel
+                description: The activity that is forbidden or permitted by this regulation.
+              max_stay:
+                type: integer
+                description: 'The length of time (in units of max_stay_unit) for which the curb may be used under this regulation. If not specified, the curb may be used under this regulation indefinitely.'
+              max_stay_unit:
+                $ref: '#/components/schemas/unit-of-time'
+              no_return:
+                type: integer
+                description: The length of time (in units of no_return_unit) that a user must vacate a Curb Zone before being allowed to return for another stay.
+              no_return_unit:
+                $ref: '#/components/schemas/unit-of-time'
+                description: The Unit of Time associated with the no_return value.
+              user_classes:
+                type: array
+                description: A user class represents any class of vehicles that is regulated by a city with respect to curb space.
+                items:
+                  type: string
+                  enum:
+                    - bicycle
+                    - bus
+                    - cargo_bicycle
+                    - car
+                    - moped
+                    - motorcycle
+                    - scooter
+                    - truck
+                    - van
+                    - handicap-accessible
+                    - human
+                    - electric_assist
+                    - electric
+                    - combustion
+                    - autonomous
+                    - construction
+                    - delivery
+                    - emergency_use
+                    - freight
+                    - parking
+                    - permit
+                    - rideshare
+                    - school
+                    - service_vehicles
+                    - special_events
+                    - taxi
+                    - utilities
+                    - vending
+                    - waste_management
+              rate:
+                type: array
+                description: The cost of using this Curb Zone when this regulation applies.
+                items:
+                  type: object
+                  description: A Rate defines the amount a user of the curb needs to pay when a given rule applies.
+                  properties:
+                    rate:
+                      type: integer
+                      description: The rate for this space in cents (or the smallest denomination of local currency) per rate_unit.
+                    rate_unit:
+                      $ref: '#/components/schemas/unit-of-time'
+                      description: The unit of time associated with the rate.
+                    rate_unit_period:
+                      type: string
+                      enum:
+                        - rolling
+                        - calendar
+                      description: The period of time that the rate_unit covers.
+                    increment_duration:
+                      type: integer
+                      description: 'If specified, this is the smallest number of rate_units a user can pay for.'
+                    increment_amount:
+                      type: integer
+                      description: 'If specified, the rate for this space is rounded up to the nearest increment of this amount, specified in the same currency units as rate.'
+                    start_duration:
+                      type: integer
+                      description: The number of rate_units the vehicle must have already been present in the Curb Zone before this rate starts applying.
+                    end_duration:
+                      type: integer
+                      description: The number of rate_units after which the rate stops applying.
+                  required:
+                    - rate
+                    - rate_unit
+            required:
+              - activity
+        time_spans:
+          type: array
+          description: 'If specified, this regulation only applies at the times defined within.'
+          items:
+            type: object
+            description: 'A Time Span defines a period of time (that may occur once or repeatedly) during which a given regulation applies. When multiple fields are combined, all criteria must be met in order for a given Time Span to apply.'
+            properties:
+              start_date:
+                $ref: '#/components/schemas/timestamp'
+              end_date:
+                $ref: '#/components/schemas/timestamp'
+              days_of_week:
+                type: string
+                enum:
+                  - sun
+                  - mon
+                  - tue
+                  - wed
+                  - thu
+                  - fri
+                  - sat
+                description: An array of days of the week when this Time Span applies.
+              days_of_month:
+                type: array
+                description: An array of days of the month when this Time Span applies.
+                items:
+                  type: integer
+                  minimum: 1
+                  maximum: 31
+              months:
+                type: array
+                description: 'If specified, this Time Span applies only during these months (1=January, 12=December).'
+                items:
+                  type: integer
+                  minimum: 1
+                  maximum: 12
+              time_of_day_start:
+                type: string
+                description: 'The local time that this Time Span starts to apply, as 24-hour "HH:MM".'
+              time_of_day_end:
+                type: string
+                description: 'The local time that this Time Span stops applying, as 24-hour "HH:MM".'
+              designated_period:
+                type: string
+                enum:
+                  - snow emergency
+                  - holidays
+                  - school days
+                  - game days
+                description: 'A string representing an arbitrarily-named, externally-defined period of time.'
+              designated_period_except:
+                type: boolean
+                description: 'If specified and true, this Time Span applies at all times not matching the named designated period.'
+        data_source_operator_id:
+          type: array
+          description: An array of Data Source Operator IDs that this policy only applies to.
+          items:
+            $ref: '#/components/schemas/operator_id'
+      required:
+        - curb_policy_id
+        - published_date
+        - priority
+        - rules
+    curb-event:
+      title: Model - Curb Event
+      x-stoplight:
+        id: cb0b7ebce9771
+      type: object
+      properties:
+        event_id:
+          $ref: '#/components/schemas/uuid'
+          description: The globally unique identifier of the event that occurred.
+        event_type:
+          type: string
+          enum:
+            - comms_lost
+            - comms_restored
+            - decommissioned
+            - park_start
+            - park_end
+            - scheduled_report
+            - enter_area
+            - exit_area
+          description: |-
+            The type of event that has occurred.
+
+            Possible values are defined in an enumeration.
+        event_purpose:
+          type: string
+          enum:
+            - construction
+            - delivery
+            - emergency_use
+            - parking
+            - passenger_transport
+            - special_events
+            - waste_management
+            - device_maintenance
+            - autonomous
+            - ems
+            - fire
+            - food_delivery
+            - parcel_delivery
+            - police
+            - public_transit
+            - ride_hail
+            - road_maintenance
+            - service_vehicles
+            - taxi
+            - utility_work
+            - vehicle_charging
+            - vehicle_parking
+            - vending
+            - unspecified
+          description: |-
+            **Conditionally Required**
+
+            General event purpose that the vehicle performed during its event, discernible by observation, sensors, or self-reported in copany data feeds. New event purposes MAY be generated to reflect local curb uses, but when possible, the following well-known recommended values should be used. It may not always be knowable, but where it is possible this information should be conveyed.
+
+            If multiple purposes apply, then use the more descriptive/specific value.
+        event_location:
+          type: string
+          description: The geographic point location where the event occurred.
+        event_time:
+          $ref: '#/components/schemas/timestamp'
+        event_publication_time:
+          $ref: '#/components/schemas/timestamp'
+          description: Time at which the event became available for consumption by this API.
+        event_session_id:
+          $ref: '#/components/schemas/uuid'
+          description: 'May be provided to tie known connected `park_start`and `park_end` event types together by a unique session ID. '
+        curb_area_ids:
+          type: array
+          description: 'Unique IDs of the Curb Area(s) where the event occurred. Since Curb Areas may overlap, an event may occur in more than one. '
+          items:
+            $ref: '#/components/schemas/uuid'
+        curb_zone_id:
+          $ref: '#/components/schemas/uuid'
+          description: |
+            Unique ID of the Curb Zone where the event occurred.
+
+            Required for events that occurred at a known Curb Zone for ALL event_types.
+        curb_space_id:
+          $ref: '#/components/schemas/uuid'
+          description: |
+            Unique ID of the Curb Space where the event occured.
+
+            Required for events that occurred at a known Curb Space, if known and used, for these event types:
+            * `park_start`
+
+            * `park_end`
+
+            * `enter_area`
+
+            * `exit_area`
+        data_source_type:
+          $ref: '#/components/schemas/data_source_type'
+          description: The set of possible categories of sources that are sending this event. '
+        data_source_operator_id:
+          $ref: '#/components/schemas/operator_id'
+          description: |-
+            Unique identifier of the entity responsible for operating the event data source.
+
+            For example, IDs can identify a fleet operator sending a data feed, or the organization (company or city) operating the sensor.
+
+            **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
+        data_source_operator_name:
+          type: string
+          description: |-
+            Name of the provider responsible for operating the vehicle, device, or sensor at the time of the event.
+
+            May be sent along with `data_source_operator_id` or on its own for small operators at the discretion of the city.
+        data_source_device_id:
+          type: string
+          description: |-
+            Unique identifier of this event source, whether sensor, vehicle, camera, etc. Allows agencies to connect related Events as they are recorded by the same source.
+
+            If coming from a provider, this is a generated UUID they use and not the same as the external vehicle_id.
+
+            **If this field is needed for your use cases, review the OMF's [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).**
+        data_source_manufacturer:
+          type: string
+          description: Manufacturer of the data source hardware or vehicle reporting event data.
+        data_source_model:
+          type: string
+          description: Manufacturer of the data source hardware or vehicle reporting event data.
+        sensor_status_is_commissioned:
+          type: boolean
+          description: |-
+            If a sensor was used to capture this event, the commissioned status at the time that the event was reported.
+
+            Indicates whether the sensor is currently in a state where it should be reporting data.
+        sensor_status_is_online:
+          type: boolean
+          description: |-
+            If a sensor was used to capture this event, the online status at the time that the event was reported.
+
+            Indicates whether the sensor is currently online and reporting data.
+        sensor_status_is_online - copy:
+          type: boolean
+          description: |-
+            If a sensor was used to capture this event, the online status at the time that the event was reported.
+
+            Indicates whether the sensor is currently online and reporting data.
+        vehicle_id:
+          type: string
+          description: |-
+            A vehicle identifier visible externally on the vehicle itself.
+
+            **If this field is needed for your use cases, review the OMF's [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).**
+        vehicle_license_plate:
+          type: string
+          description: |-
+            The consistently placed vehicle license plate, usable by ALPR systems, when required for curb use.
+
+            This field is potentially sensitive (depending on local, state, and national laws) and a data privacy framework is recommended for collecting, retention, deletion, obfuscation, and security. If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy)
+        vehicle_permit_number:
+          type: string
+          description: 'If applicable, the assigned permit numbe for this vehicle from the city agency.'
+        vehicle_length:
+          type: integer
+          description: |-
+            Appoximate length of the vehicle that performed the event, in centimeters.
+
+            Required for sources capable of determining vehicle length.
+        vehicle_type:
+          $ref: '#/components/schemas/vehicle_type'
+          description: |-
+            Type of the vehicle that performed the event.
+
+            Required for sources capable of determining vehicle type.
+        vehicle_propulsion_types:
+          type: string
+          enum:
+            - human
+            - electric_assist
+            - electric
+            - combustion
+          description: |-
+            List of propulsion types used by the vehicle that performed the event.
+
+            Required for sources capable of determining vehicle propulsion type.
+        vehicle_blocked_lane_types:
+          type: string
+          description: |-
+            Type(s) of lane blocked by the vehicle performing the event. If no lanes are blocked by the vehicle performing the event, the array should be empty.
+
+            Required for sources capable of determining it for the following event_types: `park_start`
+          enum:
+            - travel_lane
+            - turn_lane
+            - bike_lane
+            - bus_lane
+            - parking
+            - shoulder
+            - median
+            - sidewalk
+            - unspecified
+        curb_occupants:
+          type: object
+          description: |-
+            Current occupants of the Curb Zone. If the sensor is capable of identifying the linear location of the vehicle, then elements are sorted in ascending order according to the start property of the linear reference. Otherwise, elements appear in no particular order.
+
+            Required for sources capable of determining it for the following event_types: `park_start`, `park_end`, `scheduled_report`
+          properties:
+            type:
+              $ref: '#/components/schemas/vehicle_type'
+            length:
+              type: number
+              description: |-
+                The approximate length in centimeters of the vehicle.
+
+                Required when the event source is capable of determining vehicle length.
+            linear_location:
+              type: array
+              description: |-
+                A two-element array that specifies the start and end of the occupant’s linear location relative to the start of the Curb Zone in that order.
+
+                Required when the event source is capable of determining the linear location of occupants.
+              minItems: 2
+              maxItems: 2
+              items:
+                type: number
+                minimum: 0
+                maximum: 0
+        actual_cost:
+          type: integer
+          description: |-
+            If available from the source, the actual cost, in the currency defined in currency, paid by the curb user for this event.
+
+            All costs should be given as integers in the currency's smallest unit. As an example, to represent $1 USD, specify an amount of 100 (for 100 cents).
+      required:
+        - event_id
+        - event_type
+        - event_location
+        - event_time
+        - event_publication_time
+        - data_source_type
+        - data_source_device_id
+    unit-of-time:
+      description: An enumeration for units of time.
+      type: string
+      enum:
+        - second
+        - minute
+        - hour
+        - day
+        - week
+        - month
+        - year
+      x-internal: false
+      title: Unit of Time
+    rest-response-time_zone:
+      title: REST Response - Time Zone
+      type: string
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The time zone that applies to parking regulations in this dataset.
+
+        MUST be a valid [TZ database time zone name](https://www.iana.org/time-zones) (ex: "US/Eastern" or "Europe/Paris").
+      x-internal: false
+    rest-response-version:
+      title: REST Response - Version
+      x-stoplight:
+        id: 3bxwqr73eu79g
+      type: string
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The version of CDS that the API conforms to.
+      example: 1.0.0
+      x-internal: false
+    rest-response-last_updated:
+      $ref: '#/components/schemas/timestamp'
+      x-stoplight:
+        id: mwudsha7oso9v
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The last time the data in this API was updated.
+      x-internal: false
+      title: REST Response - Last Updated
+    rest-response-currency:
+      title: REST Response - Currency
+      x-stoplight:
+        id: 1y7ea7wbdav1u
+      type: string
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The ISO 4217 3-letter code for the currency in which rates for curb usage are denominated. All costs should be given as integers in the currency's smallest unit. As an example, to represent `$1 USD`, specify an amount of `100` (for 100 cents).
+      example: '100'
+      x-internal: false
+    rest-response-author:
+      title: REST Response - Author
+      x-stoplight:
+        id: mhmufpclryjhz
+      type: string
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The name of the organization that produces and maintains this data.
+      x-internal: false
+    rest-response-license_url:
+      title: REST Response - License URL
+      x-stoplight:
+        id: beyxkbcgpflk1
+      type: string
+      description: |-
+        This is a standard value that must be returned in the body of all API endpoints.
+
+        The licensing terms under which this data is provided.
+      x-internal: false
+  securitySchemes:
+    JSON Web Token:
+      name: Authorization
+      type: apiKey
+      in: header
+      description: |-
+        SON Web Token ([JWT](https://jwt.io/introduction/)) is **RECOMMENDED** as the token format.
+
+        JWTs provide a safe, secure way to verify the identity of an agency and provide access to MDS resources without providing access to other, potentially sensitive data.
+
+        Implementers **MAY** include any metadata in the JWT they wish that helps to route, log, permission, or debug agency requests, leaving their internal implementation flexible.
+    OAuth 2.0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: ''
+          refreshUrl: ''
+          scopes: {}
+      description: |-
+        OAuth 2.0's `client_credentials` grant type (outlined in [RFC6749](https://tools.ietf.org/html/rfc6749#section-4.4)) is **RECOMMENDED** as the authentication and authorization scheme.
+
+        OAuth 2.0 is an industry standard authorization framework with a variety of existing tooling. The client_credentials grant type facilitates generation of tokens that can be used for access by agencies and distributed to data partners.
+
+        If implementers use this auth scheme, they **MAY** choose to specify token scopes that define access parameters like allowable time ranges. These guidelines **SHOULD** be encoded into the returned token in a parseable way.
+  responses:
+    '501':
+      description: Not Implemented
+      content:
+        application/json:
+          schema:
+            properties:
+              id:
+                type: string
+  parameters:
+    curb_place_type:
+      name: curb_place_type
+      in: query
+      required: false
+      schema:
+        type: string
+      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
+    curb_place_id:
+      name: curb_place_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
+    min_lat:
+      name: min_lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lng`, `max_lat`, and `max_lng`. If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    min_lng:
+      name: min_lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `max_lat`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    max_lat:
+      name: max_lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    max_lng:
+      name: max_lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lat`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    lat:
+      name: lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    lng:
+      name: lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    radius:
+      name: radius
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    start_time:
+      name: start_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The start of the time period to return data where the value is inclusive.
+    end_time:
+      name: end_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The end of the time period to return data where the value is inclusive.
+    curb_area_id:
+      name: curb_area_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The ID of a Curb Area. If specified, only return records occurring within this area.'
+    curb_zone_id:
+      name: curb_zone_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The ID of a Curb Zone. If specified, only return records occurring within this zone.'
+    curb_space_id:
+      name: curb_space_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The ID of a Curb Space. If specified, only return records occurring within this area.'
