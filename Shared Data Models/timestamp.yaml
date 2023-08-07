@@ -1,0 +1,13 @@
+title: timestamp
+x-stoplight:
+  id: ysmrpoqidw6a9
+description: Timestamp in milliseconds since Epoch.
+type: integer
+minimum: 100000000000
+maximum: 99999999999999
+properties:
+  id:
+    type: string
+    x-stoplight:
+      id: vhys3rsjuz811
+

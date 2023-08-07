@@ -1,0 +1,6 @@
+title: Longitude
+x-stoplight:
+  id: yt4mi9ezmucw5
+type: number
+minimum: -180
+maximum: 180

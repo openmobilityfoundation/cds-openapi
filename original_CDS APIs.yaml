@@ -81,6 +81,8 @@ paths:
         - $ref: '#/components/parameters/radius'
       tags:
         - Curbs API
+      x-stoplight:
+        id: rf9d12orekm1h
   /curbs/areas:
     get:
       summary: Get Curb Areas
@@ -138,6 +140,8 @@ paths:
       tags:
         - Curbs API
       security: []
+      x-stoplight:
+        id: 2rmkdtzdroapa
   /curbs/spaces:
     get:
       summary: Get Curb Spaces
@@ -195,6 +199,8 @@ paths:
       tags:
         - Curbs API
       security: []
+      x-stoplight:
+        id: uw6x7xz5yqmmo
   /curbs/policies:
     get:
       summary: Get Curb Policies
@@ -250,6 +256,8 @@ paths:
       tags:
         - Curbs API
       security: []
+      x-stoplight:
+        id: 8e7iad2rt96ow
   '/curbs/zones/{id}':
     get:
       summary: Get a single Curb Zone
@@ -316,6 +324,8 @@ paths:
       tags:
         - Curbs API
       security: []
+      x-stoplight:
+        id: yuag4b4aqbkf1
   '/curbs/areas/{id}':
     get:
       summary: Get a single Curb Area
@@ -372,6 +382,8 @@ paths:
       tags:
         - Curbs API
       security: []
+      x-stoplight:
+        id: ad85cej1q50dp
   '/curbs/spaces/{id}':
     get:
       summary: Get a single Curb Space
@@ -433,6 +445,8 @@ paths:
       tags:
         - Curbs API
       security: []
+      x-stoplight:
+        id: u19hpktf0n1hl
   '/curbs/policies/{id}':
     get:
       summary: Get a single Curb Policy
@@ -487,6 +501,8 @@ paths:
       tags:
         - Curbs API
       security: []
+      x-stoplight:
+        id: f891w4kmcowo1
   /events/events:
     get:
       summary: Get Events
@@ -522,6 +538,8 @@ paths:
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
       description: ''
+      x-stoplight:
+        id: b5ex02kdfrljo
   /events/status:
     get:
       summary: Get Status
@@ -579,6 +597,8 @@ paths:
         - $ref: '#/components/parameters/curb_area_id'
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
+      x-stoplight:
+        id: p1of272g09cjr
   /metrics/sessions:
     get:
       summary: Get Sessions
@@ -681,6 +701,8 @@ paths:
         * `curb_place_type`, `curb_place_id`
         * `min_lat`, `min_lng`, `max_lat`, `max_lng`
         * `lat`, `lng`, `radius`
+      x-stoplight:
+        id: owuyr2yiwj38o
   /metrics/aggregates:
     get:
       summary: Get Aggregates
@@ -778,6 +800,8 @@ paths:
         * `curb_place_type`, `curb_place_id`
         * `min_lat`, `min_lng`, `max_lat`, `max_lng`
         * `lat`, `lng`, `radius`
+      x-stoplight:
+        id: vlnl7l63gqy1n
 components:
   schemas:
     timestamp:
@@ -787,11 +811,15 @@ components:
       maximum: 99999999999999
       x-internal: false
       title: Timestamp
+      x-stoplight:
+        id: 9h333ijy5gy1e
     uuid:
       type: string
       format: uuid
       x-internal: false
       title: UUID
+      x-stoplight:
+        id: yan587cvuqppu
     latitude:
       type: number
       minimum: -90
@@ -799,12 +827,16 @@ components:
       x-internal: false
       title: Latitude
       description: ''
+      x-stoplight:
+        id: w5n8fow8pavzx
     longitude:
       type: number
       minimum: -180
       maximum: 180
       x-internal: false
       title: Longitude
+      x-stoplight:
+        id: 1mf0ywpexjhtq
     data_source_type:
       title: Data Source Type
       x-stoplight:
@@ -1665,6 +1697,8 @@ components:
         - year
       x-internal: false
       title: Unit of Time
+      x-stoplight:
+        id: t22vz53uc0i6g
     rest-response-time_zone:
       title: REST Response - Time Zone
       type: string
@@ -1675,6 +1709,8 @@ components:
 
         MUST be a valid [TZ database time zone name](https://www.iana.org/time-zones) (ex: "US/Eastern" or "Europe/Paris").
       x-internal: false
+      x-stoplight:
+        id: d9ojycvukf3ny
     rest-response-version:
       title: REST Response - Version
       x-stoplight:
