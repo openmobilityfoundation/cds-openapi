@@ -6,206 +6,105 @@ info:
   version: '1.0'
 servers:
   - url: 'http://localhost:3000'
-paths:
-  '/users/{userId}':
-    parameters:
-      - schema:
-          type: integer
-        name: userId
-        in: path
-        required: true
-        description: Id of an existing user.
-    get:
-      summary: Get User Info by User ID
-      tags: []
-      responses:
-        '200':
-          description: User Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Get User Alice Smith:
-                  value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
-        '404':
-          description: User Not Found
-      operationId: get-users-userId
-      description: Retrieve the information of the user with the matching user ID.
-      x-stoplight:
-        id: gqqe0ilqpqidr
-    patch:
-      summary: Update User Information
-      operationId: patch-users-userId
-      responses:
-        '200':
-          description: User Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Updated User Rebecca Baker:
-                  value:
-                    id: 13
-                    firstName: Rebecca
-                    lastName: Baker
-                    email: rebecca@gmail.com
-                    dateOfBirth: '1985-10-02'
-                    emailVerified: false
-                    createDate: '2019-08-24'
-        '404':
-          description: User Not Found
-        '409':
-          description: Email Already Taken
-      description: Update the information of an existing user.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                  description: 'If a new email is given, the user''s email verified property will be set to false.'
-                dateOfBirth:
-                  type: string
-            examples:
-              Update First Name:
-                value:
-                  firstName: Rebecca
-              Update Email:
-                value:
-                  email: rebecca@gmail.com
-              Update Last Name & Date of Birth:
-                value:
-                  lastName: Baker
-                  dateOfBirth: '1985-10-02'
-        description: Patch user properties to update.
-      x-stoplight:
-        id: izw2u9uq6j60f
-  /user:
-    post:
-      summary: Create New User
-      operationId: post-user
-      responses:
-        '200':
-          description: User Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                New User Bob Fellow:
-                  value:
-                    id: 12
-                    firstName: Bob
-                    lastName: Fellow
-                    email: bob.fellow@gmail.com
-                    dateOfBirth: '1996-08-24'
-                    emailVerified: false
-                    createDate: '2020-11-18'
-        '400':
-          description: Missing Required Information
-        '409':
-          description: Email Already Taken
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                dateOfBirth:
-                  type: string
-                  format: date
-              required:
-                - firstName
-                - lastName
-                - email
-                - dateOfBirth
-            examples:
-              Create User Bob Fellow:
-                value:
-                  firstName: Bob
-                  lastName: Fellow
-                  email: bob.fellow@gmail.com
-                  dateOfBirth: '1996-08-24'
-        description: Post the necessary fields for the API to create a new user.
-      description: Create a new user.
-      x-stoplight:
-        id: 76qccqyaht15j
+paths: {}
 components:
-  schemas:
-    User:
-      title: User
-      type: object
-      description: ''
-      examples:
-        - id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the given user.
-          x-stoplight:
-            id: zna6uqewm2epo
-        firstName:
-          type: string
-          x-stoplight:
-            id: iei7f8cyefat7
-        lastName:
-          type: string
-          x-stoplight:
-            id: q0f3paj9z4sb1
-        email:
-          type: string
-          format: email
-          x-stoplight:
-            id: aqnr878ac8uel
-        dateOfBirth:
-          type: string
-          format: date
-          example: '1997-10-31'
-          x-stoplight:
-            id: 2sohfix1ozxnm
-        emailVerified:
-          type: boolean
-          description: Set to true if the user's email has been verified.
-          x-stoplight:
-            id: wc2xd8f3oox73
-        createDate:
-          type: string
-          format: date
-          description: The date that the user was created.
-          x-stoplight:
-            id: lmagd8m460qfv
-      required:
-        - id
-        - firstName
-        - lastName
-        - email
-        - emailVerified
-      x-stoplight:
-        id: fe7tkngjvqffl
+  schemas: {}
+  parameters:
+    curb_place_type:
+      name: curb_place_type
+      in: query
+      required: false
+      schema:
+        type: string
+      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
+    curb_place_id:
+      name: curb_place_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
+    min_lat:
+      name: min_lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lng`, `max_lat`, and `max_lng`. If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    min_lng:
+      name: min_lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `max_lat`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    max_lat:
+      name: max_lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    max_lng:
+      name: max_lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lat`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    lat:
+      name: lat
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    lng:
+      name: lng
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    radius:
+      name: radius
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    start_time:
+      name: start_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The start of the time period to return data where the value is inclusive.
+    end_time:
+      name: end_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The end of the time period to return data where the value is inclusive.
+    curb_area_id:
+      name: curb_area_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The ID of a Curb Area. If specified, only return records occurring within this area.'
+    curb_zone_id:
+      name: curb_zone_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The ID of a Curb Zone. If specified, only return records occurring within this zone.'
+    curb_space_id:
+      name: curb_space_id
+      in: query
+      required: false
+      schema:
+        type: string
+      description: 'The ID of a Curb Space. If specified, only return records occurring within this area.'
