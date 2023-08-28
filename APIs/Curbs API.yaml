@@ -19,17 +19,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
@@ -78,17 +78,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
@@ -135,17 +135,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
@@ -192,17 +192,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
@@ -247,17 +247,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
@@ -313,17 +313,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
@@ -369,17 +369,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
@@ -430,17 +430,17 @@ paths:
                 type: object
                 properties:
                   version:
-                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                    $ref: ../Rest Responses/rest_response_version.yaml
                   time_zone:
-                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                    $ref: ../Rest Responses/rest_response_last-updated.yaml
                   currency:
-                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
-                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                    $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
-                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: array
                     items:
