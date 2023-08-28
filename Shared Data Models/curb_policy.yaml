@@ -1,0 +1,179 @@
+title: curb_policy
+x-stoplight:
+  id: z8z47h6duwmg8
+type: object
+properties:
+  curb_policy_id:
+    description: An ID that uniquely identifies this exact policy across Curb Zones.
+    type: string
+  published_date:
+    $ref: '#/components/schemas/timestamp'
+  priority:
+    type: integer
+    description: 'Specifies which other policies this one takes precedence over. If two Policies on the same Curb Zone have overlapping Time Spans and apply to the same user class, the one that applies at a given time is the one with the lowest priority.'
+  rules:
+    type: array
+    description: The rule(s) that this policy applies.
+    items:
+      type: object
+      description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
+      properties:
+        activity:
+          type: string
+          enum:
+            - parking
+            - no parking
+            - loading
+            - no loading
+            - unloading
+            - no unloading
+            - stopping
+            - no stopping
+            - travel
+            - no travel
+          description: The activity that is forbidden or permitted by this regulation.
+        max_stay:
+          type: integer
+          description: 'The length of time (in units of max_stay_unit) for which the curb may be used under this regulation. If not specified, the curb may be used under this regulation indefinitely.'
+        max_stay_unit:
+          $ref: '#/components/schemas/unit-of-time'
+        no_return:
+          type: integer
+          description: The length of time (in units of no_return_unit) that a user must vacate a Curb Zone before being allowed to return for another stay.
+        no_return_unit:
+          $ref: '#/components/schemas/unit-of-time'
+          description: The Unit of Time associated with the no_return value.
+        user_classes:
+          type: array
+          description: A user class represents any class of vehicles that is regulated by a city with respect to curb space.
+          items:
+            type: string
+            enum:
+              - bicycle
+              - bus
+              - cargo_bicycle
+              - car
+              - moped
+              - motorcycle
+              - scooter
+              - truck
+              - van
+              - handicap-accessible
+              - human
+              - electric_assist
+              - electric
+              - combustion
+              - autonomous
+              - construction
+              - delivery
+              - emergency_use
+              - freight
+              - parking
+              - permit
+              - rideshare
+              - school
+              - service_vehicles
+              - special_events
+              - taxi
+              - utilities
+              - vending
+              - waste_management
+        rate:
+          type: array
+          description: The cost of using this Curb Zone when this regulation applies.
+          items:
+            type: object
+            description: A Rate defines the amount a user of the curb needs to pay when a given rule applies.
+            properties:
+              rate:
+                type: integer
+                description: The rate for this space in cents (or the smallest denomination of local currency) per rate_unit.
+              rate_unit:
+                $ref: '#/components/schemas/unit-of-time'
+                description: The unit of time associated with the rate.
+              rate_unit_period:
+                type: string
+                enum:
+                  - rolling
+                  - calendar
+                description: The period of time that the rate_unit covers.
+              increment_duration:
+                type: integer
+                description: 'If specified, this is the smallest number of rate_units a user can pay for.'
+              increment_amount:
+                type: integer
+                description: 'If specified, the rate for this space is rounded up to the nearest increment of this amount, specified in the same currency units as rate.'
+              start_duration:
+                type: integer
+                description: The number of rate_units the vehicle must have already been present in the Curb Zone before this rate starts applying.
+              end_duration:
+                type: integer
+                description: The number of rate_units after which the rate stops applying.
+            required:
+              - rate
+              - rate_unit
+      required:
+        - activity
+  time_spans:
+    type: array
+    description: 'If specified, this regulation only applies at the times defined within.'
+    items:
+      type: object
+      description: 'A Time Span defines a period of time (that may occur once or repeatedly) during which a given regulation applies. When multiple fields are combined, all criteria must be met in order for a given Time Span to apply.'
+      properties:
+        start_date:
+          $ref: '#/components/schemas/timestamp'
+        end_date:
+          $ref: '#/components/schemas/timestamp'
+        days_of_week:
+          type: string
+          enum:
+            - sun
+            - mon
+            - tue
+            - wed
+            - thu
+            - fri
+            - sat
+          description: An array of days of the week when this Time Span applies.
+        days_of_month:
+          type: array
+          description: An array of days of the month when this Time Span applies.
+          items:
+            type: integer
+            minimum: 1
+            maximum: 31
+        months:
+          type: array
+          description: 'If specified, this Time Span applies only during these months (1=January, 12=December).'
+          items:
+            type: integer
+            minimum: 1
+            maximum: 12
+        time_of_day_start:
+          type: string
+          description: 'The local time that this Time Span starts to apply, as 24-hour "HH:MM".'
+        time_of_day_end:
+          type: string
+          description: 'The local time that this Time Span stops applying, as 24-hour "HH:MM".'
+        designated_period:
+          type: string
+          enum:
+            - snow emergency
+            - holidays
+            - school days
+            - game days
+          description: 'A string representing an arbitrarily-named, externally-defined period of time.'
+        designated_period_except:
+          type: boolean
+          description: 'If specified and true, this Time Span applies at all times not matching the named designated period.'
+  data_source_operator_id:
+    type: array
+    description: An array of Data Source Operator IDs that this policy only applies to.
+    items:
+      $ref: '#/components/schemas/operator_id'
+required:
+  - curb_policy_id
+  - published_date
+  - priority
+  - rules
