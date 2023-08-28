@@ -7,11 +7,6 @@
     },
     {
       "type": "item",
-      "title": "Curb Data Specification",
-      "uri": "/original_CDS APIs.yaml"
-    },
-    {
-      "type": "item",
       "title": "Curb API",
       "uri": "/APIs/Curbs API.yaml"
     },
@@ -38,6 +33,16 @@
       "type": "item",
       "title": "Curb Zone",
       "uri": "/Shared Data Models/curb_zone.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb Space",
+      "uri": "/Shared Data Models/curb_space.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb Policy",
+      "uri": "/Shared Data Models/curb_policy.yaml"
     },
     {
       "type": "divider",
