@@ -26,6 +26,8 @@ properties:
     description: 'An array of IDs of Policy objects. Together, these define the regulations of this Curb Zone.'
     items:
       type: string
+  published_date:
+    $ref: ./timestamp.yaml
   prev_policies:
     type: array
     description: An array of information about what previous policies applied to a curb zone and when.
@@ -46,8 +48,6 @@ properties:
         - curb_policy_ids
         - start_date
         - end_date
-  published_date:
-    $ref: ./timestamp.yaml
   last_updated_date:
     $ref: ./timestamp.yaml
   prev_curb_zone_ids:
@@ -58,8 +58,10 @@ properties:
       format: uuid
   start_date:
     $ref: ./timestamp.yaml
+    description: 'The earliest time that the data for this curb location is known to be valid (inclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). This could be the date on which the data was collected, for instance. This MUST never change for a given id.'
   end_date:
     $ref: ./timestamp.yaml
+    description: 'The time at which the data for this curb location ceases to be valid (exclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). If not present, the data will be presumed to be valid indefinitely.'
   location_references:
     type: array
     description: One or more linear references for this Curb Zone.
@@ -73,21 +75,21 @@ properties:
           description: An identifier for the source of the linear reference. This MUST be a URL pointing to more information about the underlying map or reference system.
         ref_id:
           type: string
-          description: The linear feature being referenced (usually a street or curb segment).
+          description: 'The linear feature being referenced (usually a street or curb segment). For OpenLR, this is the Base64-encoded OpenLR line location for the street segment of which this Curb Zone is part, and the start and end offsets below are relative to this segment.'
         start:
           type: integer
-          description: The distance (in centimeters) from the start of the referenced linear feature to the start of the Curb Zone.
+          description: 'The distance (in centimeters) from the start of the referenced linear feature to the start of the Curb Zone (inclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)).'
           minimum: 0
         end:
           type: integer
-          description: 'The distance (in centimeters) from the start of the referenced linear feature to the end of the Curb Zone. ''end'' MAY be smaller than start, implying that the direction of the Curb Zone is opposite to the direction of the referenced linear feature.'
+          description: 'The distance (in centimeters) from the start of the referenced linear feature to the end of the Curb Zone (exclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). ''end'' MAY be smaller than start, implying that the direction of the Curb Zone is opposite to the direction of the referenced linear feature - in this case the [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)) are reversed.'
           minimum: 0
         side:
           type: string
           enum:
             - left
             - right
-          description: 'If the referenced linear feature is a roadway, the side of the roadway on which the Curb Zone may be found, when heading from the start to the end of the feature in its native orientation.'
+          description: 'If the referenced linear feature is a roadway, the side of the roadway on which the Curb Zone may be found, when heading from the start to the end of the feature in its native orientation. Values are left and right. MUST be absent for features where `entire_roadway` is true.'
       required:
         - source
         - ref_id
