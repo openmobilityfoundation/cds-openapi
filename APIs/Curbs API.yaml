@@ -6,24 +6,475 @@ info:
   version: '1.0'
 servers:
   - url: 'http://localhost:3000'
-paths: {}
+paths:
+  /curbs/zones:
+    get:
+      summary: Get Curb Zones
+      responses:
+        '200':
+          description: Zones Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        zones:
+                          type: array
+                          items:
+                            $ref: ../Shared Data Models/curb_zone.yaml
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-zones
+      description: 'This required endpoint must be implemented by every Curbs API server. If attaching policies to curb zones, the Query Curb Policies endpoint is also required.'
+      parameters:
+        - schema:
+            $ref: '#/components/schemas/uuid'
+          in: query
+          name: area
+          description: 'The ID of a Curb Area. If specified, only return Curb Zones contained within this area.'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+      x-stoplight:
+        id: qflnve6uqz5v5
+  /curbs/areas:
+    get:
+      summary: Get Curb Areas
+      responses:
+        '200':
+          description: Areas Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        areas:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/curb_area'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-areas
+      description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+      security: []
+      x-stoplight:
+        id: em01q8t3g2mk0
+  /curbs/spaces:
+    get:
+      summary: Get Curb Spaces
+      responses:
+        '200':
+          description: Spaces Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        spaces:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/curb_space'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-spaces
+      description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+      security: []
+      x-stoplight:
+        id: p8unincykkub4
+  /curbs/policies:
+    get:
+      summary: Get Curb Policies
+      responses:
+        '200':
+          description: Policies Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        policies:
+                          type: array
+                          items:
+                            $ref: '#/components/schemas/curb_policy'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-policies
+      description: 'Optional endpoint, but required if Curb Zones contain policy_id references. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: ids
+          description: Comma-separated list of Policy IDs.
+      security: []
+      x-stoplight:
+        id: v6h8wflicp82s
+  '/curbs/zones/{id}':
+    get:
+      summary: Get a single Curb Zone
+      responses:
+        '200':
+          description: Zone Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        zone:
+                          $ref: '#/components/schemas/curb_zone'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-zone
+      description: 'Fetch a single Curb Zone by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Zone ID
+        - schema:
+            $ref: '#/components/schemas/timestamp'
+          in: query
+          name: time
+          description: 'The Curb Zone object will only be returned if its validity period includes this time; otherwise, the server should reply with 404 Not Found.'
+        - schema:
+            type: boolean
+          in: query
+          name: show_historic
+          description: 'Whether to return historic, retired curb zone data.'
+      security: []
+      x-stoplight:
+        id: thcotjzs27hjv
+  '/curbs/areas/{id}':
+    get:
+      summary: Get a single Curb Area
+      responses:
+        '200':
+          description: Area Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        area:
+                          $ref: '#/components/schemas/curb_area'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-area
+      description: 'Fetch a single Curb Area by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Area ID
+      security: []
+      x-stoplight:
+        id: 4iywyy64o36z5
+  '/curbs/spaces/{id}':
+    get:
+      summary: Get a single Curb Space
+      responses:
+        '200':
+          description: Space Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        space:
+                          $ref: '#/components/schemas/curb_space'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '501':
+          description: NOT_IMPLEMENTED
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-space
+      description: 'Fetch a single Curb Space by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Space ID
+        - schema:
+            $ref: '#/components/schemas/timestamp'
+          in: query
+          name: time
+          description: Availability data (if supplied) will be returned as of this time.
+      security: []
+      x-stoplight:
+        id: 95aw92p0zrbc8
+  '/curbs/policies/{id}':
+    get:
+      summary: Get a single Curb Policy
+      responses:
+        '200':
+          description: Policy Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/Rest Response - Version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/Rest Response - Time Zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/Rest Response - Last Updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/Rest Response - Currency.yaml
+                  author:
+                    $ref: ../Rest Responses/Rest Response - Author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/Rest Response - License URL.yaml
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        policy:
+                          $ref: '#/components/schemas/curb_policy'
+        '400':
+          description: BAD_REQUEST
+        '401':
+          description: UNAUTHORIZED
+        '403':
+          description: FORBIDDEN
+        '404':
+          description: NOT_FOUND
+        '500':
+          description: SERVER_ERROR
+        '503':
+          description: SERVICE_UNAVAILABLE
+      operationId: get-curbs-policy
+      description: Fetch a single Curb Policy by ID.
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Policy ID
+      security: []
+      x-stoplight:
+        id: s8dn9bdudpl24
 components:
   schemas: {}
   parameters:
-    curb_place_type:
-      name: curb_place_type
-      in: query
-      required: false
-      schema:
-        type: string
-      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
-    curb_place_id:
-      name: curb_place_id
-      in: query
-      required: false
-      schema:
-        type: string
-      description: '**Required with `curb_place_id`.** The type of curb place this aggregate applies to from the Curbs API: area, zone, space. '
     min_lat:
       name: min_lat
       in: query

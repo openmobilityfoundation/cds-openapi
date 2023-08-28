@@ -1,0 +1,8 @@
+title: Author
+x-stoplight:
+  id: anq61fkp5wuzw
+type: string
+description: |-
+  This is a standard value that must be returned in the body of all API endpoints.
+
+  The name of the organization that produces and maintains this data.

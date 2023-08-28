@@ -1,0 +1,9 @@
+title: License URL
+x-stoplight:
+  id: n6abb6mcya7um
+type: string
+format: uri
+description: |-
+  This is a standard value that must be returned in the body of all API endpoints.
+
+  The licensing terms under which this data is provided.
