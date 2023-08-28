@@ -1,0 +1,93 @@
+{
+  "collapseTableOfContents": false,
+  "items": [
+    {
+      "type": "divider",
+      "title": "APIS"
+    },
+    {
+      "type": "item",
+      "title": "Curb Data Specification",
+      "uri": "/original_CDS APIs.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb API",
+      "uri": "/APIs/Curbs API.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Event API",
+      "uri": "/APIs/Events API.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Metrics API",
+      "uri": "/APIs/Metrics API.yaml"
+    },
+    {
+      "type": "divider",
+      "title": "CDS Models"
+    },
+    {
+      "type": "item",
+      "title": "Curb Area",
+      "uri": "/Shared Data Models/curb_area.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb Zone",
+      "uri": "/Shared Data Models/curb_zone.yaml"
+    },
+    {
+      "type": "divider",
+      "title": "Shared Models"
+    },
+    {
+      "type": "item",
+      "title": "Latitude",
+      "uri": "/Shared Data Models/latitude.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Longitude",
+      "uri": "/Shared Data Models/longitude.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Operator ID",
+      "uri": "/Shared Data Models/operator_id.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Vehicle Type",
+      "uri": "/Shared Data Models/vehicle_type.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Data Source Type",
+      "uri": "/Shared Data Models/data_source_type.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Unit of Time",
+      "uri": "/Shared Data Models/unit_of_time.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Timestamp",
+      "uri": "/Shared Data Models/timestamp.yaml"
+    },
+
+    {
+      "type": "item",
+      "title": "Coordinates",
+      "uri": "/Shared Data Models/coordinates.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Polygon",
+      "uri": "/Shared Data Models/polygon.yaml"
+    }
+  ]
+}

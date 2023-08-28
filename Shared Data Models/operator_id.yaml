@@ -1,3 +1,4 @@
+title: Operator ID
 description: |-
   Unique identifier of the entity responsible for operating the event data source.
 
@@ -6,7 +7,6 @@ description: |-
   **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
 x-stoplight:
   id: 4c5bf74c924da
-title: Operator ID
 examples:
   - 55b617b9-730e-485e-83de-5e1a35fdc352
 type: string

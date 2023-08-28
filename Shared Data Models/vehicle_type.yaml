@@ -1,4 +1,4 @@
-title: vehicle_type
+title: Vehicle Type
 x-stoplight:
   id: 1525213d884c3
 type: string

@@ -1,4 +1,4 @@
-title: Model - Curb Zone
+title: Curb Zone
 type: object
 description: A contiguous region of curb space on a single block face that is regulated in a particular way.
 x-internal: false
