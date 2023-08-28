@@ -9,18 +9,8 @@ properties:
     type: string
     format: uuid
   geometry:
-    type: object
+    $ref: ./polygon.yaml
     description: The spatial extent of this curb zone.
-    required:
-      - type
-      - coordinates
-    properties:
-      type:
-        type: string
-      coordinates:
-        type: array
-        items:
-          type: number
   curb_policy_ids:
     type: array
     description: 'An array of IDs of Policy objects. Together, these define the regulations of this Curb Zone.'

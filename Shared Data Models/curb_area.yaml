@@ -1,0 +1,40 @@
+title: Model - Curb Area
+description: A particular neighborhood or area of interest that includes one or more Curb Zones.
+x-stoplight:
+  id: ynoam8nfvqvg1
+type: object
+properties:
+  curb_area_id:
+    type: string
+    format: uuid
+    description: The ID for the curb area.
+  geometry:
+    $ref: ./polygon.yaml
+    description: The spatial extent of this Curb Area.
+  name:
+    type: string
+    description: The name of this curb area for reference.
+  published_date:
+    $ref: ./timestamp.yaml
+    description: |-
+      The date/time that this curb area was first published in this data feed.
+
+      An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+  last_updated_date:
+    $ref: ./timestamp.yaml
+    description: |-
+      The date/time that the properties of ths curb area were last updated. This helps consumers know that some fields may have changed.
+
+      An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+  curb_zone_ids:
+    type: array
+    description: The IDs of all the Curb Zones included within this Curb Area at the requested time.
+    items:
+      type: string
+      format: uuid
+required:
+  - curb_area_id
+  - geometry
+  - published_date
+  - last_updated_date
+  - curb_zone_ids

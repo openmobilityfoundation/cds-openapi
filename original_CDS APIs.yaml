@@ -1154,10 +1154,10 @@ components:
         curb_zone_ids:
           - 7d8a5885-e949-4ac9-afb7-fa4d43b68530
       description: A particular neighborhood or area of interest that includes one or more Curb Zones.
+      title: Model - Curb Area
       x-internal: false
       x-stoplight:
         id: e2235c918423f
-      title: Model - Curb Area
     curb_space:
       type: object
       properties:
