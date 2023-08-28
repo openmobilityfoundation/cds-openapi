@@ -32,6 +32,7 @@ properties:
     items:
       type: string
       format: uuid
+      example: ' 0eaa505d-c9e1-49ad-9fac-3c745ba58676 '
 required:
   - curb_area_id
   - geometry

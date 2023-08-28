@@ -8,10 +8,13 @@ properties:
     type: string
     x-stoplight:
       id: o1fhr414qhn9t
+    description: A GeoJSON type.
+    example: Polygon
   coordinates:
     $ref: ./coordinates.yaml
     x-stoplight:
       id: 9qlsbndcs89pk
+    description: An array of coordinates for this polygon
 required:
   - type
   - coordinates
