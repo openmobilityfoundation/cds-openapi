@@ -2,6 +2,10 @@ title: Curb Policy
 x-stoplight:
   id: z8z47h6duwmg8
 type: object
+description: |-
+  A Policy object is a rule that allows or prohibits a particular set of users from using a particular curb at a particular time or times. Multiple Policy objects together define the full extent of regulations within a Curb Zone.
+
+  The design of the Policy object borrows heavily from the work of the CurbLR project, with additions for the larger scope of CDS.
 properties:
   curb_policy_id:
     description: |-
@@ -22,169 +26,20 @@ properties:
     type: array
     description: The rule(s) that this policy applies.
     items:
-      type: object
+      $ref: ./rules.yaml
       description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
-      properties:
-        activity:
-          type: string
-          enum:
-            - parking
-            - no parking
-            - loading
-            - no loading
-            - unloading
-            - no unloading
-            - stopping
-            - no stopping
-            - travel
-            - no travel
-          description: The activity that is forbidden or permitted by this regulation.
-        max_stay:
-          type: integer
-          description: 'The length of time (in units of max_stay_unit) for which the curb may be used under this regulation. If not specified, the curb may be used under this regulation indefinitely.'
-        max_stay_unit:
-          $ref: ./unit_of_time.yaml
-        no_return:
-          type: integer
-          description: The length of time (in units of no_return_unit) that a user must vacate a Curb Zone before being allowed to return for another stay.
-        no_return_unit:
-          $ref: ./unit_of_time.yaml
-          description: The Unit of Time associated with the no_return value.
-        user_classes:
-          type: array
-          description: A user class represents any class of vehicles that is regulated by a city with respect to curb space.
-          items:
-            type: string
-            enum:
-              - bicycle
-              - bus
-              - cargo_bicycle
-              - car
-              - moped
-              - motorcycle
-              - scooter
-              - truck
-              - van
-              - handicap-accessible
-              - human
-              - electric_assist
-              - electric
-              - combustion
-              - autonomous
-              - construction
-              - delivery
-              - emergency_use
-              - freight
-              - parking
-              - permit
-              - rideshare
-              - school
-              - service_vehicles
-              - special_events
-              - taxi
-              - utilities
-              - vending
-              - waste_management
-        rate:
-          type: array
-          description: The cost of using this Curb Zone when this regulation applies.
-          items:
-            type: object
-            description: A Rate defines the amount a user of the curb needs to pay when a given rule applies.
-            properties:
-              rate:
-                type: integer
-                description: The rate for this space in cents (or the smallest denomination of local currency) per rate_unit.
-              rate_unit:
-                $ref: '#/components/schemas/unit-of-time'
-                description: The unit of time associated with the rate.
-              rate_unit_period:
-                type: string
-                enum:
-                  - rolling
-                  - calendar
-                description: The period of time that the rate_unit covers.
-              increment_duration:
-                type: integer
-                description: 'If specified, this is the smallest number of rate_units a user can pay for.'
-              increment_amount:
-                type: integer
-                description: 'If specified, the rate for this space is rounded up to the nearest increment of this amount, specified in the same currency units as rate.'
-              start_duration:
-                type: integer
-                description: The number of rate_units the vehicle must have already been present in the Curb Zone before this rate starts applying.
-              end_duration:
-                type: integer
-                description: The number of rate_units after which the rate stops applying.
-            required:
-              - rate
-              - rate_unit
-      required:
-        - activity
   time_spans:
     type: array
     description: 'If specified, this regulation only applies at the times defined within.'
     items:
-      type: object
+      $ref: ./time_spans.yaml
       description: 'A time span defines a period of time (that may occur once or repeatedly) during which a given regulation applies. When multiple fields are combined, all criteria must be met in order for a given Time Span to apply.'
-      properties:
-        start_date:
-          $ref: ./timestamp.yaml
-          description: |-
-            The earliest point in time that this time span could apply (inclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). If unspecified, the Time Span applies to all matching periods arbitrarily far in the past.
-
-            An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
-        end_date:
-          $ref: ./timestamp.yaml
-          description: |-
-            The latest point in time that this time span could apply (exclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). If unspecified, the Time Span applies to all matching periods arbitrarily far in the future. See note below for more details.
-
-            An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
-        days_of_week:
-          type: string
-          enum:
-            - sun
-            - mon
-            - tue
-            - wed
-            - thu
-            - fri
-            - sat
-          description: An array of days of the week when this time span applies.
-        days_of_month:
-          type: array
-          description: An array of days of the month when this time span applies.
-          items:
-            type: integer
-            minimum: 1
-            maximum: 31
-        months:
-          type: array
-          description: 'If specified, this time span applies only during these months (1=January, 12=December).'
-          items:
-            type: integer
-            minimum: 1
-            maximum: 12
-        time_of_day_start:
-          type: string
-          description: 'The local time that this time span starts to apply, as 24-hour "HH:MM".'
-        time_of_day_end:
-          type: string
-          description: 'The local time that this time span stops applying, as 24-hour "HH:MM".'
-        designated_period:
-          type: string
-          enum:
-            - snow emergency
-            - holidays
-            - school days
-            - game days
-          description: 'A string representing an arbitrarily-named, externally-defined period of time.'
-        designated_period_except:
-          type: boolean
-          description: 'If specified and true, this time span applies at all times not matching the named designated period.'
   data_source_operator_id:
     type: array
-    description: An array of Data Source Operator IDs that this policy only applies to.
+    description: |-
+      An array of Data Source Operator IDs that this policy only applies to.
+
+      **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
     items:
       $ref: ./operator_id.yaml
 required:
@@ -192,7 +47,3 @@ required:
   - published_date
   - priority
   - rules
-description: |-
-  A Policy object is a rule that allows or prohibits a particular set of users from using a particular curb at a particular time or times. Multiple Policy objects together define the full extent of regulations within a Curb Zone.
-
-  The design of the Policy object borrows heavily from the work of the CurbLR project, with additions for the larger scope of CDS.
