@@ -65,11 +65,6 @@
     },
     {
       "type": "item",
-      "title": "Data Source Type",
-      "uri": "/Shared Data Models/data_source_type.yaml"
-    },
-    {
-      "type": "item",
       "title": "Unit of Time",
       "uri": "/Shared Data Models/unit_of_time.yaml"
     },
@@ -88,6 +83,11 @@
       "type": "item",
       "title": "Polygon",
       "uri": "/Shared Data Models/polygon.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Data Source Type",
+      "uri": "/Shared Data Models/data_source_type.yaml"
     }
   ]
 }
