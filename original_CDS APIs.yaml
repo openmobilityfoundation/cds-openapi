@@ -820,6 +820,7 @@ components:
       title: UUID
       x-stoplight:
         id: yan587cvuqppu
+      description: A UUID string value
     latitude:
       type: number
       minimum: -90
