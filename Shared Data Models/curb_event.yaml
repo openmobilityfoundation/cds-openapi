@@ -2,9 +2,24 @@ title: Curb Event
 x-stoplight:
   id: 61dis8xdkokpv
 type: object
+description: A Curb Event is a record of activity that happens within the geographic bounds of a Curbs object.
 properties:
-  id:
+  event_id:
     type: string
     x-stoplight:
       id: xjwh3uor9vtj9
-description: A Curb Event is a record of activity that happens within the geographic bounds of a Curbs object.
+    description: The globally unique identifier of the event that occurred.
+    format: uuid
+  event_type:
+    $ref: ./event_purpose.yaml
+    x-stoplight:
+      id: e9o3ixjkgnvna
+    description: General curb usage purpose that the vehicle performed during the event. Required for sources capable of determining activity type for relevant event_types.
+  event_location:
+    $ref: ./geoJSON-point.yaml
+    x-stoplight:
+      id: y19vh7p0lzd87
+    description: The geographic point location where the event occurred.
+required:
+  - event_id
+  - event_location

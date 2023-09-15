@@ -15,7 +15,7 @@ properties:
     format: uuid
     description: The ID for the curb area.
   geometry:
-    $ref: ./polygon.yaml
+    $ref: ./geoJSON-polygon.yaml
     description: The spatial extent of this Curb Area.
   name:
     type: string

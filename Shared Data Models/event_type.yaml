@@ -1,0 +1,14 @@
+title: Event Type
+x-stoplight:
+  id: ns9xr63gd38df
+type: string
+enum:
+  - comms_lost
+  - comms_restored
+  - decommissioned
+  - park_start
+  - park_end
+  - scheduled_report
+  - enter_area
+  - exit_area
+description: A description of what event occurred.

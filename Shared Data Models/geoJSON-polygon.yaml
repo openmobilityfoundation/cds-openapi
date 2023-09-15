@@ -1,4 +1,4 @@
-title: Polygon
+title: GeoJSON Polygon
 x-stoplight:
   id: qbu8vzmedfno6
 type: object
@@ -14,7 +14,7 @@ properties:
     $ref: ./coordinates.yaml
     x-stoplight:
       id: 9qlsbndcs89pk
-    description: An array of coordinates for this polygon
+    description: An array of coordinates for this geometry.
 required:
   - type
   - coordinates

@@ -1,0 +1,35 @@
+title: Event Purpose
+x-stoplight:
+  id: 6uj3ohchgx8f9
+type: string
+enum:
+  - construction
+  - delivery
+  - emergency_use
+  - parking
+  - passenger_transport
+  - special_events
+  - waste_management
+  - device_maintenance
+  - autonomous
+  - ems
+  - fire
+  - food_delivery
+  - parcel_delivery
+  - police
+  - public_transit
+  - ride_hail
+  - road_maintenance
+  - service_vehicles
+  - taxi
+  - utility_work
+  - vehicle_charging
+  - vehicle_parking
+  - vending
+  - unspecified
+description: |-
+  General event purpose that the vehicle performed during its event, discernible by observation, sensors, or self-reported in company data feeds.
+
+  New event purposes MAY be generated to reflect local curb uses, but when possible, the following well-known recommended values should be used. It may not always be knowable, but where it is possible this information should be conveyed.
+
+  If multiple purposes apply, then use the more descriptive/specific value. For a description of each value in the enumeration, the OMF's documentation can be found [here](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/events#event-purpose).

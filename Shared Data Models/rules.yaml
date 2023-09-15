@@ -2,6 +2,7 @@ title: Rules
 x-stoplight:
   id: 21ve1bbswuv3y
 type: object
+description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
 properties:
   activity:
     type: string
@@ -74,7 +75,7 @@ properties:
           type: integer
           description: The rate for this space in cents (or the smallest denomination of local currency) per rate_unit.
         rate_unit:
-          $ref: '#/components/schemas/unit-of-time'
+          $ref: ./unit_of_time.yaml
           description: The unit of time associated with the rate.
         rate_unit_period:
           type: string
@@ -99,4 +100,3 @@ properties:
         - rate_unit
 required:
   - activity
-description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
