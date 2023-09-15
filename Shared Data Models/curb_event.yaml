@@ -16,7 +16,7 @@ properties:
       id: e9o3ixjkgnvna
     description: General curb usage purpose that the vehicle performed during the event. Required for sources capable of determining activity type for relevant event_types.
   event_location:
-    $ref: ./geoJSON-point.yaml
+    $ref: ./geoJSON_point.yaml
     x-stoplight:
       id: y19vh7p0lzd87
     description: The geographic point location where the event occurred.

@@ -21,7 +21,7 @@ properties:
     format: uuid
     example: ' 0eaa505d-c9e1-49ad-9fac-3c745ba58676 '
   geometry:
-    $ref: ./geoJSON-polygon.yaml
+    $ref: ./geoJSON_polygon.yaml
     description: The spatial extent of this Curb Zone.
   curb_policy_ids:
     type: array
