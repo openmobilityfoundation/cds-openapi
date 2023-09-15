@@ -15,11 +15,66 @@ properties:
     x-stoplight:
       id: e9o3ixjkgnvna
     description: General curb usage purpose that the vehicle performed during the event. Required for sources capable of determining activity type for relevant event_types.
+  event_purpose:
+    $ref: ./event_purpose.yaml
+    x-stoplight:
+      id: 3iqfxzhwqegxd
   event_location:
     $ref: ./geoJSON_point.yaml
     x-stoplight:
       id: y19vh7p0lzd87
     description: The geographic point location where the event occurred.
+  event_time:
+    $ref: ./timestamp.yaml
+    x-stoplight:
+      id: 2pwulc032je7z
+    description: Time at which the event occurred.
+  event_publication_time:
+    $ref: ./timestamp.yaml
+    x-stoplight:
+      id: 4v1u5gy1laa9l
+    description: Time at which the event became available for consumption from this API.
+  event_session_id:
+    type: string
+    x-stoplight:
+      id: jj9z3s5o99fi3
+    format: uuid
+    description: |-
+      May be provided to tie known connected park_start and park_end event types together by a unique session ID.
+
+      If **not** confident of being able to determine a park_end event at some time after park_start is recorded (i.e., you cannot detect when a vehicle departs), then do **not** use session_id.
+  curb_zone_id:
+    type: string
+    x-stoplight:
+      id: 68921cndpqjax
+    format: uuid
+    description: |-
+      Unique ID of the Curb Zone where the event occurred.
+
+      Required for events that occurred at a known Curb Zone for **ALL** event_types.
+  curb_area_ids:
+    type: array
+    x-stoplight:
+      id: f49dygxi2plhh
+    description: |-
+      Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one.
+
+      Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one. Required for events that occurred in a known Curb Area, if known and used, for these event_types: `enter_area`, `exit_area`, `park_start`, `park_end`
+    items:
+      x-stoplight:
+        id: h4hgjz0397qtp
+      type: string
+      format: uuid
+  curb_space_id:
+    type: string
+    x-stoplight:
+      id: i1hz5ebvpvyp6
+    format: uuid
+    description: |-
+      Unique ID of the Curb Space where the event occurred.
+
+      Required for events that occurred at a known Curb Space, if known and used, for these event_types: `park_start`, `park_end`, `enter_area`, `exit_area`
 required:
   - event_id
   - event_location
+  - event_time
