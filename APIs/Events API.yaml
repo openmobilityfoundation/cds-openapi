@@ -77,27 +77,27 @@ paths:
                 type: object
                 properties:
                   version:
-                    type: string
+                    $ref: ../Rest Responses/rest_response_version.yaml
                     x-stoplight:
                       id: eqdftemislrw6
                   time_zone:
-                    type: string
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
                     x-stoplight:
                       id: m2xew4hnw3xop
                   last_updated:
-                    type: string
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                     x-stoplight:
                       id: ovzkxvgjhbxyn
                   currency:
-                    type: string
+                    $ref: ../Rest Responses/rest_response_currency.yaml
                     x-stoplight:
                       id: wjynocnlhuxnu
                   author:
-                    type: string
+                    $ref: ../Rest Responses/rest_response_author.yaml
                     x-stoplight:
                       id: q597ybxvfwozn
                   license_url:
-                    type: string
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
                     x-stoplight:
                       id: jejwny26g9kbp
                   data:
