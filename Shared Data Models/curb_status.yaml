@@ -1,0 +1,10 @@
+title: Curb Status
+x-stoplight:
+  id: hvscebeq5ob4d
+type: object
+properties:
+  id:
+    type: string
+    x-stoplight:
+      id: adhs12kh3sx96
+description: The Curb Status is the current status of sensors that are monitoring curb places.
