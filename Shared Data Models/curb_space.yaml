@@ -1,4 +1,4 @@
-title: curb_space
+title: Curb Space
 x-stoplight:
   id: 9qlf1mehcl8o2
 type: object
@@ -51,3 +51,8 @@ properties:
       If availability information is present, the most recent time that availability was computed for this space.
 
       An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+description: |
+  Defines individual demarcated spaces within a Curb Zone. Important notes about Curb Spaces:
+  * Curb Spaces may NOT overlap with other Curb Spaces
+  * Curb Spaces must be wholly contained within a single Curb Zone
+  * Unlike Zones, Spaces may be updated as needed, with a new `curb_space_id` being optionally assigned by the city

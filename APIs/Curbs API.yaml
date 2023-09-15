@@ -23,7 +23,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
@@ -54,6 +54,8 @@ paths:
       parameters:
         - schema:
             $ref: '#/components/schemas/uuid'
+            type: string
+            format: uuid
           in: query
           name: area
           description: 'The ID of a Curb Area. If specified, only return Curb Zones contained within this area.'
@@ -64,6 +66,12 @@ paths:
         - $ref: '#/components/parameters/lat'
         - $ref: '#/components/parameters/lng'
         - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/include_geometry'
+        - schema:
+            type: string
+          in: query
+          name: time
+          description: Only Curb Zone objects whose validity period includes this time will be returned; availability data (if supplied) will be returned as of this time
       x-stoplight:
         id: qflnve6uqz5v5
   /curbs/areas:
@@ -97,7 +105,7 @@ paths:
                         areas:
                           type: array
                           items:
-                            $ref: '#/components/schemas/curb_area'
+                            $ref: ../Shared Data Models/curb_area.yaml
         '400':
           description: BAD_REQUEST
         '401':
@@ -154,7 +162,7 @@ paths:
                         spaces:
                           type: array
                           items:
-                            $ref: '#/components/schemas/curb_space'
+                            $ref: ../Shared Data Models/curb_space.yaml
         '400':
           description: BAD_REQUEST
         '401':
@@ -170,6 +178,11 @@ paths:
       operationId: get-curbs-spaces
       description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: zone
+          description: 'The ID of a Curb Zone. If specified, only return Curb Spaces contained within this zone.'
         - $ref: '#/components/parameters/min_lat'
         - $ref: '#/components/parameters/min_lng'
         - $ref: '#/components/parameters/max_lat'
@@ -177,6 +190,11 @@ paths:
         - $ref: '#/components/parameters/lat'
         - $ref: '#/components/parameters/lng'
         - $ref: '#/components/parameters/radius'
+        - schema:
+            type: string
+          in: query
+          name: time
+          description: Availability data (if supplied) will be returned as of this time.
       security: []
       x-stoplight:
         id: p8unincykkub4
@@ -211,7 +229,7 @@ paths:
                         policies:
                           type: array
                           items:
-                            $ref: '#/components/schemas/curb_policy'
+                            $ref: ../Shared Data Models/curb_policy.yaml
         '400':
           description: BAD_REQUEST
         '401':
@@ -229,9 +247,11 @@ paths:
       parameters:
         - schema:
             type: string
+            format: uuid
+            example: '1111ad2f-14ef-40c1-b8d9-b974c89f7fa9,884d11b8-4fb7-42f2-a3ee-6c4b7499c2b3'
           in: query
           name: ids
-          description: Comma-separated list of Policy IDs.
+          description: 'If present, return only policies with the supplied UUIDs. Otherwise, return all policies.'
       security: []
       x-stoplight:
         id: v6h8wflicp82s
@@ -259,12 +279,7 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        zone:
-                          $ref: '#/components/schemas/curb_zone'
+                    $ref: ../Shared Data Models/curb_zone.yaml
         '400':
           description: BAD_REQUEST
         '401':
@@ -290,9 +305,10 @@ paths:
           description: Curb Zone ID
         - schema:
             $ref: '#/components/schemas/timestamp'
+            type: string
           in: query
           name: time
-          description: 'The Curb Zone object will only be returned if its validity period includes this time; otherwise, the server should reply with 404 Not Found.'
+          description: 'The Curb Zone object will only be returned if its validity period includes this time; otherwise, the server should reply with `404 Not Found`.'
         - schema:
             type: boolean
           in: query
@@ -325,12 +341,7 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        area:
-                          $ref: '#/components/schemas/curb_area'
+                    $ref: ../Shared Data Models/curb_area.yaml
         '400':
           description: BAD_REQUEST
         '401':
@@ -381,12 +392,7 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        space:
-                          $ref: '#/components/schemas/curb_space'
+                    $ref: ../Shared Data Models/curb_space.yaml
         '400':
           description: BAD_REQUEST
         '401':
@@ -412,6 +418,7 @@ paths:
           description: Curb Space ID
         - schema:
             $ref: '#/components/schemas/timestamp'
+            type: string
           in: query
           name: time
           description: Availability data (if supplied) will be returned as of this time.
@@ -442,12 +449,7 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        policy:
-                          $ref: '#/components/schemas/curb_policy'
+                    $ref: ../Shared Data Models/curb_policy.yaml
         '400':
           description: BAD_REQUEST
         '401':
@@ -480,49 +482,49 @@ components:
       in: query
       required: false
       schema:
-        type: string
+        type: number
       description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lng`, `max_lat`, and `max_lng`. If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
     min_lng:
       name: min_lng
       in: query
       required: false
       schema:
-        type: string
+        type: number
       description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `max_lat`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
     max_lat:
       name: max_lat
       in: query
       required: false
       schema:
-        type: string
+        type: number
       description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
     max_lng:
       name: max_lng
       in: query
       required: false
       schema:
-        type: string
+        type: number
       description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lat`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
     lat:
       name: lat
       in: query
       required: false
       schema:
-        type: string
+        type: number
       description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
     lng:
       name: lng
       in: query
       required: false
       schema:
-        type: string
+        type: number
       description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
     radius:
       name: radius
       in: query
       required: false
       schema:
-        type: string
+        type: number
       description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
     start_time:
       name: start_time
@@ -559,3 +561,10 @@ components:
       schema:
         type: string
       description: 'The ID of a Curb Space. If specified, only return records occurring within this area.'
+    include_geometry:
+      name: include_geometry
+      in: query
+      required: false
+      schema:
+        type: boolean
+      description: 'If the value is false, do not include the geometry field within the Curb Zone feature object.'

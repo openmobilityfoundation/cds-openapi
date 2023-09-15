@@ -1,5 +1,11 @@
 title: Curb Area
-description: A particular neighborhood or area of interest that includes one or more Curb Zones.
+description: |-
+  Defines curb areas in a city and their properties. A Curb Area is a particular neighborhood or area of interest that includes one or more Curb Zones. Important notes about Curb Areas:
+
+  * Curb Areas MAY overlap with other Curb Areas
+  * Multiple Curb Areas MAY include the same Curb Zones
+  * Curb Areas are not meant to be city-wide, and instead should be an area of interest around one or more Curb Zones that is no bigger than a neighborhood.
+  * Unlike Zones, Areas may be updated as needed, with a new curb_area_id being optionally assigned by the city.
 x-stoplight:
   id: ynoam8nfvqvg1
 type: object
