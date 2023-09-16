@@ -33,3 +33,7 @@ description: |-
   New event purposes MAY be generated to reflect local curb uses, but when possible, the following well-known recommended values should be used. It may not always be knowable, but where it is possible this information should be conveyed.
 
   If multiple purposes apply, then use the more descriptive/specific value. For a description of each value in the enumeration, the OMF's documentation can be found [here](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/events#event-purpose).
+
+  |Value|Description| 
+  |--------------|-----|
+  | value |  description | 

@@ -1,0 +1,28 @@
+title: Lane Type
+x-stoplight:
+  id: ph8x9ono1v24h
+type: string
+enum:
+  - travel_lane
+  - turn_lane
+  - bike_lane
+  - bus_lane
+  - parking
+  - shoulder
+  - median
+  - sidewalk
+  - unspecified
+description: |-
+  Type(s) of lane used or blocked by the vehicle performing the event, outside of curb zones.
+
+  |Value|Description| 
+  |--------------|-----|
+  | human |  A standard vehicle travel lane. | 
+  | turn_lane |  A dedicated turn lane. | 
+  | bike_lane |  A lane dedicated for usage by cyclists. | 
+  | bus_lane |  A lane dedicated for usage by buses. | 
+  | parking |  A lane used for parking, not allowed for travel. | 
+  | shoulder |  A portion of the roadway that is outside (either right or left) of the main travel lanes. A shoulder can have many uses but is not intended for general traffic. | 
+  | median |  An often unpaved, non-drivable area that separates sections of the roadway. | 
+  | sidewalk |  A path for pedestrians, usually on the side of the roadway. | 
+  | unspecified |  Unspecified | 

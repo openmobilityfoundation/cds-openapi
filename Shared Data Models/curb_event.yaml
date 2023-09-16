@@ -23,7 +23,7 @@ properties:
     $ref: ./geoJSON_point.yaml
     x-stoplight:
       id: y19vh7p0lzd87
-    description: The geographic point location where the event occurred.
+    description: 'The geo-location of where the event occurred, represented as a GeoJSON Point.'
   event_time:
     $ref: ./timestamp.yaml
     x-stoplight:
@@ -74,7 +74,84 @@ properties:
       Unique ID of the Curb Space where the event occurred.
 
       Required for events that occurred at a known Curb Space, if known and used, for these event_types: `park_start`, `park_end`, `enter_area`, `exit_area`
+  data_source_type:
+    $ref: ./data_source_type.yaml
+    x-stoplight:
+      id: tow3anlr8tr36
+  data_source_operator_id:
+    $ref: ./operator_id.yaml
+    x-stoplight:
+      id: b7peq7v42kjls
+  data_source_operator_name:
+    type: string
+    x-stoplight:
+      id: swh4u6hrdy0ey
+    description: |-
+      Name of the provider responsible for operating the vehicle, device, or sensor at the time of the event.
+
+      May be sent along with `data_source_operator_id` or on its own for small operators at the discretion of the city.
+  data_source_device_id:
+    type: string
+    x-stoplight:
+      id: w91m0qzkjjacq
+    description: |-
+      Unique identifier of this event source, whether sensor, vehicle, camera, etc. Allows agencies to connect related Events as they are recorded by the same source. If coming from a provider, this is a generated UUID they use and not the same as the external `vehicle_id`.
+
+      If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).
+  data_source_manufacturer:
+    type: string
+    x-stoplight:
+      id: utm1qt893qt44
+    description: Manufacturer of the data source hardware or vehicle reporting event data.
+  data_source_model:
+    type: string
+    x-stoplight:
+      id: 6bez0qvig7e46
+    description: Model of the data source hardware or vehicle reporting event data.
+  sensor_status_is_commissioned:
+    type: boolean
+    x-stoplight:
+      id: 3i9prwaz5klwz
+    description: 'If a sensor was used to capture this event, the commissioned status at the time that the event was reported. Indicates whether the sensor is currently in a state where it should be reporting data.'
+  sensor_status_is_online:
+    type: boolean
+    x-stoplight:
+      id: 9ra1u95oix354
+    description: 'If a sensor was used to capture this event, the online status at the time that the event was reported. Indicates whether the sensor is currently online and reporting data.'
+  vehicle_id:
+    type: string
+    x-stoplight:
+      id: 3lyyz739s4ew1
+    description: 'A vehicle identifier visible externally on the vehicle itself. If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).'
+  vehicle_license_plate:
+    type: string
+    x-stoplight:
+      id: cckfib2gi29uh
+    description: 'The consistently placed vehicle license plate, usable by ALPR systems, when required for curb use. This field is potentially sensitive (depending on local, state, and national laws) and a data privacy framework is recommended for collecting, retention, deletion, obfuscation, and security. If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).'
+  vehicle_permit_number:
+    type: string
+    x-stoplight:
+      id: p9m8k37j17kcv
+    description: 'If applicable, the assigned permit number for this vehicle from the city agency.'
+  vehicle_length:
+    type: number
+    x-stoplight:
+      id: zax8xvn9afq87
+    description: |-
+      Approximate length of the vehicle that performed the event, measured in centimeters.
+
+      Required for sources capable of determining vehicle length.
+  vehicle_propulsion_types:
+    $ref: ./propulsion_type.yaml
+    x-stoplight:
+      id: yzh8z7wdjj72a
+  vehicle_blocked_lane_types:
+    $ref: ./lane_type.yaml
+    x-stoplight:
+      id: z3n62d0081u5j
 required:
   - event_id
   - event_location
   - event_time
+  - data_source_type
+  - data_source_device_id
