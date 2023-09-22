@@ -15,6 +15,19 @@ paths:
       operationId: get-metrics-sessions
       x-stoplight:
         id: ydi58a23alrxl
+      parameters:
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
+      description: ''
   /metrics/aggregates:
     get:
       summary: Your GET endpoint
@@ -23,6 +36,19 @@ paths:
       operationId: get-metrics-aggregates
       x-stoplight:
         id: g28syxi3c9oac
+      parameters:
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/metric_type'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
 components:
   schemas: {}
   parameters:
@@ -108,3 +134,15 @@ components:
         type: string
         format: uuid
       description: 'The ID of this single curb place. If specified, only return data contained within this area. Required with `curb_place_type`.'
+    metric_type:
+      name: metric_type
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - total_sessions
+          - turnover
+          - average_dwell_time
+          - occupancy_percent
+      description: 'The single metric to return from the [Methodology](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology)'

@@ -1,0 +1,10 @@
+title: Session
+x-stoplight:
+  id: a0xesmm6lfcdf
+type: object
+description: 'Sessions are a historic subset of curb events, with some rows combined, some columns removed for clarity and privacy, and for only some curb event types. Sessions are meant to provide a granular view of parking and area sessions happening around the curb places, so consumers can do their own analysis.'
+properties:
+  session_type:
+    type: string
+    x-stoplight:
+      id: 49itgyeou9waj

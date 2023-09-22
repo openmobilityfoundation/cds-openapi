@@ -1,0 +1,10 @@
+title: Aggregate
+x-stoplight:
+  id: 65oz7fytkhcj8
+type: object
+properties:
+  id:
+    type: string
+    x-stoplight:
+      id: gukvs97dshqqd
+description: 'Aggregates are historic pre-computed counts and metrics of Events occurring in curb places, aggregated to the hour. All Aggregates can be calculated from the data defined in the **Session** object which is returned in the `metrics/sessions` endpoint of the CDS Metrics API.'
