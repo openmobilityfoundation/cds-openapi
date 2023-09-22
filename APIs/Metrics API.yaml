@@ -11,7 +11,26 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
       operationId: get-metrics-sessions
       x-stoplight:
         id: ydi58a23alrxl
@@ -32,7 +51,26 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
       operationId: get-metrics-aggregates
       x-stoplight:
         id: g28syxi3c9oac
@@ -49,6 +87,8 @@ paths:
         - $ref: '#/components/parameters/radius'
         - $ref: '#/components/parameters/start_time'
         - $ref: '#/components/parameters/end_time'
+      requestBody:
+        content: {}
 components:
   schemas: {}
   parameters:
