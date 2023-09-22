@@ -149,6 +149,20 @@ properties:
     $ref: ./lane_type.yaml
     x-stoplight:
       id: z3n62d0081u5j
+  curb_occupants:
+    type: array
+    x-stoplight:
+      id: jysyhxqxkjnnz
+    items:
+      $ref: ./curb_occupant.yaml
+      x-stoplight:
+        id: bzse7o4oic8h4
+  actual_cost:
+    type: integer
+    x-stoplight:
+      id: aifcs5wjnhqhu
+    description: 'If available from the source, the actual cost, in the currency defined in currency, paid by the curb user for this event. The currency type is sent in with the REST Endpoints JSON object. All costs should be given as integers in the currency''s smallest unit. As an example, to represent $1 USD, specify an amount of 100 (for 100 cents).'
+    example: 100
 required:
   - event_id
   - event_location
