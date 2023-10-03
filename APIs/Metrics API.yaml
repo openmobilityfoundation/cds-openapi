@@ -10,7 +10,7 @@ servers:
 paths:
   /metrics/sessions:
     get:
-      summary: Your GET endpoint
+      summary: Get Metric Sessions
       tags: []
       responses:
         '200':
@@ -68,7 +68,7 @@ paths:
         An agency may choose to make this endpoint static (and return all the available data at once in a single file) or dynamic (and allow the use of any or all of the query parameters below to filter the data). If dynamic, all query parameters are optional.
   /metrics/aggregates:
     get:
-      summary: Your GET endpoint
+      summary: Get Metric Aggregates
       tags: []
       responses:
         '200':
