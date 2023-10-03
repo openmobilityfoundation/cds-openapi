@@ -1,0 +1,8 @@
+$ref: ../Shared Data Models/timestamp.yaml
+x-stoplight:
+  id: 7whhyrr3f3xmh
+description: |-
+  This is a standard value that must be returned in the body of all API endpoints.
+
+  The last time the data in this API was updated.
+title: Last Updated

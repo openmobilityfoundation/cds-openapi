@@ -1,0 +1,30 @@
+title: GeoJSON Point
+x-stoplight:
+  id: s4yibugo4t29k
+type: object
+description: The spatial extent of this location represented as a GeoJSON geometry of type "Point" as defined in RFC 7946 3.1.6.
+examples:
+  - type: Point
+    coordinates:
+      - - -73.982105
+        - 40.767932
+properties:
+  type:
+    type: string
+    x-stoplight:
+      id: 1cm8n2eh9lpc5
+    description: A GeoJSON type.
+    example: Point
+  coordinates:
+    x-stoplight:
+      id: o1wla6uwx1l2x
+    description: An array of coordinates for this geometry.
+    type: array
+    items:
+      x-stoplight:
+        id: qskkkudk4ofyb
+      type: number
+      example: '-73.982105,40.767932'
+required:
+  - type
+  - coordinates

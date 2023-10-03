@@ -1,0 +1,102 @@
+title: Rules
+x-stoplight:
+  id: 21ve1bbswuv3y
+type: object
+description: 'A rule defines who is allowed to do what, and for how long, on a curb, per the policy.'
+properties:
+  activity:
+    type: string
+    enum:
+      - parking
+      - no parking
+      - loading
+      - no loading
+      - unloading
+      - no unloading
+      - stopping
+      - no stopping
+      - travel
+      - no travel
+    description: The activity that is forbidden or permitted by this regulation.
+  max_stay:
+    type: integer
+    description: 'The length of time (in units of max_stay_unit) for which the curb may be used under this regulation. If not specified, the curb may be used under this regulation indefinitely.'
+  max_stay_unit:
+    $ref: ./unit_of_time.yaml
+  no_return:
+    type: integer
+    description: The length of time (in units of no_return_unit) that a user must vacate a Curb Zone before being allowed to return for another stay.
+  no_return_unit:
+    $ref: ./unit_of_time.yaml
+    description: The Unit of Time associated with the no_return value.
+  user_classes:
+    type: array
+    description: A user class represents any class of vehicles that is regulated by a city with respect to curb space.
+    items:
+      type: string
+      enum:
+        - bicycle
+        - bus
+        - cargo_bicycle
+        - car
+        - moped
+        - motorcycle
+        - scooter
+        - truck
+        - van
+        - handicap-accessible
+        - human
+        - electric_assist
+        - electric
+        - combustion
+        - autonomous
+        - construction
+        - delivery
+        - emergency_use
+        - freight
+        - parking
+        - permit
+        - rideshare
+        - school
+        - service_vehicles
+        - special_events
+        - taxi
+        - utilities
+        - vending
+        - waste_management
+  rate:
+    type: array
+    description: The cost of using this Curb Zone when this regulation applies.
+    items:
+      type: object
+      description: A Rate defines the amount a user of the curb needs to pay when a given rule applies.
+      properties:
+        rate:
+          type: integer
+          description: The rate for this space in cents (or the smallest denomination of local currency) per rate_unit.
+        rate_unit:
+          $ref: ./unit_of_time.yaml
+          description: The unit of time associated with the rate.
+        rate_unit_period:
+          type: string
+          enum:
+            - rolling
+            - calendar
+          description: The period of time that the rate_unit covers.
+        increment_duration:
+          type: integer
+          description: 'If specified, this is the smallest number of rate_units a user can pay for.'
+        increment_amount:
+          type: integer
+          description: 'If specified, the rate for this space is rounded up to the nearest increment of this amount, specified in the same currency units as rate.'
+        start_duration:
+          type: integer
+          description: The number of rate_units the vehicle must have already been present in the Curb Zone before this rate starts applying.
+        end_duration:
+          type: integer
+          description: The number of rate_units after which the rate stops applying.
+      required:
+        - rate
+        - rate_unit
+required:
+  - activity

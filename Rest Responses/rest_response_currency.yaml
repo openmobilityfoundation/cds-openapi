@@ -1,0 +1,9 @@
+title: Currency
+x-stoplight:
+  id: bxxnwcwxpl48e
+type: string
+description: |-
+  This is a standard value that must be returned in the body of all API endpoints.
+
+  The ISO 4217 3-letter code for the currency in which rates for curb usage are denominated. All costs should be given as integers in the currency's smallest unit. As an example, to represent `$1 USD`, specify an amount of `100` (for 100 cents).
+example: '100'

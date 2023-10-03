@@ -1,0 +1,62 @@
+title: Time Spans
+description: 'A time span defines a period of time (that may occur once or repeatedly) during which a given regulation applies. When multiple fields are combined, all criteria must be met in order for a given Time Span to apply.'
+x-stoplight:
+  id: 4h2hiu3m6sbhz
+type: object
+
+      
+properties:
+  start_date:
+    $ref: ./timestamp.yaml
+    description: |-
+      The earliest point in time that this time span could apply (inclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). If unspecified, the Time Span applies to all matching periods arbitrarily far in the past.
+
+      An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+  end_date:
+    $ref: ./timestamp.yaml
+    description: |-
+      The latest point in time that this time span could apply (exclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). If unspecified, the Time Span applies to all matching periods arbitrarily far in the future. See note below for more details.
+
+      An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+  days_of_week:
+    type: string
+    enum:
+      - sun
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+    description: An array of days of the week when this time span applies.
+  days_of_month:
+    type: array
+    description: An array of days of the month when this time span applies.
+    items:
+      type: integer
+      minimum: 1
+      maximum: 31
+  months:
+    type: array
+    description: 'If specified, this time span applies only during these months (1=January, 12=December).'
+    items:
+      type: integer
+      minimum: 1
+      maximum: 12
+  time_of_day_start:
+    type: string
+    description: 'The local time that this time span starts to apply, as 24-hour "HH:MM".'
+  time_of_day_end:
+    type: string
+    description: 'The local time that this time span stops applying, as 24-hour "HH:MM".'
+  designated_period:
+    type: string
+    enum:
+      - snow emergency
+      - holidays
+      - school days
+      - game days
+    description: 'A string representing an arbitrarily-named, externally-defined period of time.'
+  designated_period_except:
+    type: boolean
+    description: 'If specified and true, this time span applies at all times not matching the named designated period.'

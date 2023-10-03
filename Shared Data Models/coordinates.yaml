@@ -1,0 +1,16 @@
+title: Coordinates
+x-stoplight:
+  id: yptovg63ofymg
+type: array
+examples:
+  - - - -73.982105
+      - 40.767932
+    - - -73.973694
+      - 40.764551
+    - - -73.949318
+      - 40.796918
+items:
+  x-stoplight:
+    id: zcetnhryqkc90
+  type: array
+description: Coordinates are defined as an array of collections/arrays where the nested arrays are 2 number values. These represent the latitude and longitude.

@@ -1,0 +1,191 @@
+{
+  "collapseTableOfContents": true,
+  "items": [
+    {
+      "type": "divider",
+      "title": "APIS"
+    },
+    {
+      "type": "item",
+      "title": "Curb API",
+      "uri": "/APIs/Curbs API.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Event API",
+      "uri": "/APIs/Events API.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Metrics API",
+      "uri": "/APIs/Metrics API.yaml"
+    },
+    {
+      "type": "divider",
+      "title": "CDS Models"
+    },
+    {
+      "type": "item",
+      "title": "Curb Area",
+      "uri": "/Shared Data Models/curb_area.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb Zone",
+      "uri": "/Shared Data Models/curb_zone.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb Space",
+      "uri": "/Shared Data Models/curb_space.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb Policy",
+      "uri": "/Shared Data Models/curb_policy.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Curb Event",
+      "uri": "/Shared Data Models/curb_event.yaml"
+    },
+    {
+      "type": "divider",
+      "title": "Shared Models"
+    },
+        {
+        "type": "item",
+        "title": "Aggregate",
+        "uri": "/Shared Data Models/aggregate.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Coordinates",
+        "uri": "/Shared Data Models/coordinates.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Curb Occupant",
+        "uri": "/Shared Data Models/curb_occupant.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Curb Status",
+        "uri": "/Shared Data Models/curb_status.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Data Source Type",
+        "uri": "/Shared Data Models/data_source_type.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Event Purpose",
+        "uri": "/Shared Data Models/event_purpose.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Event Type",
+        "uri": "/Shared Data Models/event_type.yaml"
+    },
+    {
+        "type": "item",
+        "title": "GeoJSON Point",
+        "uri": "/Shared Data Models/geoJSON_point.yaml"
+    },
+    {
+        "type": "item",
+        "title": "GeoJSON Polygon",
+        "uri": "/Shared Data Models/geoJSON_polygon.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Lane Type",
+        "uri": "/Shared Data Models/lane_type.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Latitude",
+        "uri": "/Shared Data Models/latitude.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Longitude",
+        "uri": "/Shared Data Models/longitude.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Operator ID",
+        "uri": "/Shared Data Models/operator_id.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Propulsion Type",
+        "uri": "/Shared Data Models/propulsion_type.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Rules",
+        "uri": "/Shared Data Models/rules.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Session",
+        "uri": "/Shared Data Models/session.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Time Spans",
+        "uri": "/Shared Data Models/time_spans.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Timestamp",
+        "uri": "/Shared Data Models/timestamp.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Unit of Time",
+        "uri": "/Shared Data Models/unit_of_time.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Vehicle Type",
+        "uri": "/Shared Data Models/vehicle_type.yaml"
+    },
+    {
+      "type": "divider",
+      "title": "Shared API Responses"
+    },
+    {
+      "type": "item",
+      "title": "Author",
+      "uri": "/Rest Responses/rest_response_author.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Currency",
+      "uri": "/Rest Responses/rest_response_currency.yaml"
+    },
+    {
+      "type": "item",
+      "title": "License URL",
+      "uri": "/Rest Responses/rest_response_license_url.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Time Zone",
+      "uri": "/Rest Responses/rest_response_time_zone.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Version",
+      "uri": "/Rest Responses/rest_response_version.yaml"
+    },
+    {
+      "type": "item",
+      "title": "Last Updated",
+      "uri": "/Rest Responses/rest_response_last_updated.yaml"
+    }
+  ]
+}

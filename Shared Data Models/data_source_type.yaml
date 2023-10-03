@@ -1,0 +1,14 @@
+title: Data Source Type
+x-stoplight:
+  id: 807f64500e804
+type: string
+enum:
+  - data_feed
+  - camera
+  - above_ground
+  - in_ground
+  - meter
+  - payment
+  - in_person
+  - other
+description: The set of possible categories of sources that can publish a Curb Event.

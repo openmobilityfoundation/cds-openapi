@@ -1,0 +1,20 @@
+title: GeoJSON Polygon
+x-stoplight:
+  id: qbu8vzmedfno6
+type: object
+description: The spatial extent of this curb feature and is represented as a GeoJSON geometry of type "Polygon" as defined in RFC 7946 3.1.6.
+properties:
+  type:
+    type: string
+    x-stoplight:
+      id: o1fhr414qhn9t
+    description: A GeoJSON type.
+    example: Polygon
+  coordinates:
+    $ref: ./coordinates.yaml
+    x-stoplight:
+      id: 9qlsbndcs89pk
+    description: An array of coordinates for this geometry.
+required:
+  - type
+  - coordinates
