@@ -4,6 +4,7 @@ x-stoplight:
 info:
   title: Metrics API
   version: '1.0'
+  description: 'The Metrics API is a REST API allowing historic metrics calculations based on Event activity that happened at defined Curb places. Defines common calculation methodologies to measure historic dwell time, occupancy, usage and other aggregated statistics.'
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -44,6 +45,8 @@ paths:
                           $ref: ../Shared Data Models/session.yaml
                           x-stoplight:
                             id: 69aplzzla18wd
+        '501':
+          description: Not Implemented
       operationId: get-metrics-sessions
       x-stoplight:
         id: ydi58a23alrxl
@@ -59,7 +62,10 @@ paths:
         - $ref: '#/components/parameters/radius'
         - $ref: '#/components/parameters/start_time'
         - $ref: '#/components/parameters/end_time'
-      description: ''
+      description: |-
+        Optional endpoint. Enables the querying of sessions from an agency.
+
+        An agency may choose to make this endpoint static (and return all the available data at once in a single file) or dynamic (and allow the use of any or all of the query parameters below to filter the data). If dynamic, all query parameters are optional.
   /metrics/aggregates:
     get:
       summary: Your GET endpoint
@@ -97,6 +103,8 @@ paths:
                           $ref: ../Shared Data Models/aggregate.yaml
                           x-stoplight:
                             id: w9zfx39ouf3ti
+        '501':
+          description: Not Implemented
       operationId: get-metrics-aggregates
       x-stoplight:
         id: g28syxi3c9oac
@@ -115,6 +123,10 @@ paths:
         - $ref: '#/components/parameters/end_time'
       requestBody:
         content: {}
+      description: |-
+        Optional endpoint. Enables the querying of aggregates from an agency.
+
+        An agency may choose to make this endpoint static (and return all the available data at once in a single file) or dynamic (and allow the use of any or all of the query parameters below to filter the data). If dynamic, all query parameters are optional.
 components:
   schemas: {}
   parameters:

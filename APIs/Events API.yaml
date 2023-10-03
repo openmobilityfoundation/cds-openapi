@@ -4,6 +4,7 @@ x-stoplight:
 info:
   title: Event API
   version: '1.0'
+  description: 'The Events API is a REST API allowing real-time and historic events at the curb to be sent to cities, and the ability to check on the status of any sensors. Events can come from company data feeds, on street sensors, session payments, company check-ins, in-person parking personnel, and/or other city data sources. Data sent in the Events API can be connected to the Curbs API over time and space, and events are used for calculations in the Metrics API.'
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -64,6 +65,7 @@ paths:
         - $ref: '#/components/parameters/curb_area_id'
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
+      description: This required endpoint must be implemented by every Events API server. Enables the querying of CDS events.
   /events/status:
     get:
       summary: Get Status
@@ -113,6 +115,8 @@ paths:
                           $ref: ../Shared Data Models/curb_status.yaml
                           x-stoplight:
                             id: 19y5xjcx0b5m5
+        '501':
+          description: Not Implemented
       operationId: get-events-status
       x-stoplight:
         id: 59cq7582mxcgn
@@ -120,6 +124,7 @@ paths:
         - $ref: '#/components/parameters/curb_area_id'
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
+      description: Optional endpoint. Enables the querying of statuses for various sensors monitoring curb places.
 components:
   schemas: {}
   parameters:
