@@ -4,6 +4,7 @@ x-stoplight:
 info:
   title: Curb API
   version: '1.0'
+  description: 'The Curbs API is a REST API allowing cities to specify areas of interest along the curb along with the rules for using them: who is allowed to park, load, unload, pick up, drop off, etc., for how long, for what price (if any), at what times, and on which days. Locations defined in the Curbs API can be connected to event and metrics data, and can be shared with companies and the public, for purposes such as routing, finding legal parking, loading, and pick-up/drop-off spots, or analyzing curb utilization over time.'
 servers:
   - url: 'http://localhost:3000'
 paths:
@@ -39,16 +40,6 @@ paths:
                           type: array
                           items:
                             $ref: ../Shared Data Models/curb_zone.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '500':
-          description: SERVER_ERROR
-        '503':
-          description: SERVICE_UNAVAILABLE
       operationId: get-curbs-zones
       description: 'This required endpoint must be implemented by every Curbs API server. If attaching policies to curb zones, the Query Curb Policies endpoint is also required.'
       parameters:
@@ -106,18 +97,8 @@ paths:
                           type: array
                           items:
                             $ref: ../Shared Data Models/curb_area.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '500':
-          description: SERVER_ERROR
         '501':
           description: NOT_IMPLEMENTED
-        '503':
-          description: SERVICE_UNAVAILABLE
       operationId: get-curbs-areas
       description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
@@ -163,18 +144,8 @@ paths:
                           type: array
                           items:
                             $ref: ../Shared Data Models/curb_space.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '500':
-          description: SERVER_ERROR
         '501':
           description: NOT_IMPLEMENTED
-        '503':
-          description: SERVICE_UNAVAILABLE
       operationId: get-curbs-spaces
       description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
@@ -230,18 +201,8 @@ paths:
                           type: array
                           items:
                             $ref: ../Shared Data Models/curb_policy.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '500':
-          description: SERVER_ERROR
         '501':
           description: NOT_IMPLEMENTED
-        '503':
-          description: SERVICE_UNAVAILABLE
       operationId: get-curbs-policies
       description: 'Optional endpoint, but required if Curb Zones contain policy_id references. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
@@ -280,20 +241,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     $ref: ../Shared Data Models/curb_zone.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '404':
-          description: NOT_FOUND
-        '500':
-          description: SERVER_ERROR
         '501':
           description: NOT_IMPLEMENTED
-        '503':
-          description: SERVICE_UNAVAILABLE
       operationId: get-curbs-zone
       description: 'Fetch a single Curb Zone by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
@@ -342,20 +291,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     $ref: ../Shared Data Models/curb_area.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '404':
-          description: NOT_FOUND
-        '500':
-          description: SERVER_ERROR
         '501':
           description: NOT_IMPLEMENTED
-        '503':
-          description: SERVICE_UNAVAILABLE
       operationId: get-curbs-area
       description: 'Fetch a single Curb Area by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
@@ -393,20 +330,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     $ref: ../Shared Data Models/curb_space.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '404':
-          description: NOT_FOUND
-        '500':
-          description: SERVER_ERROR
         '501':
           description: NOT_IMPLEMENTED
-        '503':
-          description: SERVICE_UNAVAILABLE
       operationId: get-curbs-space
       description: 'Fetch a single Curb Space by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
@@ -450,18 +375,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     $ref: ../Shared Data Models/curb_policy.yaml
-        '400':
-          description: BAD_REQUEST
-        '401':
-          description: UNAUTHORIZED
-        '403':
-          description: FORBIDDEN
-        '404':
-          description: NOT_FOUND
-        '500':
-          description: SERVER_ERROR
-        '503':
-          description: SERVICE_UNAVAILABLE
+        '501':
+          description: Not Implemented
       operationId: get-curbs-policy
       description: Fetch a single Curb Policy by ID.
       parameters:
