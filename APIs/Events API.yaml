@@ -1,0 +1,149 @@
+openapi: 3.1.0
+x-stoplight:
+  id: i4ivj21etaicj
+info:
+  title: Event API
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /events/events:
+    get:
+      summary: Get Events
+      tags: []
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                    x-stoplight:
+                      id: qs05jtmqdlff8
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                    x-stoplight:
+                      id: bg8ymkjkxr1c0
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                    x-stoplight:
+                      id: 5tjorzs6qxy1k
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                    x-stoplight:
+                      id: ez7o2wgpfn60b
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                    x-stoplight:
+                      id: zecy3vq5gihxl
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
+                    x-stoplight:
+                      id: eq4rb5itzgfc2
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: fhxkczml8n5d5
+                    properties:
+                      events:
+                        type: array
+                        x-stoplight:
+                          id: wywl1bdwd0h74
+                        items:
+                          $ref: ../Shared Data Models/curb_event.yaml
+                          x-stoplight:
+                            id: kien1mkesfu4a
+      operationId: get-events-events
+      x-stoplight:
+        id: er2r1dx6pype6
+      parameters:
+        - $ref: '#/components/parameters/curb_area_id'
+        - $ref: '#/components/parameters/curb_zone_id'
+        - $ref: '#/components/parameters/curb_space_id'
+  /events/status:
+    get:
+      summary: Get Status
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                    x-stoplight:
+                      id: eqdftemislrw6
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                    x-stoplight:
+                      id: m2xew4hnw3xop
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                    x-stoplight:
+                      id: ovzkxvgjhbxyn
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                    x-stoplight:
+                      id: wjynocnlhuxnu
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                    x-stoplight:
+                      id: q597ybxvfwozn
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
+                    x-stoplight:
+                      id: jejwny26g9kbp
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: e1wkbj37xvkz9
+                    properties:
+                      status:
+                        type: array
+                        x-stoplight:
+                          id: mkzjjnavtjcch
+                        items:
+                          $ref: ../Shared Data Models/curb_status.yaml
+                          x-stoplight:
+                            id: 19y5xjcx0b5m5
+      operationId: get-events-status
+      x-stoplight:
+        id: 59cq7582mxcgn
+      parameters:
+        - $ref: '#/components/parameters/curb_area_id'
+        - $ref: '#/components/parameters/curb_zone_id'
+        - $ref: '#/components/parameters/curb_space_id'
+components:
+  schemas: {}
+  parameters:
+    curb_area_id:
+      name: curb_area_id
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: 'The ID of a Curb Area. If specified, only return events occurring within this area.'
+    curb_zone_id:
+      name: curb_zone_id
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: 'The ID of a Curb Zone. If specified, only return events occurring within this zone.'
+    curb_space_id:
+      name: curb_space_id
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: 'The ID of a Curb Space. If specified, only return events occurring within this space.'

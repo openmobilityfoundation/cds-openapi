@@ -1,4 +1,4 @@
-### _DRAFT since Aug 19 2022_
+### _Last updated on Aug 28 2023_
 
 Not for production use.
 
@@ -10,3 +10,6 @@ A browseable schema is available on [Stoplight](https://stoplight.io/) at [https
 The CDS schema versions are organized by repo branches. For example, the latest **v1.0.0-dev** is on the [v1.0.0-dev branch](https://github.com/openmobilityfoundation/cds-openapi/tree/v1.0.0-dev).
 
 Within each branch, there is a single YAML file that defines each CDS API (curbs, events, metrics). 
+
+# CDS v1.0.0 Rebuild Branch
+This branch is a WIP to refactor theh v1.0 of the CDS Open API Spec so that there is a separate YAML file for each of the CDS endpoints.

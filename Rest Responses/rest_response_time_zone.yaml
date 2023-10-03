@@ -1,0 +1,10 @@
+title: Time Zone
+type: string
+x-stoplight:
+  id: sf6d85kf4u0y6
+description: |-
+  This is a standard value that must be returned in the body of all API endpoints.
+
+  The time zone that applies to parking regulations in this dataset.
+
+  MUST be a valid [TZ database time zone name](https://www.iana.org/time-zones) (ex: "US/Eastern" or "Europe/Paris").

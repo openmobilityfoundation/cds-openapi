@@ -1,0 +1,37 @@
+title: Curb Occupant
+x-stoplight:
+  id: j4qdk23phf9dw
+type: object
+description: A Curb Occupant object represents a specific vehicle’s occupancy in a curb region at a specific point in time.
+properties:
+  type:
+    $ref: ./vehicle_type.yaml
+    x-stoplight:
+      id: a0bv1jho5vtew
+    description: 'The vehicle type of the occupant. When the event source is not capable of distinguishing vehicle type, this property must be `unspecified`.'
+  length:
+    type: number
+    x-stoplight:
+      id: mvr9ehl492mj1
+    description: |-
+      The approximate length in centimeters of the vehicle.
+
+      Required when the event source is capable of determining vehicle length.
+    format: float
+  linear_location:
+    type: array
+    x-stoplight:
+      id: lahsnukjw7vmq
+    description: |-
+      A two-element array that specifies the start and end of the occupant’s linear location relative to the start of the Curb Zone in that order.
+
+      Required when the event source is capable of determining the linear location of occupants.
+    minItems: 2
+    maxItems: 2
+    items:
+      x-stoplight:
+        id: ikwe7c8xyuop1
+      type: number
+      format: float
+required:
+  - type

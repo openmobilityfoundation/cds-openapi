@@ -1,0 +1,176 @@
+title: Curb Zone
+type: object
+description: |
+  A Curb Zone is a geographical entity representing a single region along the curb, along with metadata about that region and the policies that apply to its use by vehicles. What constitutes an individual Curb Zone is determined by the city, but all Curb Zones MUST meet the following criteria:
+
+  * Always have a common regulation along their entire extent (i.e., if at certain times of day, half of a given stretch of curb is a loading zone and the other half is metered parking, that stretch of curb must be divided into at least two Curb Zones);
+
+  * Never span multiple blocks -- an entire Curb Zone must be on the same street and be between the same two cross streets, alleys, or service roads.
+
+  * Never overlap other Curb Zones in the same dataset with overlapping validity times. This applies to both the zone's polygon geometries and linear references (if used).
+
+  * Be assigned a unique ID, in the form of a UUID. This ID SHOULD remain consistent as long as the Curb Zone's geography remains substantially the same. Policies may be updated without changing the ID.
+
+  * It SHOULD NOT be possible to legally park a single vehicle in two different Curb Zone at the same time (i.e., a given non-demarcated parking area or loading zone should be represented as a single curb location), unless this conflicts with the requirements above.
+x-internal: false
+x-stoplight:
+  id: 61q01kevf3g78
+properties:
+  curb_zone_id:
+    type: string
+    format: uuid
+    example: ' 0eaa505d-c9e1-49ad-9fac-3c745ba58676 '
+  geometry:
+    $ref: ./geoJSON_polygon.yaml
+    description: The spatial extent of this Curb Zone.
+  curb_policy_ids:
+    type: array
+    description: 'An array of IDs of Policy objects. Together, these define the regulations of this Curb Zone.'
+    items:
+      type: string
+  published_date:
+    $ref: ./timestamp.yaml
+  prev_policies:
+    type: array
+    description: An array of information about what previous policies applied to a curb zone and when.
+    items:
+      type: object
+      properties:
+        curb_policy_ids:
+          type: array
+          description: 'An array of IDs of Policy objects. Together, these define the previous regulations of this Curb Zone.'
+          items:
+            type: string
+            format: uuid
+        start_date:
+          $ref: ./timestamp.yaml
+        end_date:
+          $ref: ./timestamp.yaml
+      required:
+        - curb_policy_ids
+        - start_date
+        - end_date
+  last_updated_date:
+    $ref: ./timestamp.yaml
+  prev_curb_zone_ids:
+    type: array
+    description: An array of IDs of previous curb zone objects. They are listed in order with the most recent ones first.
+    items:
+      type: string
+      format: uuid
+  start_date:
+    $ref: ./timestamp.yaml
+    description: 'The earliest time that the data for this curb location is known to be valid (inclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). This could be the date on which the data was collected, for instance. This MUST never change for a given id.'
+  end_date:
+    $ref: ./timestamp.yaml
+    description: 'The time at which the data for this curb location ceases to be valid (exclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). If not present, the data will be presumed to be valid indefinitely.'
+  location_references:
+    type: array
+    description: One or more linear references for this Curb Zone.
+    items:
+      type: object
+      description: 'A linear reference defines a Curb Zone''s position by reference to a linear feature, like a street centerline or edge-of-pavement line.'
+      properties:
+        source:
+          type: string
+          format: url
+          description: An identifier for the source of the linear reference. This MUST be a URL pointing to more information about the underlying map or reference system.
+        ref_id:
+          type: string
+          description: 'The linear feature being referenced (usually a street or curb segment). For OpenLR, this is the Base64-encoded OpenLR line location for the street segment of which this Curb Zone is part, and the start and end offsets below are relative to this segment.'
+        start:
+          type: integer
+          description: 'The distance (in centimeters) from the start of the referenced linear feature to the start of the Curb Zone (inclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)).'
+          minimum: 0
+        end:
+          type: integer
+          description: 'The distance (in centimeters) from the start of the referenced linear feature to the end of the Curb Zone (exclusive, see [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)). ''end'' MAY be smaller than start, implying that the direction of the Curb Zone is opposite to the direction of the referenced linear feature - in this case the [Range Boundaries](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/general-information.md#range-boundaries)) are reversed.'
+          minimum: 0
+        side:
+          type: string
+          enum:
+            - left
+            - right
+          description: 'If the referenced linear feature is a roadway, the side of the roadway on which the Curb Zone may be found, when heading from the start to the end of the feature in its native orientation. Values are left and right. MUST be absent for features where `entire_roadway` is true.'
+      required:
+        - source
+        - ref_id
+        - start
+        - end
+  name:
+    type: string
+    description: A human-readable name for this Curb Zone that identifies it to end users.
+  user_zone_id:
+    type: string
+    description: 'An identifier that can be used to refer to this Curb Zone on physical signage as well as within mobile applications, typically for payment purposes.'
+  street_name:
+    type: string
+    description: The name of the street that this Curb Zone is on.
+  cross_street_start_name:
+    type: string
+    description: The name of the cross street at or before the start of this Curb Zone.
+  cross_street_end_name:
+    type: string
+    description: The name of the cross street at the end of this Curb Zone.
+  length:
+    type: integer
+    description: 'The length, in centimeters, of the Curb Zone when projected along the street centerline. Note that this is the definitive length of the curb area, and not the edge length of the geographic polygon.'
+    exclusiveMinimum: 0
+  width:
+    type: integer
+    description: 'The width, in centimeters, that the Curb Zone occupies from the curb to the roadway lane.'
+    exclusiveMinimum: 0
+  available_space_lengths:
+    type: array
+    description: 'If availability information is present, an array of numbers containing the lengths (in centimeters) of all known non-overlapping available spaces within this Curb Zone.'
+    items:
+      type: integer
+  availability_time:
+    $ref: ./timestamp.yaml
+  parking_angle:
+    type: string
+    enum:
+      - parallel
+      - perpendicular
+      - angled
+    description: The angle in which passenger vehicles in this Curb Zone are meant to park.
+  num_spaces:
+    type: integer
+    description: The number of demarcated spaces within this Curb Zone.
+  street_side:
+    type: string
+    enum:
+      - 'N'
+      - NE
+      - E
+      - SE
+      - S
+      - SW
+      - W
+      - NW
+    description: The cardinal or subcardinal direction representing the side of the roadway that this curb is on.
+  median:
+    type: boolean
+    description: 'If "true", this curb location is on the median of a street, rather than its edge.'
+  entire_roadway:
+    type: boolean
+    description: 'If "true", this curb location takes up the entire width of the roadway (which may be impassible for through traffic when the Curb Zone is being used for parking or loading).'
+  curb_area_ids:
+    type: array
+    description: The ID(s) of the Curb Areas that this Curb Zone is a part of.
+    items:
+      type: string
+      format: uuid
+  curb_space_ids:
+    type: array
+    description: The ID(s) of the Curb Spaces that this Curb Zone contains.
+    items:
+      type: string
+      format: uuid
+required:
+  - curb_zone_id
+  - geometry
+  - curb_policy_ids
+  - published_date
+  - last_updated_date
+  - start_date

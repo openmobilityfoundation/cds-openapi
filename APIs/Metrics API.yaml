@@ -1,0 +1,214 @@
+openapi: 3.1.0
+x-stoplight:
+  id: 2p76lk7uckivl
+info:
+  title: Metrics API
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /metrics/sessions:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 6hdpx6vi33ec9
+                    properties:
+                      sessions:
+                        type: array
+                        x-stoplight:
+                          id: je2bc2zsqo5jk
+                        items:
+                          $ref: ../Shared Data Models/session.yaml
+                          x-stoplight:
+                            id: 69aplzzla18wd
+      operationId: get-metrics-sessions
+      x-stoplight:
+        id: ydi58a23alrxl
+      parameters:
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
+      description: ''
+  /metrics/aggregates:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: zb3228zd0gb2t
+                    properties:
+                      aggregate:
+                        type: array
+                        x-stoplight:
+                          id: 3b1l6aypuq5sc
+                        items:
+                          $ref: ../Shared Data Models/aggregate.yaml
+                          x-stoplight:
+                            id: w9zfx39ouf3ti
+      operationId: get-metrics-aggregates
+      x-stoplight:
+        id: g28syxi3c9oac
+      parameters:
+        - $ref: '#/components/parameters/curb_place_type'
+        - $ref: '#/components/parameters/curb_place_id'
+        - $ref: '#/components/parameters/metric_type'
+        - $ref: '#/components/parameters/min_lat'
+        - $ref: '#/components/parameters/min_lng'
+        - $ref: '#/components/parameters/max_lat'
+        - $ref: '#/components/parameters/max_lng'
+        - $ref: '#/components/parameters/lat'
+        - $ref: '#/components/parameters/lng'
+        - $ref: '#/components/parameters/radius'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
+      requestBody:
+        content: {}
+components:
+  schemas: {}
+  parameters:
+    min_lat:
+      name: min_lat
+      in: query
+      required: false
+      schema:
+        type: number
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lng`, `max_lat`, and `max_lng`. If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    min_lng:
+      name: min_lng
+      in: query
+      required: false
+      schema:
+        type: number
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `max_lat`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    max_lat:
+      name: max_lat
+      in: query
+      required: false
+      schema:
+        type: number
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    max_lng:
+      name: max_lng
+      in: query
+      required: false
+      schema:
+        type: number
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lat`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+    lat:
+      name: lat
+      in: query
+      required: false
+      schema:
+        type: number
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    lng:
+      name: lng
+      in: query
+      required: false
+      schema:
+        type: number
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    radius:
+      name: radius
+      in: query
+      required: false
+      schema:
+        type: number
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+    start_time:
+      name: start_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The start of the time period to return data where the value is inclusive.
+    end_time:
+      name: end_time
+      in: query
+      required: false
+      schema:
+        type: string
+      description: The end of the time period to return data where the value is inclusive.
+    curb_place_type:
+      name: curb_place_type
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - area
+          - zone
+          - space
+      description: The type of curb place this aggregate applies to from the Curbs API.
+    curb_place_id:
+      name: curb_place_id
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: 'The ID of this single curb place. If specified, only return data contained within this area. Required with `curb_place_type`.'
+    metric_type:
+      name: metric_type
+      in: query
+      required: false
+      schema:
+        type: string
+        enum:
+          - total_sessions
+          - turnover
+          - average_dwell_time
+          - occupancy_percent
+      description: 'The single metric to return from the [Methodology](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology)'

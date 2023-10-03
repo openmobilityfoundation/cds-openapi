@@ -1,0 +1,18 @@
+title: Unit of Time
+x-stoplight:
+  id: gq07qrtmuknqu
+properties:
+  id:
+    type: string
+    x-stoplight:
+      id: k5rt353363ilb
+description: An enumeration for units of time.
+type: string
+enum:
+  - second
+  - minute
+  - hour
+  - day
+  - week
+  - month
+  - year

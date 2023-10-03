@@ -1,0 +1,46 @@
+title: Aggregate
+x-stoplight:
+  id: 65oz7fytkhcj8
+type: object
+description: 'Aggregates are historic pre-computed counts and metrics of Events occurring in curb places, aggregated to the hour. All Aggregates can be calculated from the data defined in the **Session** object which is returned in the `metrics/sessions` endpoint of the CDS Metrics API.'
+properties:
+  curb_space_type:
+    x-stoplight:
+      id: gukvs97dshqqd
+    enum:
+      - area
+      - zone
+      - space
+    description: The type of curb place this aggregate applies to from the Curbs API.
+  curb_place_id:
+    type: string
+    x-stoplight:
+      id: 177m6bxupcoux
+    format: uuid
+    description: The id of the curb place identified in `curb_place_type`.
+  metric_type:
+    x-stoplight:
+      id: i3l816hllui51
+    enum:
+      - total_sessions
+      - turnover
+      - average_dwell_time
+      - occupancy_percent
+    description: 'The metric this aggregate applies to from the [Methodology](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology).'
+  date:
+    type: string
+    x-stoplight:
+      id: lh6zrzck6teja
+    description: 'The date the event occured in ISO 8601 format, local timezone.'
+    example: '2023-04-31'
+  hour:
+    type: string
+    x-stoplight:
+      id: a3vtd4y1ex7kj
+    example: '23'
+    description: 'The hour of the day the event occured in ISO 8601 format, local timezone.'
+  value:
+    type: string
+    x-stoplight:
+      id: 2r1yhfhxhsuym
+    description: 'The results of the calculations for this metric from the [Methodology](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology). Note that "-1" means that the sensor/source was offline for the majority of the time.'

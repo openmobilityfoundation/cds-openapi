@@ -1,0 +1,58 @@
+title: Curb Space
+x-stoplight:
+  id: 9qlf1mehcl8o2
+type: object
+properties:
+  curb_space_id:
+    type: string
+    format: uuid
+    description: The ID of the curb space.
+  geometry:
+    $ref: ./geoJSON_polygon.yaml
+    description: The spatial extent of this Curb Space.
+  name:
+    type: string
+    description: The name of this curb space for reference.
+  published_date:
+    $ref: ./timestamp.yaml
+    x-stoplight:
+      id: r3a5hu6diex3r
+    description: |-
+      The date/time that this curb area was first published in this data feed.
+
+      An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+  last_updated_date:
+    $ref: ./timestamp.yaml
+    description: |-
+      The date/time that the properties of ths curb area were last updated. This helps consumers know that some fields may have changed.
+
+      An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+  curb_zone_id:
+    description: The ID of the Curb Zone this space is within. The geometry of the specified Curb Zone MUST contain the geometry of this space.
+    type: string
+    format: uuid
+    example: ' 0eaa505d-c9e1-49ad-9fac-3c745ba58676 '
+  space_number:
+    type: integer
+    description: 'The sequence number of this space within its Zone. If specified, two spaces within the same Curb Zone MUST NOT share a space number, and space numbers SHOULD be consecutive positive integers starting at 1.'
+    example: 10
+  length:
+    type: integer
+    description: 'Length in centimeters of this Space. If comparing the length of a vehicle to that of a space, note that vehicles may have to account for a buffer for doors, mirrors, bumpers, ramps, etc.'
+  width:
+    type: integer
+    description: Width in centimeters of this Space.
+  available:
+    type: boolean
+    description: Whether this space is available for vehicles to park in at the specified time (‘True’ means the Space is available).
+  availability_time:
+    $ref: ./timestamp.yaml
+    description: |-
+      If availability information is present, the most recent time that availability was computed for this space.
+
+      An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+description: |
+  Defines individual demarcated spaces within a Curb Zone. Important notes about Curb Spaces:
+  * Curb Spaces may NOT overlap with other Curb Spaces
+  * Curb Spaces must be wholly contained within a single Curb Zone
+  * Unlike Zones, Spaces may be updated as needed, with a new `curb_space_id` being optionally assigned by the city

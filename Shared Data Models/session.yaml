@@ -1,0 +1,92 @@
+title: Session
+x-stoplight:
+  id: a0xesmm6lfcdf
+type: object
+description: 'Sessions are a historic subset of curb events, with some rows combined, some columns removed for clarity and privacy, and for only some curb event types. Sessions are meant to provide a granular view of parking and area sessions happening around the curb places, so consumers can do their own analysis.'
+properties:
+  session_type:
+    x-stoplight:
+      id: 49itgyeou9waj
+    description: The type of session that happened for this event.
+    enum:
+      - parking
+      - area
+  event_session_id:
+    type: string
+    x-stoplight:
+      id: 8lcen78qfos5h
+    description: Used to tie two events together. Will be the `event_session_id` from two events that are related.
+  event_id_start:
+    type: string
+    x-stoplight:
+      id: fvcmaudenb031
+    description: The globally unique identifier of the start/enter event that occurred.
+  event_id_end:
+    type: string
+    x-stoplight:
+      id: wlxhekqn5l8bh
+    description: The globally unique identifier of the end/exit event that occurred.
+  event_location_start_latitude:
+    $ref: ./latitude.yaml
+    x-stoplight:
+      id: 7u9z8ogc78trk
+    description: The geographic latitude point location where the start/enter of the event occurred.
+  event_location_start_longitude:
+    $ref: ./longitude.yaml
+    x-stoplight:
+      id: a60iyon585zzs
+    description: The geographic longitude point location where the start/enter of the event occurred.
+  event_location_end_latitude:
+    $ref: ./latitude.yaml
+    x-stoplight:
+      id: epr6mrrmagdyq
+    description: The geographic latitude point location where the end/exit of the event occurred.
+  event_location_end_longitude:
+    $ref: ./longitude.yaml
+    x-stoplight:
+      id: axjjkgoqrbst2
+    description: The geographic longitude point location where the end/exit of the event occurred.
+  event_time_start:
+    $ref: ./timestamp.yaml
+    x-stoplight:
+      id: 8pxac87n00v0s
+    description: Timestamp (date/time) at which the event started with the `park_start` or `enter_area`` event types.
+  event_time_end:
+    $ref: ./timestamp.yaml
+    x-stoplight:
+      id: 9twk7oaj86maj
+    description: Timestamp (date/time) at which the event occurred.
+  curb_zone_id:
+    type: string
+    x-stoplight:
+      id: ozujm5x34vnvr
+    description: Unique ID of the Curb Zone where the event occurred. Conditionally required for events that occurred at a known Curb Zone for ALL event types.
+    format: uuid
+  curb_area_ids:
+    type: array
+    x-stoplight:
+      id: mc12equ1zilgf
+    description: 'Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one. Conditionally required for events that occurred in a known Curb Area for these event_types: `enter_area`, `exit_area`, `park_start`, `park_end`.'
+    items:
+      x-stoplight:
+        id: 9ps6c58u4px7l
+      type: string
+      format: uuid
+  curb_space_id:
+    type: string
+    x-stoplight:
+      id: a1ikxiabeqv97
+    description: 'Unique ID of the Curb Space where the event occurred. Conditionally required for events that occurred at a known Curb Space for these event_types: park_start, park_end, enter_area, exit_area'
+    format: uuid
+  vehicle_length:
+    type: integer
+    x-stoplight:
+      id: bah69uvz24jwi
+    description: 'Approximate length of the vehicle that performed the event, in centimeters. Conditionally required for sources capable of determining vehicle length.'
+  vehicle_type:
+    $ref: ./vehicle_type.yaml
+    x-stoplight:
+      id: 07zos4ceswa84
+    description: Type of the vehicle that performed the event. Conditionally required for sources capable of determining vehicle type.
+required:
+  - session_type

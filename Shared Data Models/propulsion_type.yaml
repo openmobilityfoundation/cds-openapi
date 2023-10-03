@@ -1,0 +1,21 @@
+title: Propulsion Type
+x-stoplight:
+  id: exicw88mt3m4k
+type: array
+description: |-
+  The method of propulsion for a vehicle. Vehicles that may have one or more values from the enumeration can be represented as an array with multiple types.
+
+  |Value|Description| 
+  |--------------|-----|
+  | human |  Pedal or foot propulsion | 
+  | electric_assist |  Provides power only alongside human propulsion | 
+  | electric |  Contains throttle mode with a battery-powered motor | 
+  | combustion |  Contains throttle mode with a gas engine-powered motor | 
+items:
+  x-stoplight:
+    id: 1vps8ofx4ythw
+  enum:
+    - human
+    - electric_assist
+    - electric
+    - combustion

@@ -1,0 +1,6 @@
+title: Latitude
+x-stoplight:
+  id: egymbnmy2e3tn
+type: number
+minimum: -180
+maximum: 180
