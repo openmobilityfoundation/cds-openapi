@@ -1,4 +1,4 @@
-title: coordinates
+title: Coordinates
 x-stoplight:
   id: yptovg63ofymg
 type: array
@@ -13,3 +13,4 @@ items:
   x-stoplight:
     id: zcetnhryqkc90
   type: array
+description: Coordinates are defined as an array of collections/arrays where the nested arrays are 2 number values. These represent the latitude and longitude.
