@@ -31,6 +31,19 @@ paths:
                     $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: 6hdpx6vi33ec9
+                    properties:
+                      sessions:
+                        type: array
+                        x-stoplight:
+                          id: je2bc2zsqo5jk
+                        items:
+                          $ref: ../Shared Data Models/session.yaml
+                          x-stoplight:
+                            id: 69aplzzla18wd
       operationId: get-metrics-sessions
       x-stoplight:
         id: ydi58a23alrxl
@@ -71,6 +84,19 @@ paths:
                     $ref: ../Rest Responses/rest_response_author.yaml
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
+                  data:
+                    type: object
+                    x-stoplight:
+                      id: zb3228zd0gb2t
+                    properties:
+                      aggregate:
+                        type: array
+                        x-stoplight:
+                          id: 3b1l6aypuq5sc
+                        items:
+                          $ref: ../Shared Data Models/aggregate.yaml
+                          x-stoplight:
+                            id: w9zfx39ouf3ti
       operationId: get-metrics-aggregates
       x-stoplight:
         id: g28syxi3c9oac
