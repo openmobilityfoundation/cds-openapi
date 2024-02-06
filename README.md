@@ -1,7 +1,7 @@
 # CDS OpenAPI
-**Status: WGSC Review**
+**Status: Approved for v1.0**
 
-_Last updated on Oct 2 2023_
+_Last updated on Feb 9 2024_
 
 ---
 ## Overview
