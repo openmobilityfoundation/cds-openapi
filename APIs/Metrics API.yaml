@@ -3,7 +3,7 @@ x-stoplight:
   id: 2p76lk7uckivl
 info:
   title: Metrics API
-  version: '1.0'
+  version: '1.1'
   description: 'The Metrics API is a REST API allowing historic metrics calculations based on Event activity that happened at defined Curb places. Defines common calculation methodologies to measure historic dwell time, occupancy, usage and other aggregated statistics.'
 servers:
   - url: 'http://localhost:3000'

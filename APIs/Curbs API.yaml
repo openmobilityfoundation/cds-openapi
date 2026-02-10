@@ -3,7 +3,7 @@ x-stoplight:
   id: 83teyinnn1py6
 info:
   title: Curb API
-  version: '1.0'
+  version: '1.1'
   description: 'The Curbs API is a REST API allowing cities to specify areas of interest along the curb along with the rules for using them: who is allowed to park, load, unload, pick up, drop off, etc., for how long, for what price (if any), at what times, and on which days. Locations defined in the Curbs API can be connected to event and metrics data, and can be shared with companies and the public, for purposes such as routing, finding legal parking, loading, and pick-up/drop-off spots, or analyzing curb utilization over time.'
 servers:
   - url: 'http://localhost:3000'
@@ -81,7 +81,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
@@ -128,7 +128,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
@@ -185,7 +185,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
@@ -232,7 +232,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
@@ -282,7 +282,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
@@ -321,7 +321,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
@@ -366,7 +366,7 @@ paths:
                   time_zone:
                     $ref: ../Rest Responses/rest_response_time_zone.yaml
                   last_updated:
-                    $ref: ../Rest Responses/rest_response_last-updated.yaml
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
                   currency:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                   author:
