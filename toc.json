@@ -60,6 +60,11 @@
     },
     {
         "type": "item",
+        "title": "Custom Attributes",
+        "uri": "/Shared Data Models/custom_attributes.yaml"
+    },
+    {
+        "type": "item",
         "title": "Coordinates",
         "uri": "/Shared Data Models/coordinates.yaml"
     },
@@ -90,6 +95,11 @@
     },
     {
         "type": "item",
+        "title": "External Reference",
+        "uri": "/Shared Data Models/external_reference.yaml"
+    },
+    {
+        "type": "item",
         "title": "GeoJSON Point",
         "uri": "/Shared Data Models/geoJSON_point.yaml"
     },
@@ -97,6 +107,11 @@
         "type": "item",
         "title": "GeoJSON Polygon",
         "uri": "/Shared Data Models/geoJSON_polygon.yaml"
+    },
+    {
+        "type": "item",
+        "title": "GeoJSON LineString",
+        "uri": "/Shared Data Models/geoJSON_linestring.yaml"
     },
     {
         "type": "item",

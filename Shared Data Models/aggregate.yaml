@@ -44,3 +44,8 @@ properties:
     x-stoplight:
       id: 2r1yhfhxhsuym
     description: 'The results of the calculations for this metric from the [Methodology](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology). Note that "-1" means that the sensor/source was offline for the majority of the time.'
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    x-stoplight:
+      id: 3n7k2b5h9qx4z
+    description: Implementation-specific custom attributes for this aggregate record.

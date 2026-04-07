@@ -42,6 +42,14 @@ properties:
       **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
     items:
       $ref: ./operator_id.yaml
+  external_references:
+    type: array
+    description: External references that link this policy to other systems or specifications.
+    items:
+      $ref: ./external_reference.yaml
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    description: Implementation-specific custom attributes for this policy.
 required:
   - curb_policy_id
   - published_date

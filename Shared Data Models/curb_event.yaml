@@ -163,6 +163,18 @@ properties:
       id: aifcs5wjnhqhu
     description: 'If available from the source, the actual cost, in the currency defined in currency, paid by the curb user for this event. The currency type is sent in with the REST Endpoints JSON object. All costs should be given as integers in the currency''s smallest unit. As an example, to represent $1 USD, specify an amount of 100 (for 100 cents).'
     example: 100
+  external_references:
+    type: array
+    x-stoplight:
+      id: 7p2n4a8k3jw0c
+    description: External references that link this event to other systems or specifications.
+    items:
+      $ref: ./external_reference.yaml
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    x-stoplight:
+      id: 4l3d9m8q2sk1v
+    description: Implementation-specific custom attributes for this event.
 required:
   - event_id
   - event_location

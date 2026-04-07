@@ -88,5 +88,10 @@ properties:
     x-stoplight:
       id: 07zos4ceswa84
     description: Type of the vehicle that performed the event. Conditionally required for sources capable of determining vehicle type.
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    x-stoplight:
+      id: 1c9m4p7s2vd8k
+    description: Implementation-specific custom attributes for this session.
 required:
   - session_type
