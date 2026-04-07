@@ -19,16 +19,18 @@ properties:
 
       An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
   days_of_week:
-    type: string
-    enum:
-      - sun
-      - mon
-      - tue
-      - wed
-      - thu
-      - fri
-      - sat
+    type: array
     description: An array of days of the week when this time span applies.
+    items:
+      type: string
+      enum:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
   days_of_month:
     type: array
     description: An array of days of the month when this time span applies.

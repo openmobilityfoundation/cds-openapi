@@ -3,7 +3,7 @@ x-stoplight:
   id: 1525213d884c3
 type: string
 enum:
-  - bicyle
+  - bicycle
   - cargo_bicycle
   - car
   - scooter

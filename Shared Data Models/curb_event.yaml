@@ -11,7 +11,7 @@ properties:
     description: The globally unique identifier of the event that occurred.
     format: uuid
   event_type:
-    $ref: ./event_purpose.yaml
+    $ref: ./event_type.yaml
     x-stoplight:
       id: e9o3ixjkgnvna
     description: General curb usage purpose that the vehicle performed during the event. Required for sources capable of determining activity type for relevant event_types.
