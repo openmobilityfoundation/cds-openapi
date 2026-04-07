@@ -55,7 +55,8 @@ The authoritative CDS spec lives at https://github.com/openmobilityfoundation/cu
    - Use `x-stoplight: id:` annotations if present on surrounding fields (Stoplight generates these)
    - Keep `required` arrays up to date
 4. **Validate** — run the Spectral linter (`.spectral.mjs`) after changes
-5. **Commit** — use the commit message suggested in the plan step, or a similar conventional-commit style message
+5. **Update the plan** — mark the completed step as done in `V1.1_IMPLEMENTATION_PLAN.md`
+6. **Commit** — use the commit message suggested in the plan step, or a similar conventional-commit style message
 
 ### Style conventions
 
