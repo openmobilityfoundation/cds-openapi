@@ -13,6 +13,12 @@ properties:
 
       A `curb_policy_id` MUST NOT be reused. Once created, it must continue to refer to the identical policy forever.
     type: string
+  name:
+    type: string
+    description: User friendly name of policy.
+  description:
+    type: string
+    description: Detailed description of policy.
   published_date:
     $ref: ./timestamp.yaml
     description: |-
@@ -21,7 +27,13 @@ properties:
       An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
   priority:
     type: integer
-    description: 'Specifies which other policies this one takes precedence over. If two Policies on the same Curb Zone have overlapping Time Spans and apply to the same user class, the one that applies at a given time is the one with the lowest priority.'
+    description: >-
+      Specifies which other policies this one takes precedence over. If two Policies
+      on the same Curb Zone have overlapping Time Spans and apply to the same user
+      class, the one that applies at a given time is the one with the lowest priority.
+      E.g., a priority of `1` takes precedence over a priority of `3`. Two Policies
+      that apply to the same Curb Zone with overlapping Time Spans MAY ONLY have the
+      same priority if the policies apply to disjoint User Classes or disjoint Activities.
   rules:
     type: array
     description: The rule(s) that this policy applies.
@@ -42,6 +54,65 @@ properties:
       **Values are defined globally and are managed by the Open Mobility Foundation and operators may register [here](https://github.com/openmobilityfoundation/curb-data-specification/wiki/Adding-a-CDS-Data-Source-Operator-ID)**
     items:
       $ref: ./operator_id.yaml
+  policy_color:
+    type: object
+    description: >
+      A JSON object that defines the official colors used to represent this specific
+      policy, used in physical curb paint, digital and print maps, etc.
+    properties:
+      primary_color:
+        type: string
+        description: >
+          The 6 digit hexidecimal triplet value of the primary curb color, in standard
+          capitalized RRGGBB format, without a leading hash symbol ("#"). E.g. "839D8F",
+          "FF00FF".
+      primary_pattern_type:
+        type: string
+        description: >
+          One of `solid`, `long_dash`, `short_dash`, `dot`, `dot_dash`, `diagonal`
+          to define the type of pattern on the `primary_color`.
+        enum:
+          - solid
+          - long_dash
+          - short_dash
+          - dot
+          - dot_dash
+          - diagonal
+      primary_border_color:
+        type: string
+        description: The 6 digit hex value of the `primary_color` border color.
+      primary_border_pattern_type:
+        type: string
+        description: >
+          One of `solid`, `long_dash`, `short_dash`, `dot`, `dot_dash`, `diagonal`
+          to define the type of pattern on the `primary_border_color`.
+        enum:
+          - solid
+          - long_dash
+          - short_dash
+          - dot
+          - dot_dash
+          - diagonal
+      secondary_color:
+        type: string
+        description: The 6 digit hex value of the secondary curb color.
+      secondary_border_color:
+        type: string
+        description: The 6 digit hex value of the `secondary_color` border color.
+      secondary_border_pattern_type:
+        type: string
+        description: >
+          One of `solid`, `long_dash`, `short_dash`, `dot`, `dot_dash`, `diagonal`
+          to define the type of pattern on the `secondary_border_color`.
+        enum:
+          - solid
+          - long_dash
+          - short_dash
+          - dot
+          - dot_dash
+          - diagonal
+    required:
+      - primary_color
   external_references:
     type: array
     description: External references that link this policy to other systems or specifications.
