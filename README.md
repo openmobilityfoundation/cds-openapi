@@ -1,7 +1,7 @@
 # CDS OpenAPI
 **Status: Draft In Progress for v1.1**
 
-_Last updated February 10, 2026_
+_Last updated April 7, 2026_
 
 ---
 ## Overview
