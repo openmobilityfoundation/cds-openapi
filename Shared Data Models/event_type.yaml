@@ -11,4 +11,8 @@ enum:
   - scheduled_report
   - enter_area
   - exit_area
+  - vehicle_detected
+  - vehicle_violation_start
+  - vehicle_violation_end
+  - citation_issued
 description: A description of what event occurred.
