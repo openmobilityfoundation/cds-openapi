@@ -1,0 +1,48 @@
+title: Enforcement
+type: object
+description: >
+  A specific set of enforcement details from a data feed or API that is relevant
+  to an enforcement Curb Event.
+properties:
+  enforcement_id:
+    type: string
+    format: uuid
+    description: >
+      An identifier unique to the enforcement incident, generated the first time
+      an enforcement event is recorded and referenced in future related
+      enforcement events.
+  citation_id:
+    type: string
+    description: A unique id that represents a single citation.
+  is_warning:
+    type: boolean
+    description: Indicates whether the enforcement action is being processed as a warning.
+  action_taken:
+    type: string
+    description: Indicates how the violation was enforced.
+    enum:
+      - citation_registered
+      - citation_posted
+      - citation_served
+      - citation_emailed
+  citation_cost:
+    type: string
+    description: The total cost of all violations associated to this enforcement action.
+  violations:
+    type: array
+    description: >
+      One or more violation objects associated with this enforcement event.
+    items:
+      $ref: ./violation.yaml
+required:
+  - enforcement_id
+examples:
+  - enforcement_id: 123e4567-e89b-12d3-a456-426614174000
+    citation_id: C-2026-0001
+    is_warning: false
+    action_taken: citation_posted
+    citation_cost: "6500"
+    violations:
+      - violation_code: NO_PARKING
+        violation_name: No parking in loading zone
+        violation_cost: "6500"

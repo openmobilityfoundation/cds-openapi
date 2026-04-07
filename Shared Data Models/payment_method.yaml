@@ -1,0 +1,19 @@
+title: Payment Method
+type: string
+description: >
+  The method used to pay for a curb event.
+enum:
+  - cash
+  - credit_card
+  - digital_wallet
+  - smart_card
+  - membership_card
+  - billing
+  - permit
+  - voucher
+  - courtesy
+  - test
+  - other
+examples:
+  - credit_card
+

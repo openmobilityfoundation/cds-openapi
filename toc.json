@@ -85,6 +85,11 @@
     },
     {
         "type": "item",
+        "title": "Enforcement",
+        "uri": "/Shared Data Models/enforcement.yaml"
+    },
+    {
+        "type": "item",
         "title": "Event Purpose",
         "uri": "/Shared Data Models/event_purpose.yaml"
     },
@@ -135,6 +140,16 @@
     },
     {
         "type": "item",
+        "title": "Payment Channel",
+        "uri": "/Shared Data Models/payment_channel.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Payment Method",
+        "uri": "/Shared Data Models/payment_method.yaml"
+    },
+    {
+        "type": "item",
         "title": "Propulsion Type",
         "uri": "/Shared Data Models/propulsion_type.yaml"
     },
@@ -167,6 +182,11 @@
         "type": "item",
         "title": "Vehicle Type",
         "uri": "/Shared Data Models/vehicle_type.yaml"
+    },
+    {
+        "type": "item",
+        "title": "Violation",
+        "uri": "/Shared Data Models/violation.yaml"
     },
     {
       "type": "divider",

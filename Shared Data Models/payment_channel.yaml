@@ -1,0 +1,14 @@
+title: Payment Channel
+type: string
+description: >
+  The medium or platform used to pay for a curb event.
+enum:
+  - meter
+  - mobile_app
+  - sms
+  - telephone
+  - website
+  - other
+examples:
+  - meter
+
