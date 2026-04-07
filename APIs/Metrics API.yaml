@@ -5,13 +5,25 @@ info:
   title: Metrics API
   version: '1.1'
   description: 'The Metrics API is a REST API allowing historic metrics calculations based on Event activity that happened at defined Curb places. Defines common calculation methodologies to measure historic dwell time, occupancy, usage and other aggregated statistics.'
+  contact:
+    name: Open Mobility Foundation
+    url: 'https://www.openmobilityfoundation.org'
+  license:
+    name: Creative Commons Attribution 4.0 International Public License
+    url: 'https://creativecommons.org/licenses/by/4.0/'
+tags:
+  - name: aggregates
+    description: Query aggregated curb metrics.
+  - name: sessions
+    description: Query curb metric sessions.
 servers:
   - url: 'http://localhost:3000'
 paths:
   /metrics/sessions:
     get:
       summary: Get Metric Sessions
-      tags: []
+      tags:
+        - sessions
       responses:
         '200':
           description: OK
@@ -69,7 +81,8 @@ paths:
   /metrics/aggregates:
     get:
       summary: Get Metric Aggregates
-      tags: []
+      tags:
+        - aggregates
       responses:
         '200':
           description: OK

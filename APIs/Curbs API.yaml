@@ -5,12 +5,29 @@ info:
   title: Curb API
   version: '1.1'
   description: 'The Curbs API is a REST API allowing cities to specify areas of interest along the curb along with the rules for using them: who is allowed to park, load, unload, pick up, drop off, etc., for how long, for what price (if any), at what times, and on which days. Locations defined in the Curbs API can be connected to event and metrics data, and can be shared with companies and the public, for purposes such as routing, finding legal parking, loading, and pick-up/drop-off spots, or analyzing curb utilization over time.'
+  contact:
+    name: Open Mobility Foundation
+    url: 'https://www.openmobilityfoundation.org'
+  license:
+    name: Creative Commons Attribution 4.0 International Public License
+    url: 'https://creativecommons.org/licenses/by/4.0/'
+tags:
+  - name: areas
+    description: Query and fetch curb areas.
+  - name: policies
+    description: Query and fetch curb policies.
+  - name: spaces
+    description: Query and fetch curb spaces.
+  - name: zones
+    description: Query and fetch curb zones.
 servers:
   - url: 'http://localhost:3000'
 paths:
   /curbs/zones:
     get:
       summary: Get Curb Zones
+      tags:
+        - zones
       responses:
         '200':
           description: Zones Found
@@ -68,6 +85,8 @@ paths:
   /curbs/areas:
     get:
       summary: Get Curb Areas
+      tags:
+        - areas
       responses:
         '200':
           description: Areas Found
@@ -115,6 +134,8 @@ paths:
   /curbs/spaces:
     get:
       summary: Get Curb Spaces
+      tags:
+        - spaces
       responses:
         '200':
           description: Spaces Found
@@ -172,6 +193,8 @@ paths:
   /curbs/policies:
     get:
       summary: Get Curb Policies
+      tags:
+        - policies
       responses:
         '200':
           description: Policies Found
@@ -219,6 +242,8 @@ paths:
   '/curbs/zones/{id}':
     get:
       summary: Get a single Curb Zone
+      tags:
+        - zones
       responses:
         '200':
           description: Zone Found
@@ -269,6 +294,8 @@ paths:
   '/curbs/areas/{id}':
     get:
       summary: Get a single Curb Area
+      tags:
+        - areas
       responses:
         '200':
           description: Area Found
@@ -308,6 +335,8 @@ paths:
   '/curbs/spaces/{id}':
     get:
       summary: Get a single Curb Space
+      tags:
+        - spaces
       responses:
         '200':
           description: Space Found
@@ -353,6 +382,8 @@ paths:
   '/curbs/policies/{id}':
     get:
       summary: Get a single Curb Policy
+      tags:
+        - policies
       responses:
         '200':
           description: Policy Found

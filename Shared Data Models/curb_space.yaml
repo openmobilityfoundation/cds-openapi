@@ -31,7 +31,7 @@ properties:
     description: The ID of the Curb Zone this space is within. The geometry of the specified Curb Zone MUST contain the geometry of this space.
     type: string
     format: uuid
-    example: ' 0eaa505d-c9e1-49ad-9fac-3c745ba58676 '
+    example: '0eaa505d-c9e1-49ad-9fac-3c745ba58676'
   space_number:
     type: integer
     description: 'The sequence number of this space within its Zone. If specified, two spaces within the same Curb Zone MUST NOT share a space number, and space numbers SHOULD be consecutive positive integers starting at 1.'
