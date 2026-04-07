@@ -36,17 +36,19 @@ Always work on the `draft-v1.1` branch (or a feature branch off it) when impleme
 
 The authoritative CDS spec lives at https://github.com/openmobilityfoundation/curb-data-specification. When implementing changes:
 
-1. Always cross-reference the upstream spec text, not just PR summaries
-2. The spec has three sections: `curbs/`, `events/`, `metrics/` — each with its own README
-3. Field names, types, enumerations, and required/optional status must match the upstream spec exactly
-4. The `general-information.md` and `data-types.md` files contain shared definitions
+1. Treat the upstream repository's `main` branch as the source of truth for the latest CDS specification
+2. Always cross-reference the upstream spec text, not just PR summaries
+3. Before editing local OpenAPI files, verify the relevant field names, types, enums, descriptions, and required/optional status against upstream `main`
+4. When a discrepancy is found, label it explicitly as local drift, upstream ambiguity, or an inference
+5. The spec has three sections: `curbs/`, `events/`, `metrics/` — each with its own README
+6. The `general-information.md` and `data-types.md` files contain shared definitions
 
 ## How to Make Changes
 
 ### Workflow for each step in the implementation plan
 
 1. **Read the plan step** in `V1.1_IMPLEMENTATION_PLAN.md`
-2. **Read the upstream spec** for the relevant section to confirm exact field names, types, enums, and descriptions
+2. **Read the upstream spec on `main`** for the relevant section to confirm exact field names, types, enums, descriptions, and required/optional status
 3. **Edit the YAML files** — maintain the existing style conventions:
    - Use `$ref` for shared models rather than inline definitions
    - Include `description` on every field
