@@ -7,67 +7,92 @@ This change log tracks how the CDS **OpenAPI schema** (this repo) reflects chang
 
 ## [1.1.0] – 2025-10-27
 
-**Upstream spec:** CDS 1.1.0 ([release notes](https://github.com/openmobilityfoundation/curb-data-specification/releases/tag/1.1.0))  
-**CDS versions:** From CDS 1.0.x → CDS 1.1.0
+**Upstream spec:** CDS 1.1.0 ([release notes](https://github.com/openmobilityfoundation/curb-data-specification/releases/tag/1.1.0))
+**Upstream PR:** [#201](https://github.com/openmobilityfoundation/curb-data-specification/pull/201)
 
-### High‑Level Features
+### New Data Models
 
-- **Objects**
-  - Add Curb Object data model to describe physical assets at or near the curb (e.g., signs, meters, sensors, devices).
-  - Add Curbs API endpoints for listing and retrieving objects.
-  - Include geometry (Point and LineString), ownership, external IDs/URLs, policy references, and other properties.
+- **Curb Object** — new first-class model for physical infrastructure at or near the curb (bollards, planters, cameras, pay stations, lockers, etc.) with Point and LineString geometry, ownership, policy references, and external links.
+- **Enforcement** — nested object on events capturing enforcement actions with citation IDs, warning flags, action taken, and cost.
+- **Violation** — nested object within enforcement for individual violation codes, names, and costs.
+- **Payment Channel** — enum for payment medium (meter, mobile_app, website, sms, telephone).
+- **Payment Method** — enum for payment instrument (cash, credit_card, debit_card, digital_wallet, transit_card, prepaid_account, permit).
 
-- **Enforcement**
-  - Extend Events and Metrics definitions to capture violations, citations, double‑parking, and enforcement actions.
-  - Add enforcement‑related metrics (e.g., total enforcement events) to Metrics aggregates/demand data.
+### New API Endpoints
 
-- **Payment Methods & Channels**
-  - Add fields to Events to capture payment method, payment channel, and payment transaction IDs.
+- `GET /curbs/objects` — query curb objects by area, zone, space, time, and operator.
+- `GET /curbs/objects/{id}` — fetch a single curb object by ID.
+- `POST /events/events` — optional push endpoint for submitting events in real time.
 
-- **Real‑Time Events (Push)**
-  - Add an optional POST Events endpoint for pushing events as they occur, in addition to existing pull/query endpoints.
+### Curb Event Changes
 
-- **External References**
-  - Introduce a reusable External Reference structure to link CDS data to external systems/specs (e.g., WZDx, CWZ, GBFS, GTFS, MDS, websites, documents).
-  - Add external reference fields to relevant data objects (e.g., Events, Objects, Policies).
+- Add `payment_channel`, `payment_method`, `payment_transaction_id` fields.
+- Add `enforcement` object (with nested violations).
+- Add `curb_object_id` reference.
+- Add vehicle computer-vision fields: `vehicle_license_plate_jurisdiction`, `vehicle_license_plate_confidence`, `vehicle_type_confidence`, `vehicle_color`, `vehicle_color_confidence`, `vehicle_company_name`, `vehicle_company_name_confidence`, `vehicle_run_id`, `vehicle_run_id_confidence`.
+- Add `data_source_device_name`.
+- Add `vehicle_type` as a direct field reference.
+- Add `event_time` query parameter to `GET /events/events` (ISO 8601 UTC hour format).
 
-- **Custom Attributes**
-  - Add a Custom Attribute Dictionary definition.
-  - Allow custom_attributes on core data objects (e.g., Events, Objects, Policies/Metrics) to support implementation‑specific fields.
+### Curb Zone Changes
 
-- **Authorization**
-  - Clarify that Curbs (and Events) endpoints may require authorization by the public agency.
-  - Note that event authorization is recommended but not strictly required so events can be made public when appropriate.
+- Add optional `geometry_line` (GeoJSON LineString) alongside the existing polygon geometry.
+- Add `curb_object_ids` array linking zones to physical objects.
+- Add context fields: `description`, `jurisdiction_type` (public/private/other), `owner_name`, `address_number`.
+- Add `external_references` and `custom_attributes`.
 
-- **Lines (LineString Geometry)**
-  - Allow Curb Zones to be defined with GeoJSON LineString geometry in addition to polygons.
-  - Update examples and descriptive text describing geometry preference and usage.
+### Curb Space Changes
 
-- **New Curb Context Data**
-  - Add descriptive Curb‑level fields such as description, jurisdiction, owner name, address number, and available/available_spaces counts.
+- Add `curb_object_ids` array (conditionally required).
+- Add `external_references` and `custom_attributes`.
 
-- **Policy & Rule Enhancements**
-  - Policies:
-    - Add name and description fields.
-    - Add color and pattern fields to support real‑world and digital representations.
-    - Clarify that policy data must be unique and non‑duplicative.
-  - Rules:
-    - Add name and description.
-    - Extend temporal logic (weeks of the month, refined designated_period_except behavior).
+### Curb Area Changes
 
-- **Temporal & Designation Updates**
-  - Update designated_period_except and related fields based on design and guidance.
-  - Add support for specifying weeks of the month when policies apply.
+- Add `external_references` and `custom_attributes`.
 
-- **Event Authorization Guidance**
-  - Clarify that event authorization is **recommended** but not required, to support public events data.
+### Policy & Rule Changes
 
-- **Vehicle Properties & Computer Vision**
-  - Expand vehicle attributes (e.g., make, model, year, color, company).
-  - Add computer‑vision‑oriented fields such as confidence scores for detected properties.
+- Add `name`, `description`, and `primary_color` to curb policies.
+- Loosen priority constraint: overlapping policies may share priority if they apply to disjoint user classes or activities.
+- Add `name` and `description` to rules.
 
-- **MDS Alignment**
-  - Update vehicle types and propulsion types to align with the latest Mobility Data Specification (MDS) enums.
+### Temporal Changes
 
-- **Metrics Event Tracking**
-  - Add new metrics fields for total event counts (including enforcement events) in Sessions/Aggregates.
+- Add `weeks_of_month` to time spans for week-of-month scheduling.
+- Update `designated_period_except` behavior per v1.1 guidance.
+- Fix `days_of_week` from single string to array type.
+
+### Enumeration Updates
+
+- **Event types:** add `vehicle_detected`, `vehicle_violation_start`, `vehicle_violation_end`, `citation_issued`.
+- **Vehicle types:** add `bus`, `delivery_robot`, `scooter_standing`, `scooter_seated`; fix `bicyle` → `bicycle`.
+- **Propulsion types:** add `combustion_diesel`, `hybrid`, `hydrogen_fuel_cell`, `plug_in_hybrid`.
+- **User classes (rules):** replace `handicap-accessible` with `accessible`; add `disabled_parking_permit`.
+
+### External References
+
+- Add reusable `external_reference` schema for linking CDS data to external systems (WZDx, CWZ, MDS, GBFS, GTFS, websites, documents).
+- Wire `external_references` array onto curb zones, areas, spaces, events, policies, and objects.
+
+### Custom Attributes
+
+- Add reusable `custom_attributes` schema for implementation-specific key/value data.
+- Wire onto curb zones, areas, spaces, events, policies, sessions, aggregates, and objects.
+
+### Metrics Changes
+
+- Add `curb_object_id` to session model.
+- Add enforcement-related metric types to aggregates (e.g., `total_events`, `total_enforcement_events`).
+
+### Authorization & API Behavior
+
+- Clarify that Curbs and Events endpoints may require authorization by the public agency.
+- Event authorization is recommended but not required, allowing public event data.
+- Standardize 501 Not Implemented responses on all optional endpoints.
+- Add `operator` query parameter to Curbs API endpoints.
+
+---
+
+## [1.0.0]
+
+Initial OpenAPI 3.1 specification for CDS 1.0. See the `v1.0` branch for this version.
