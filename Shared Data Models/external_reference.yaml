@@ -1,30 +1,44 @@
 title: External Reference
 type: object
 description: >
-  A reusable structure for linking CDS objects to external systems, specifications,
-  or resources such as WZDx, CWZ, MDS, GBFS, GTFS, or public URLs and documents.
+  A reusable structure for linking CDS objects to an external data source that
+  impacts or provides information about a CDS object.
 properties:
-  reference_type:
-    type: string
-    description: >
-      The external system or specification this reference points to
-      (for example, "WZDx", "CWZ", "MDS", "GBFS", "GTFS", "website", "document").
-  id:
-    type: string
-    description: Identifier for this object within the external system.
-  url:
+  reference_url:
     type: string
     format: uri
-    description: Optional URL for the external resource when available.
-  description:
+    description: >
+      A web-accessible identifier URL for the source of the publicly or privately
+      accessible data feed, document, website, or similar resource. This must be
+      a full HTTPS URL pointing to a location that contains more information.
+  name:
     type: string
-    description: Optional human-readable description of this external reference.
+    description: >
+      Name of the data source for reference, such as WZDx, CWZ, MDS, GBFS, GTFS,
+      or CDS.
+  public:
+    type: boolean
+    description: >
+      Indicates whether the reference URL can be viewed without authentication,
+      authorization, or an API key.
+  identifier_name:
+    type: string
+    description: >
+      The name of the data field or object referenced by the unique ids, such as
+      id, trip_id, vehicle_id, or RoadEventFeature.
+  ids:
+    type: array
+    description: >
+      One or more identifiers from the referenced URL that impact the use of or
+      relationship to part of CDS.
+    items:
+      type: string
 required:
-  - reference_type
-  - id
+  - reference_url
 examples:
-  - reference_type: wzdx
-    id: "road_event_feature_1234"
-    url: "https://example.com/wzdx/features/road_event_feature_1234"
-    description: "Linked WZDx road event feature"
-
+  - reference_url: https://example.com/wzdx/road-events
+    name: WZDx
+    public: true
+    identifier_name: RoadEventFeature
+    ids:
+      - road_event_feature_1234
