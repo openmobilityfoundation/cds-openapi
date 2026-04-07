@@ -14,7 +14,7 @@ properties:
     $ref: ./event_type.yaml
     x-stoplight:
       id: e9o3ixjkgnvna
-    description: General curb usage purpose that the vehicle performed during the event. Required for sources capable of determining activity type for relevant event_types.
+    description: General activity type that occurred during the event. Required for sources capable of determining activity type for relevant events.
   event_purpose:
     $ref: ./event_purpose.yaml
     x-stoplight:

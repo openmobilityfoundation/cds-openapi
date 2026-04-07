@@ -62,7 +62,6 @@ paths:
       description: 'This required endpoint must be implemented by every Curbs API server. If attaching policies to curb zones, the Query Curb Policies endpoint is also required.'
       parameters:
         - schema:
-            $ref: '#/components/schemas/uuid'
             type: string
             format: uuid
           in: query
@@ -231,11 +230,17 @@ paths:
       description: 'Optional endpoint, but required if Curb Zones contain policy_id references. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
         - schema:
-            type: string
-            format: uuid
-            example: '1111ad2f-14ef-40c1-b8d9-b974c89f7fa9,884d11b8-4fb7-42f2-a3ee-6c4b7499c2b3'
+            type: array
+            items:
+              type: string
+              format: uuid
+            example:
+              - 1111ad2f-14ef-40c1-b8d9-b974c89f7fa9
+              - 884d11b8-4fb7-42f2-a3ee-6c4b7499c2b3
           in: query
           name: ids
+          style: form
+          explode: false
           description: 'If present, return only policies with the supplied UUIDs. Otherwise, return all policies.'
       security: []
       x-stoplight:
@@ -279,8 +284,7 @@ paths:
           required: true
           description: Curb Zone ID
         - schema:
-            $ref: '#/components/schemas/timestamp'
-            type: string
+            $ref: ../Shared Data Models/timestamp.yaml
           in: query
           name: time
           description: 'The Curb Zone object will only be returned if its validity period includes this time; otherwise, the server should reply with `404 Not Found`.'
@@ -372,8 +376,7 @@ paths:
           required: true
           description: Curb Space ID
         - schema:
-            $ref: '#/components/schemas/timestamp'
-            type: string
+            $ref: ../Shared Data Models/timestamp.yaml
           in: query
           name: time
           description: Availability data (if supplied) will be returned as of this time.
@@ -473,41 +476,6 @@ components:
       schema:
         type: number
       description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
-    start_time:
-      name: start_time
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The start of the time period to return data where the value is inclusive.
-    end_time:
-      name: end_time
-      in: query
-      required: false
-      schema:
-        type: string
-      description: The end of the time period to return data where the value is inclusive.
-    curb_area_id:
-      name: curb_area_id
-      in: query
-      required: false
-      schema:
-        type: string
-      description: 'The ID of a Curb Area. If specified, only return records occurring within this area.'
-    curb_zone_id:
-      name: curb_zone_id
-      in: query
-      required: false
-      schema:
-        type: string
-      description: 'The ID of a Curb Zone. If specified, only return records occurring within this zone.'
-    curb_space_id:
-      name: curb_space_id
-      in: query
-      required: false
-      schema:
-        type: string
-      description: 'The ID of a Curb Space. If specified, only return records occurring within this area.'
     include_geometry:
       name: include_geometry
       in: query
