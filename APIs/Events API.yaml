@@ -50,6 +50,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_currency.yaml
                     x-stoplight:
                       id: ez7o2wgpfn60b
+                  custom_attributes_dictionary:
+                    $ref: ../Rest Responses/rest_response_custom_attributes_dictionary.yaml
                   author:
                     $ref: ../Rest Responses/rest_response_author.yaml
                     x-stoplight:
