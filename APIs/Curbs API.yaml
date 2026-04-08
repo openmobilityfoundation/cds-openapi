@@ -15,6 +15,8 @@ info:
 tags:
   - name: areas
     description: Query and fetch curb areas.
+  - name: objects
+    description: Query and fetch curb objects.
   - name: policies
     description: Query and fetch curb policies.
   - name: spaces
@@ -52,14 +54,12 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        zones:
-                          type: array
-                          items:
-                            $ref: ../Shared Data Models/curb_zone.yaml
+                    type: object
+                    properties:
+                      zones:
+                        type: array
+                        items:
+                          $ref: ../Shared Data Models/curb_zone.yaml
       operationId: get-curbs-zones
       description: 'This required endpoint must be implemented by every Curbs API server. If attaching policies to curb zones, the Query Curb Policies endpoint is also required.'
       parameters:
@@ -112,14 +112,12 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        areas:
-                          type: array
-                          items:
-                            $ref: ../Shared Data Models/curb_area.yaml
+                    type: object
+                    properties:
+                      areas:
+                        type: array
+                        items:
+                          $ref: ../Shared Data Models/curb_area.yaml
         '501':
           description: NOT_IMPLEMENTED
       operationId: get-curbs-areas
@@ -163,14 +161,12 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        spaces:
-                          type: array
-                          items:
-                            $ref: ../Shared Data Models/curb_space.yaml
+                    type: object
+                    properties:
+                      spaces:
+                        type: array
+                        items:
+                          $ref: ../Shared Data Models/curb_space.yaml
         '501':
           description: NOT_IMPLEMENTED
       operationId: get-curbs-spaces
@@ -196,6 +192,113 @@ paths:
       security: []
       x-stoplight:
         id: p8unincykkub4
+  /curbs/objects:
+    get:
+      summary: Get Curb Objects
+      tags:
+        - objects
+      responses:
+        '200':
+          description: Objects Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                  custom_attributes_dictionary:
+                    $ref: ../Rest Responses/rest_response_custom_attributes_dictionary.yaml
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
+                  data:
+                    type: object
+                    properties:
+                      objects:
+                        type: array
+                        items:
+                          $ref: ../Shared Data Models/curb_object.yaml
+        '501':
+          description: NOT_IMPLEMENTED
+      operationId: get-curbs-objects
+      description: 'Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            $ref: ../Shared Data Models/timestamp.yaml
+          in: query
+          name: time
+          description: Only the most recently updated objects as of this time will be returned.
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: zone
+          description: The ID of a Curb Zone. If specified, only return Curb Objects associated within this zone.
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: space
+          description: The ID of a Curb Space. If specified, only return Curb Objects associated within this space.
+      security: []
+      x-stoplight:
+        id: 5vgp4n8h2j1qd
+  '/curbs/objects/{id}':
+    get:
+      summary: Get a single Curb Object
+      tags:
+        - objects
+      responses:
+        '200':
+          description: Object Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    $ref: ../Rest Responses/rest_response_version.yaml
+                  time_zone:
+                    $ref: ../Rest Responses/rest_response_time_zone.yaml
+                  last_updated:
+                    $ref: ../Rest Responses/rest_response_last_updated.yaml
+                  currency:
+                    $ref: ../Rest Responses/rest_response_currency.yaml
+                  custom_attributes_dictionary:
+                    $ref: ../Rest Responses/rest_response_custom_attributes_dictionary.yaml
+                  author:
+                    $ref: ../Rest Responses/rest_response_author.yaml
+                  license_url:
+                    $ref: ../Rest Responses/rest_response_license_url.yaml
+                  data:
+                    $ref: ../Shared Data Models/curb_object.yaml
+        '501':
+          description: NOT_IMPLEMENTED
+      operationId: get-curbs-object
+      description: 'Fetch a single Curb Object by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
+      parameters:
+        - schema:
+            type: string
+          name: id
+          in: path
+          required: true
+          description: Curb Object ID
+        - schema:
+            $ref: ../Shared Data Models/timestamp.yaml
+          in: query
+          name: time
+          description: Availability data (if supplied) will be returned as of this time.
+      security: []
+      x-stoplight:
+        id: 2q7b9n4d5k1mv
   /curbs/policies:
     get:
       summary: Get Curb Policies
@@ -224,14 +327,12 @@ paths:
                   license_url:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        policies:
-                          type: array
-                          items:
-                            $ref: ../Shared Data Models/curb_policy.yaml
+                    type: object
+                    properties:
+                      policies:
+                        type: array
+                        items:
+                          $ref: ../Shared Data Models/curb_policy.yaml
         '501':
           description: NOT_IMPLEMENTED
       operationId: get-curbs-policies

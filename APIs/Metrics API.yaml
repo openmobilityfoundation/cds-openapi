@@ -4,7 +4,7 @@ x-stoplight:
 info:
   title: Metrics API
   version: '1.1'
-  description: 'The Metrics API is a REST API allowing historic metrics calculations based on Event activity that happened at defined Curb places. Defines common calculation methodologies to measure historic dwell time, occupancy, usage and other aggregated statistics.'
+  description: 'The Metrics API is a REST API allowing historic metrics calculations based on Event activity that happened at defined Curb places. Metrics data should be viewed as representative sample data, not necessarily a 100% accurate picture of what happens at every defined curb space, and agencies may update the data monthly or more frequently depending on their implementation. Defines common calculation methodologies to measure historic dwell time, occupancy, usage and other aggregated statistics.'
   contact:
     name: Open Mobility Foundation
     url: 'https://www.openmobilityfoundation.org'
@@ -25,39 +25,24 @@ paths:
       summary: Get Metric Sessions
       tags:
         - sessions
+      description: |-
+        Optional endpoint. Authorization is recommended for all Metrics endpoints, since depending on implementation, use cases, fields required, local laws, and audience it may contain information only city transportation agencies should have access to.
+
+        Metrics data should be viewed as representative sample data, not necessarily a 100% accurate picture of what happens at every defined curb space. Agencies may choose how frequently they update the data; at least monthly is recommended, but weekly, daily, hourly, or more frequent updates are acceptable.
+
+        Agencies wishing to publicly release Metrics data are encouraged to limit releases to static Aggregate data that has been reviewed for potential privacy risks.
+
+        An agency may choose to make this endpoint static (and return all the available data at once in a single file) or dynamic (and allow the use of any or all of the query parameters below to filter the data). If dynamic, all query parameters are optional. If not implemented, a server should reply with 501 Not Implemented.
       responses:
         '200':
-          description: OK
+          description: CSV file
           content:
-            application/json:
+            application/vnd.cds+csv;version=1.1:
               schema:
-                type: object
-                properties:
-                  version:
-                    $ref: ../Rest Responses/rest_response_version.yaml
-                  time_zone:
-                    $ref: ../Rest Responses/rest_response_time_zone.yaml
-                  last_updated:
-                    $ref: ../Rest Responses/rest_response_last_updated.yaml
-                  currency:
-                    $ref: ../Rest Responses/rest_response_currency.yaml
-                  author:
-                    $ref: ../Rest Responses/rest_response_author.yaml
-                  license_url:
-                    $ref: ../Rest Responses/rest_response_license_url.yaml
-                  data:
-                    type: object
-                    x-stoplight:
-                      id: 6hdpx6vi33ec9
-                    properties:
-                      sessions:
-                        type: array
-                        x-stoplight:
-                          id: je2bc2zsqo5jk
-                        items:
-                          $ref: ../Shared Data Models/session.yaml
-                          x-stoplight:
-                            id: 69aplzzla18wd
+                type: string
+                description: CSV rows corresponding to the Session data object.
+        '406':
+          description: Not Acceptable
         '501':
           description: Not Implemented
       operationId: get-metrics-sessions
@@ -75,48 +60,29 @@ paths:
         - $ref: '#/components/parameters/radius'
         - $ref: '#/components/parameters/start_time'
         - $ref: '#/components/parameters/end_time'
-      description: |-
-        Optional endpoint. Enables the querying of sessions from an agency.
-
-        An agency may choose to make this endpoint static (and return all the available data at once in a single file) or dynamic (and allow the use of any or all of the query parameters below to filter the data). If dynamic, all query parameters are optional.
   /metrics/aggregates:
     get:
       summary: Get Metric Aggregates
       tags:
         - aggregates
+      description: |-
+        Optional endpoint. Authorization is recommended for all Metrics endpoints, since depending on implementation, use cases, fields required, local laws, and audience it may contain information only city transportation agencies should have access to.
+
+        Metrics data should be viewed as representative sample data, not necessarily a 100% accurate picture of what happens at every defined curb space. Agencies may choose how frequently they update the data; at least monthly is recommended, but weekly, daily, hourly, or more frequent updates are acceptable.
+
+        Agencies wishing to publicly release Metrics data are encouraged to limit releases to static Aggregate data that has been reviewed for potential privacy risks.
+
+        An agency may choose to make this endpoint static (and return all the available data at once in a single file) or dynamic (and allow the use of any or all of the query parameters below to filter the data). If dynamic, all query parameters are optional. If not implemented, a server should reply with 501 Not Implemented.
       responses:
         '200':
-          description: OK
+          description: CSV file
           content:
-            application/json:
+            application/vnd.cds+csv;version=1.1:
               schema:
-                type: object
-                properties:
-                  version:
-                    $ref: ../Rest Responses/rest_response_version.yaml
-                  time_zone:
-                    $ref: ../Rest Responses/rest_response_time_zone.yaml
-                  last_updated:
-                    $ref: ../Rest Responses/rest_response_last_updated.yaml
-                  currency:
-                    $ref: ../Rest Responses/rest_response_currency.yaml
-                  author:
-                    $ref: ../Rest Responses/rest_response_author.yaml
-                  license_url:
-                    $ref: ../Rest Responses/rest_response_license_url.yaml
-                  data:
-                    type: object
-                    x-stoplight:
-                      id: zb3228zd0gb2t
-                    properties:
-                      aggregate:
-                        type: array
-                        x-stoplight:
-                          id: 3b1l6aypuq5sc
-                        items:
-                          $ref: ../Shared Data Models/aggregate.yaml
-                          x-stoplight:
-                            id: w9zfx39ouf3ti
+                type: string
+                description: CSV rows corresponding to the Aggregate data object.
+        '406':
+          description: Not Acceptable
         '501':
           description: Not Implemented
       operationId: get-metrics-aggregates
@@ -135,12 +101,6 @@ paths:
         - $ref: '#/components/parameters/radius'
         - $ref: '#/components/parameters/start_time'
         - $ref: '#/components/parameters/end_time'
-      requestBody:
-        content: {}
-      description: |-
-        Optional endpoint. Enables the querying of aggregates from an agency.
-
-        An agency may choose to make this endpoint static (and return all the available data at once in a single file) or dynamic (and allow the use of any or all of the query parameters below to filter the data). If dynamic, all query parameters are optional.
 components:
   schemas: {}
   parameters:
@@ -157,56 +117,56 @@ components:
       required: false
       schema:
         type: number
-      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `max_lat`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `max_lat`, and `max_lng`. If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
     max_lat:
       name: max_lat
       in: query
       required: false
       schema:
         type: number
-      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lng`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lng`. If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
     max_lng:
       name: max_lng
       in: query
       required: false
       schema:
         type: number
-      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lat`.  If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
+      description: 'Used to specify a latitude and longitude bounding box. Must be used together with `min_lat`, `min_lng`, and `max_lat`. If specified only return locations that intersect the supplied bounding box. This parameter is incompatible with `lat`, `lng`, and `radius`.'
     lat:
       name: lat
       in: query
       required: false
       schema:
         type: number
-      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`.'
     lng:
       name: lng
       in: query
       required: false
       schema:
         type: number
-      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `radius`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`.'
     radius:
       name: radius
       in: query
       required: false
       schema:
         type: number
-      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`.'
     start_time:
       name: start_time
       in: query
       required: false
       schema:
-        type: string
-      description: The start of the time period to return data where the value is inclusive.
+        $ref: ../Shared Data Models/timestamp.yaml
+      description: The start of the time period to return data; the value is inclusive.
     end_time:
       name: end_time
       in: query
       required: false
       schema:
-        type: string
-      description: The end of the time period to return data where the value is inclusive.
+        $ref: ../Shared Data Models/timestamp.yaml
+      description: The end of the time period to return data; the value is exclusive.
     curb_place_type:
       name: curb_place_type
       in: query
@@ -217,7 +177,8 @@ components:
           - area
           - zone
           - space
-      description: The type of curb place this aggregate applies to from the Curbs API.
+          - object
+      description: The type of curb place this aggregate applies to from the Curbs API. Required with `curb_place_id`.
     curb_place_id:
       name: curb_place_id
       in: query
@@ -225,7 +186,7 @@ components:
       schema:
         type: string
         format: uuid
-      description: 'The ID of this single curb place. If specified, only return data contained within this area. Required with `curb_place_type`.'
+      description: The ID of this single curb place. If specified, only return data contained within this curb place. Required with `curb_place_type`.
     metric_type:
       name: metric_type
       in: query
@@ -234,7 +195,8 @@ components:
         type: string
         enum:
           - total_sessions
+          - total_events
           - turnover
           - average_dwell_time
           - occupancy_percent
-      description: 'The single metric to return from the [Methodology](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology)'
+      description: 'The single metric to return from the [Methodology](https://github.com/openmobilityfoundation/curb-data-specification/tree/main/metrics#methodology).'

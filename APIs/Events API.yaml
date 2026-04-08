@@ -77,10 +77,18 @@ paths:
       x-stoplight:
         id: er2r1dx6pype6
       parameters:
+        - schema:
+            type: string
+          in: query
+          name: event_time
+          description: An ISO 8601 extended datetime representing a UTC hour between 00 and 23 in `YYYY-MM-DDTHH` format. If omitted, return all events from the last 60 minutes. For example, `event_time=2019-10-01T07` returns events where `2019-10-01T07:00:00 <= event.event_time < 2019-10-01T08:00:00` UTC.
         - $ref: '#/components/parameters/curb_area_id'
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
-      description: This required endpoint must be implemented by every Events API server. Enables the querying of CDS events.
+        - $ref: '#/components/parameters/curb_object_id'
+      description: |-
+        Authorization is recommended for this endpoint.
+        This required endpoint must be implemented by every Events API server. It returns CDS events ordered by `event_time`, with the newest events first, following the Event Times guidance.
   /events/status:
     get:
       summary: Get Status
@@ -140,10 +148,162 @@ paths:
         - $ref: '#/components/parameters/curb_area_id'
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
-      description: Optional endpoint. Enables the querying of statuses for various sensors monitoring curb places.
+        - $ref: '#/components/parameters/curb_object_id'
+      description: |-
+        Authorization is recommended for this endpoint.
+        Optional endpoint. Enables the querying of statuses for various sensors monitoring curb places. If not implemented, the server should reply with `501 Not Implemented`.
+  /events/event:
+    post:
+      summary: Push Event
+      tags:
+        - events
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/event_batch_request'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_bulk_response'
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_bulk_response'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_error_response'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_error_response'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_error_response'
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_error_response'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_error_response'
+        '500':
+          description: Internal Server Error. The response may contain a plain-text error message for troubleshooting.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/event_error_response'
+            text/plain:
+              schema:
+                type: string
+        '501':
+          description: Not Implemented
+      operationId: post-events-event
+      description: |-
+        Authorization is required for this endpoint.
+        Optional endpoint. Enables submission of CDS events. If not implemented, the server should reply with `501 Not Implemented`. Servers implementing this endpoint should deduplicate events from a publisher based on the `event_id` field, and should expect repeated submissions after interrupted network or system connections.
 components:
-  schemas: {}
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token authentication. JWT is recommended as the token format.
+  schemas:
+    event_batch_request:
+      type: array
+      description: Array of Curb Event objects to submit to `POST /events/event`.
+      items:
+        $ref: ../Shared Data Models/curb_event.yaml
+    event_bulk_failure:
+      type: object
+      description: Details for one failed item in a bulk event submission response.
+      required:
+        - item
+        - error
+        - error_description
+      properties:
+        item:
+          $ref: ../Shared Data Models/curb_event.yaml
+          description: The submitted event that failed processing.
+        error:
+          type: string
+          description: Short machine-readable error code for the failed item.
+        error_description:
+          type: string
+          description: Human-readable explanation of why the item failed.
+        error_details:
+          type: array
+          description: Array of field names or other details that explain the failure.
+          items:
+            type: string
+    event_bulk_response:
+      type: object
+      description: Bulk response for multi-record `POST /events/event` submissions. `success` counts written records, `total` counts submitted records, and `failures` lists item-level errors.
+      required:
+        - success
+        - total
+        - failures
+      properties:
+        success:
+          type: integer
+          description: Number of successfully written records.
+        total:
+          type: integer
+          description: Total number of records submitted.
+        failures:
+          type: array
+          description: Array of failed records. The array is empty when every item succeeds.
+          items:
+            $ref: '#/components/schemas/event_bulk_failure'
+    event_error_response:
+      type: object
+      description: Generic Events API error response object. The `error` field is a machine-readable error code, `error_description` is a human-readable explanation, and `error_details` provides additional troubleshooting context.
+      required:
+        - error
+        - error_description
+      properties:
+        error:
+          type: string
+          description: Error code such as `bad_param` or `missing_param`.
+        error_description:
+          type: string
+          description: Human-readable error description. This may be localized.
+        error_details:
+          type: array
+          description: Array of error details, such as missing parameters or field names.
+          items:
+            type: string
   parameters:
+    curb_object_id:
+      name: curb_object_id
+      in: query
+      required: false
+      schema:
+        type: string
+        format: uuid
+      description: The ID of a Curb Object. If specified, only return events or statuses occurring at this object.
     curb_area_id:
       name: curb_area_id
       in: query
