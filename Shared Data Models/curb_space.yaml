@@ -18,13 +18,13 @@ properties:
     x-stoplight:
       id: r3a5hu6diex3r
     description: |-
-      The date/time that this curb area was first published in this data feed.
+      The date/time that this curb space was first published in this data feed.
 
       An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
   last_updated_date:
     $ref: ./timestamp.yaml
     description: |-
-      The date/time that the properties of ths curb area were last updated. This helps consumers know that some fields may have changed.
+      The date/time that the properties of this curb space were last updated. This helps consumers know that some fields may have changed.
 
       An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
   curb_zone_id:
@@ -32,6 +32,12 @@ properties:
     type: string
     format: uuid
     example: '0eaa505d-c9e1-49ad-9fac-3c745ba58676'
+  curb_object_ids:
+    type: array
+    description: The ID(s) of the Curb Objects that this Curb Space is related to, in particular what Objects are in the Space's areas of influence. For example, a meter being used for two paid parking spaces, a locker for a commercial loading space, or a camera monitoring several spaces. If specified, the objects identified MUST be retrievable through a Curbs API Objects endpoint.
+    items:
+      type: string
+      format: uuid
   space_number:
     type: integer
     description: 'The sequence number of this space within its Zone. If specified, two spaces within the same Curb Zone MUST NOT share a space number, and space numbers SHOULD be consecutive positive integers starting at 1.'
@@ -51,8 +57,23 @@ properties:
       If availability information is present, the most recent time that availability was computed for this space.
 
       An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    description: Additional attributes (fields and data) to include in this endpoint.
+  external_references:
+    type: array
+    description: One or more references to external data feeds impacting this Curb Space. References external data that is relevant to this Space now. If the external reference is temporary, it should be added, then removed when no longer relevant.
+    items:
+      $ref: ./external_reference.yaml
 description: |
   Defines individual demarcated spaces within a Curb Zone. Important notes about Curb Spaces:
   * Curb Spaces may NOT overlap with other Curb Spaces
-  * Curb Spaces must be wholly contained within a single Curb Zone
+  * Curb Spaces must be wholly contained within or associated with a single Curb Zone
   * Unlike Zones, Spaces may be updated as needed, with a new `curb_space_id` being optionally assigned by the city
+required:
+  - curb_space_id
+  - geometry
+  - published_date
+  - last_updated_date
+  - curb_zone_id
+  - length

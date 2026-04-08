@@ -41,6 +41,11 @@
     },
     {
       "type": "item",
+      "title": "Curb Object",
+      "uri": "/Shared Data Models/curb_object.yaml"
+    },
+    {
+      "type": "item",
       "title": "Curb Policy",
       "uri": "/Shared Data Models/curb_policy.yaml"
     },

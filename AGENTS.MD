@@ -54,8 +54,8 @@ The authoritative CDS spec lives at https://github.com/openmobilityfoundation/cu
    - Include `description` on every field
    - Use `x-stoplight: id:` annotations if present on surrounding fields (Stoplight generates these)
    - Keep `required` arrays up to date
-4. **Validate** — run the Spectral linter (`.spectral.mjs`) after changes
-5. **Update the plan** — mark the completed step as done in `V1.1_IMPLEMENTATION_PLAN.md`
+4. **Validate** — run the Spectral linter (`.spectral.mjs`) after all changes for the task. `spectral` is currently available in this environment, so validation should be performed before wrapping up work.
+5. **Update the plan** — use strikethrough in `V1.1_IMPLEMENTATION_PLAN.md` to mark completed items as work lands. Do not add status suffixes like `DONE`, `TODO`, or `Partial` to implementation-step headings.
 6. **Commit** — use the commit message suggested in the plan step, or a similar conventional-commit style message
 
 ### Style conventions
@@ -79,11 +79,10 @@ The authoritative CDS spec lives at https://github.com/openmobilityfoundation/cu
 The project uses Spectral for OpenAPI linting:
 
 ```bash
-# If spectral is installed globally
 spectral lint "APIs/*.yaml"
 ```
 
-The `.spectral.mjs` config extends a remote Stoplight ruleset. After making changes, always lint and fix any errors before committing.
+The `.spectral.mjs` config extends a remote Stoplight ruleset. `spectral` is currently available in this workspace and should be run after all changes are made. Always lint and fix any errors before committing. When a task adds or edits standalone shared model files, lint those touched files as well in addition to the API documents.
 
 ## Key Gotchas
 

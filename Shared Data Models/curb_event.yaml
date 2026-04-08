@@ -6,24 +6,25 @@ description: A Curb Event is a record of activity that happens within the geogra
 properties:
   event_id:
     type: string
+    format: uuid
     x-stoplight:
       id: xjwh3uor9vtj9
     description: The globally unique identifier of the event that occurred.
-    format: uuid
   event_type:
     $ref: ./event_type.yaml
     x-stoplight:
       id: e9o3ixjkgnvna
-    description: General activity type that occurred during the event. Required for sources capable of determining activity type for relevant events.
+    description: The event_type that happened for this event.
   event_purpose:
     $ref: ./event_purpose.yaml
     x-stoplight:
       id: 3iqfxzhwqegxd
+    description: General curb usage purpose that the vehicle performed during the event. Required for sources capable of determining activity type for relevant event_types.
   event_location:
     $ref: ./geoJSON_point.yaml
     x-stoplight:
       id: y19vh7p0lzd87
-    description: 'The geo-location of where the event occurred, represented as a GeoJSON Point.'
+    description: The geographic point location where the event occurred. All efforts should be made to provide this field, even if slightly imprecise. But there may be times when a location is impossible or irrelevant.
   event_time:
     $ref: ./timestamp.yaml
     x-stoplight:
@@ -33,33 +34,24 @@ properties:
     $ref: ./timestamp.yaml
     x-stoplight:
       id: 4v1u5gy1laa9l
-    description: Time at which the event became available for consumption from this API.
+    description: Time at which the event became available for consumption by this API.
   event_session_id:
     type: string
+    format: uuid
     x-stoplight:
       id: jj9z3s5o99fi3
-    format: uuid
-    description: |-
-      May be provided to tie known connected park_start and park_end event types together by a unique session ID.
-
-      If **not** confident of being able to determine a park_end event at some time after park_start is recorded (i.e., you cannot detect when a vehicle departs), then do **not** use session_id.
+    description: May be provided to tie known connected `park_start` and `park_end` event types together by a unique session ID. If not confident of being able to determine a `park_end` event at some time after `park_start` is recorded, do not use `event_session_id`.
   curb_zone_id:
     type: string
+    format: uuid
     x-stoplight:
       id: 68921cndpqjax
-    format: uuid
-    description: |-
-      Unique ID of the Curb Zone where the event occurred.
-
-      Required for events that occurred at a known Curb Zone for **ALL** event_types.
+    description: Unique ID of the Curb Zone where the event occurred. Required for events that occurred in a known Curb Zone, if known and used, for ALL event_types.
   curb_area_ids:
     type: array
     x-stoplight:
       id: f49dygxi2plhh
-    description: |-
-      Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one.
-
-      Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one. Required for events that occurred in a known Curb Area, if known and used, for these event_types: `enter_area`, `exit_area`, `park_start`, `park_end`
+    description: Unique IDs of the Curb Area where the event occurred. Since Curb Areas can overlap, an event may happen in more than one. Required for events that occurred in a known Curb Area, if known and used, for ALL event_types.
     items:
       x-stoplight:
         id: h4hgjz0397qtp
@@ -67,37 +59,42 @@ properties:
       format: uuid
   curb_space_id:
     type: string
+    format: uuid
     x-stoplight:
       id: i1hz5ebvpvyp6
+    description: Unique ID of the Curb Space where the event occurred. Required for events that occurred at a known Curb Space, if known and used, for ALL event_types.
+  curb_object_id:
+    type: string
     format: uuid
-    description: |-
-      Unique ID of the Curb Space where the event occurred.
-
-      Required for events that occurred at a known Curb Space, if known and used, for these event_types: `park_start`, `park_end`, `enter_area`, `exit_area`
+    x-stoplight:
+      id: z2v5n8p1r6cqh
+    description: Unique ID of the Curb Object where the event occurred. Required for events that occurred at a known Curb Object, if known and used, for ALL event_types.
   data_source_type:
     $ref: ./data_source_type.yaml
     x-stoplight:
       id: tow3anlr8tr36
+    description: General category of the source creating the event.
   data_source_operator_id:
     $ref: ./operator_id.yaml
     x-stoplight:
       id: b7peq7v42kjls
+    description: Unique identifier of the entity responsible for operating the event data source. IDs can identify the fleet operator sending a data feed, or the organization operating the sensor or other source.
   data_source_operator_name:
     type: string
     x-stoplight:
       id: swh4u6hrdy0ey
-    description: |-
-      Name of the provider responsible for operating the vehicle, device, or sensor at the time of the event.
-
-      May be sent along with `data_source_operator_id` or on its own for small operators at the discretion of the city.
+    description: Name of the provider responsible for operating the vehicle, device, or sensor at the time of the event. May be sent along with `data_source_operator_id` or on its own for small operators at the discretion of the city.
   data_source_device_id:
     type: string
+    format: uuid
     x-stoplight:
       id: w91m0qzkjjacq
-    description: |-
-      Unique identifier of this event source, whether sensor, vehicle, camera, etc. Allows agencies to connect related Events as they are recorded by the same source. If coming from a provider, this is a generated UUID they use and not the same as the external `vehicle_id`.
-
-      If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).
+    description: Unique identifier of this event source, whether sensor, vehicle, camera, or similar device. Allows agencies to connect related Events as they are recorded by the same source. If coming from a provider, this is a generated UUID they use and not the same as the external `vehicle_id`.
+  data_source_device_name:
+    type: string
+    x-stoplight:
+      id: r7c1m0f2l4pda
+    description: Unique name of this event source, whether sensor, vehicle, camera, or similar device. Must be provided if the device has a visible or shared identifier.
   data_source_manufacturer:
     type: string
     x-stoplight:
@@ -112,72 +109,155 @@ properties:
     type: boolean
     x-stoplight:
       id: 3i9prwaz5klwz
-    description: 'If a sensor was used to capture this event, the commissioned status at the time that the event was reported. Indicates whether the sensor is currently in a state where it should be reporting data.'
+    description: If a sensor was used to capture this event, the commissioned status at the time that the event was reported. Indicates whether the sensor is currently in a state where it should be reporting data.
   sensor_status_is_online:
     type: boolean
     x-stoplight:
       id: 9ra1u95oix354
-    description: 'If a sensor was used to capture this event, the online status at the time that the event was reported. Indicates whether the sensor is currently online and reporting data.'
+    description: If a sensor was used to capture this event, the online status at the time that the event was reported. Indicates whether the sensor is currently online and reporting data.
   vehicle_id:
     type: string
     x-stoplight:
       id: 3lyyz739s4ew1
-    description: 'A vehicle identifier visible externally on the vehicle itself. If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).'
+    description: A vehicle identifier visible externally on the vehicle itself. If this field is needed for your use cases, review the CDS privacy guidance.
   vehicle_license_plate:
     type: string
     x-stoplight:
       id: cckfib2gi29uh
-    description: 'The consistently placed vehicle license plate, usable by ALPR systems, when required for curb use. This field is potentially sensitive (depending on local, state, and national laws) and a data privacy framework is recommended for collecting, retention, deletion, obfuscation, and security. If this field is needed for your use cases, review our [Privacy Guidance](https://github.com/openmobilityfoundation/curb-data-specification/blob/main/README.md#data-privacy).'
+    description: The consistently placed vehicle license plate, usable by ALPR systems, when required for curb use. This field may be sensitive depending on jurisdiction.
+  vehicle_license_plate_jurisdiction:
+    type: string
+    x-stoplight:
+      id: p1x9v0r6m2qsa
+    description: Jurisdiction or state in which the `vehicle_license_plate` is registered.
+  vehicle_license_plate_confidence:
+    type: integer
+    minimum: 1
+    maximum: 100
+    x-stoplight:
+      id: n6c4t7h2z8bpa
+    description: Value from 1 to 100 specifying the recognition confidence level for `vehicle_license_plate`.
   vehicle_permit_number:
     type: string
     x-stoplight:
       id: p9m8k37j17kcv
-    description: 'If applicable, the assigned permit number for this vehicle from the city agency.'
+    description: If applicable, the assigned permit number for this vehicle from the city agency.
   vehicle_length:
-    type: number
+    type: integer
     x-stoplight:
       id: zax8xvn9afq87
-    description: |-
-      Approximate length of the vehicle that performed the event, measured in centimeters.
-
-      Required for sources capable of determining vehicle length.
+    description: Approximate length of the vehicle that performed the event, measured in centimeters. Required for sources capable of determining vehicle length.
+  vehicle_type:
+    $ref: ./vehicle_type.yaml
+    x-stoplight:
+      id: d4w1o9q7e2lks
+    description: Type of the vehicle that performed the event. Required for sources capable of determining vehicle type.
+  vehicle_type_confidence:
+    type: integer
+    minimum: 1
+    maximum: 100
+    x-stoplight:
+      id: q3j8f0k1w5rns
+    description: Value from 1 to 100 specifying the recognition confidence level for `vehicle_type`.
+  vehicle_color:
+    type: string
+    x-stoplight:
+      id: t8m2c5d9y1vhr
+    description: Color of the vehicle that performed the event.
+  vehicle_color_confidence:
+    type: integer
+    minimum: 1
+    maximum: 100
+    x-stoplight:
+      id: b7n4p3k6s8ywd
+    description: Value from 1 to 100 specifying the recognition confidence level for `vehicle_color`.
+  vehicle_company_name:
+    type: string
+    x-stoplight:
+      id: v0m3q7n5x2lzc
+    description: Company or courier name of the vehicle that performed the event.
+  vehicle_company_name_confidence:
+    type: integer
+    minimum: 1
+    maximum: 100
+    x-stoplight:
+      id: h5c2r8j1p9dsa
+    description: Value from 1 to 100 specifying the recognition confidence level for `vehicle_company_name`.
+  vehicle_run_id:
+    type: string
+    x-stoplight:
+      id: k9d4s1f7m6qla
+    description: Run identifier from an external runs table containing information about the make, model, and/or year of the vehicle that performed the event.
+  vehicle_run_id_confidence:
+    type: integer
+    minimum: 1
+    maximum: 100
+    x-stoplight:
+      id: m1p8x3w6c4znt
+    description: Value from 1 to 100 specifying the recognition confidence level for `vehicle_run_id`.
   vehicle_propulsion_types:
     $ref: ./propulsion_type.yaml
     x-stoplight:
       id: yzh8z7wdjj72a
+    description: List of propulsion types used by the vehicle that performed the event. Required for sources capable of determining vehicle propulsion type.
   vehicle_blocked_lane_types:
-    $ref: ./lane_type.yaml
+    type: array
     x-stoplight:
       id: z3n62d0081u5j
+    description: Type(s) of lane blocked by the vehicle performing the event. If no lanes are blocked by the vehicle performing the event, the array should be empty. Required for sources capable of determining it for `park_start` events.
+    items:
+      $ref: ./lane_type.yaml
   curb_occupants:
     type: array
     x-stoplight:
       id: jysyhxqxkjnnz
+    description: Current occupants of the Curb Zone. If the source can determine linear location, the array should be ordered by the start of each occupant's linear reference.
     items:
       $ref: ./curb_occupant.yaml
       x-stoplight:
         id: bzse7o4oic8h4
   actual_cost:
     type: integer
+    example: 100
     x-stoplight:
       id: aifcs5wjnhqhu
-    description: 'If available from the source, the actual cost, in the currency defined in currency, paid by the curb user for this event. The currency type is sent in with the REST Endpoints JSON object. All costs should be given as integers in the currency''s smallest unit. As an example, to represent $1 USD, specify an amount of 100 (for 100 cents).'
-    example: 100
-  external_references:
-    type: array
+    description: If available from the source, the actual cost paid by the curb user for this event, in the currency's smallest unit.
+  enforcement:
+    $ref: ./enforcement.yaml
     x-stoplight:
-      id: 7p2n4a8k3jw0c
-    description: External references that link this event to other systems or specifications.
-    items:
-      $ref: ./external_reference.yaml
+      id: a8q2v6n1t5mzr
+    description: Enforcement information related to this Curb Event, relevant to the moment in time the event happens. Only used for enforcement related events such as `vehicle_detected`, `vehicle_violation_start`, `vehicle_violation_end`, and `citation_issued`.
+  payment_channel:
+    $ref: ./payment_channel.yaml
+    x-stoplight:
+      id: c6h1n4j8q5sza
+    description: If available from the source, the medium by which a user submitted payment.
+  payment_method:
+    $ref: ./payment_method.yaml
+    x-stoplight:
+      id: e4p9d2k7m1rxc
+    description: If available from the source, the method used to pay for this event.
+  payment_transaction_id:
+    type: string
+    x-stoplight:
+      id: u3k8m1x5q7vbd
+    description: The transaction ID of the payment if available from the source and different from the `event_id`.
   custom_attributes:
     $ref: ./custom_attributes.yaml
     x-stoplight:
       id: 4l3d9m8q2sk1v
-    description: Implementation-specific custom attributes for this event.
+    description: Additional attributes (fields and data) to include in this endpoint.
+  external_references:
+    type: array
+    x-stoplight:
+      id: 7p2n4a8k3jw0c
+    description: One or more references to external data sources impacting this Curb Event. The external reference is relevant to the moment in time the event happens.
+    items:
+      $ref: ./external_reference.yaml
 required:
   - event_id
-  - event_location
+  - event_type
   - event_time
+  - event_publication_time
   - data_source_type
   - data_source_device_id
