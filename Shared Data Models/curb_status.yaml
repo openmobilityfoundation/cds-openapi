@@ -2,9 +2,26 @@ title: Curb Status
 x-stoplight:
   id: hvscebeq5ob4d
 type: object
+description: The Curb Status is the current status of sensors that are monitoring curb places.
 properties:
-  id:
+  data_source_device_id:
     type: string
+    format: uuid
     x-stoplight:
       id: adhs12kh3sx96
-description: The Curb Status is the current status of sensors that are monitoring curb places.
+    description: Unique identifier of this event source, whether sensor, vehicle, camera, or similar device.
+  data_source_type:
+    $ref: ./data_source_type.yaml
+    description: General category of the source creating the event.
+  data_source_operator_id:
+    $ref: ./operator_id.yaml
+    description: Unique identifier of the entity responsible for operating the event data source. Can be global from `data_source_operators.csv` or defined per city.
+  sensor_status_is_commissioned:
+    type: boolean
+    description: Indicates whether the sensor is currently in a state where it should be reporting data.
+  sensor_status_is_online:
+    type: boolean
+    description: Indicates whether the sensor is currently online and reporting data.
+required:
+  - data_source_device_id
+  - data_source_type

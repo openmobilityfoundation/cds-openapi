@@ -5,6 +5,7 @@ type: string
 enum:
   - travel_lane
   - turn_lane
+  - center_turn_lane
   - bike_lane
   - bus_lane
   - parking
@@ -17,8 +18,9 @@ description: |-
 
   |Value|Description| 
   |--------------|-----|
-  | human |  A standard vehicle travel lane. | 
+  | travel_lane |  A standard vehicle travel lane. | 
   | turn_lane |  A dedicated turn lane. | 
+  | center_turn_lane |  A center lane available for turns in both directions. Sometimes used for courier parking for loading activity. |
   | bike_lane |  A lane dedicated for usage by cyclists. | 
   | bus_lane |  A lane dedicated for usage by buses. | 
   | parking |  A lane used for parking, not allowed for travel. | 

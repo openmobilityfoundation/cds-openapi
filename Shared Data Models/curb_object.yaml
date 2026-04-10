@@ -133,3 +133,8 @@ required:
   - name
   - published_date
   - last_updated_date
+anyOf:
+  - required:
+      - curb_zone_id
+  - required:
+      - curb_space_id

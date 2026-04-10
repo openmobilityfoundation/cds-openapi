@@ -13,6 +13,7 @@ properties:
 
       A `curb_policy_id` MUST NOT be reused. Once created, it must continue to refer to the identical policy forever.
     type: string
+    format: uuid
   name:
     type: string
     description: User friendly name of policy.
@@ -118,9 +119,6 @@ properties:
     description: External references that link this policy to other systems or specifications.
     items:
       $ref: ./external_reference.yaml
-  custom_attributes:
-    $ref: ./custom_attributes.yaml
-    description: Implementation-specific custom attributes for this policy.
 required:
   - curb_policy_id
   - published_date

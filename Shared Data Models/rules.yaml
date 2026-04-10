@@ -40,102 +40,30 @@ properties:
     description: >
       User classes describe which vehicles, vehicle properties, or permit types
       a rule applies to. All values in the array must match for the rule to apply.
+      Locally generated user classes are allowed. Well-known recommended values
+      include bicycle, bus, cargo_bicycle, car, moped, motorcycle, scooter,
+      shuttle, truck, van, accessible, autonomous, combustion, electric,
+      electric_assist, and human.
     items:
       type: string
-      enum:
-        - bicycle
-        - bus
-        - cargo_bicycle
-        - car
-        - moped
-        - motorcycle
-        - scooter
-        - shuttle
-        - truck
-        - van
-        - accessible
-        - human
-        - electric_assist
-        - electric
-        - combustion
-        - autonomous
-        - construction
-        - delivery
-        - disabled_parking_permit
-        - emergency_use
-        - freight
-        - parking
-        - permit
-        - rideshare
-        - school
-        - service_vehicles
-        - special_events
-        - taxi
-        - utilities
-        - vending
-        - waste_management
   user_classes_except:
     type: array
     description: >
       If specified, the rule applies only to users who do not match any of the
-      listed user classes.
+      listed user classes. Locally generated user classes are allowed.
     items:
       type: string
-      enum:
-        - bicycle
-        - bus
-        - cargo_bicycle
-        - car
-        - moped
-        - motorcycle
-        - scooter
-        - shuttle
-        - truck
-        - van
-        - accessible
-        - human
-        - electric_assist
-        - electric
-        - combustion
-        - autonomous
-        - construction
-        - delivery
-        - disabled_parking_permit
-        - emergency_use
-        - freight
-        - parking
-        - permit
-        - rideshare
-        - school
-        - service_vehicles
-        - special_events
-        - taxi
-        - utilities
-        - vending
-        - waste_management
   purposes:
     type: array
     description: >
       The permitted purposes associated with this rule. If specified, the rule
-      applies only when one of the listed purposes matches.
+      applies only when one of the listed purposes matches. Locally generated
+      purpose values are allowed. Well-known recommended values include
+      construction, delivery, disabled_parking_permit, emergency_use, freight,
+      parking, permit, rideshare, carshare, school, service_vehicles,
+      special_events, taxi, utilities, valet, vending, and waste_management.
     items:
       type: string
-      enum:
-        - construction
-        - delivery
-        - disabled_parking_permit
-        - emergency_use
-        - freight
-        - parking
-        - permit
-        - rideshare
-        - school
-        - service_vehicles
-        - special_events
-        - taxi
-        - utilities
-        - vending
-        - waste_management
   rate:
     type: array
     description: The cost of using this Curb Zone when this regulation applies.
@@ -167,6 +95,9 @@ properties:
         end_duration:
           type: integer
           description: The number of rate_units after which the rate stops applying.
+        maximum_fee:
+          type: integer
+          description: The maximum amount in cents a user of the curb can pay for a particular parking event.
       required:
         - rate
         - rate_unit

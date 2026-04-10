@@ -33,6 +33,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -64,6 +70,8 @@ paths:
                     type: object
                     x-stoplight:
                       id: fhxkczml8n5d5
+                    required:
+                      - events
                     properties:
                       events:
                         type: array
@@ -86,6 +94,9 @@ paths:
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
         - $ref: '#/components/parameters/curb_object_id'
+      security:
+        - bearerAuth: []
+        - {}
       description: |-
         Authorization is recommended for this endpoint.
         This required endpoint must be implemented by every Events API server. It returns CDS events ordered by `event_time`, with the newest events first, following the Event Times guidance.
@@ -101,6 +112,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -130,6 +147,8 @@ paths:
                     type: object
                     x-stoplight:
                       id: e1wkbj37xvkz9
+                    required:
+                      - status
                     properties:
                       status:
                         type: array
@@ -149,6 +168,9 @@ paths:
         - $ref: '#/components/parameters/curb_zone_id'
         - $ref: '#/components/parameters/curb_space_id'
         - $ref: '#/components/parameters/curb_object_id'
+      security:
+        - bearerAuth: []
+        - {}
       description: |-
         Authorization is recommended for this endpoint.
         Optional endpoint. Enables the querying of statuses for various sensors monitoring curb places. If not implemented, the server should reply with `501 Not Implemented`.

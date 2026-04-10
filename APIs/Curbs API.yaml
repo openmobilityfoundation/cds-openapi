@@ -4,7 +4,7 @@ x-stoplight:
 info:
   title: Curb API
   version: '1.1'
-  description: 'The Curbs API is a REST API allowing cities to specify areas of interest along the curb along with the rules for using them: who is allowed to park, load, unload, pick up, drop off, etc., for how long, for what price (if any), at what times, and on which days. Locations defined in the Curbs API can be connected to event and metrics data, and can be shared with companies and the public, for purposes such as routing, finding legal parking, loading, and pick-up/drop-off spots, or analyzing curb utilization over time.'
+  description: 'The Curbs API is a REST API allowing cities to specify areas of interest along and around the curb, objects in and near the curb or on sidewalks or travel lanes, and off street parking areas. Included are the rules and policies for using these areas: who is allowed to park, load, unload, pick up, drop off, etc., for how long, for what price (if any), at what times, and on which days. Locations defined in the Curbs API can be connected to event and metrics data, and can be shared with companies and the public, for purposes such as routing, finding legal parking, loading, and pick-up/drop-off spots, enforcement, compliance, and analyzing curb utilization over time.'
   contact:
     name: Open Mobility Foundation
     url: 'https://www.openmobilityfoundation.org'
@@ -38,6 +38,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -55,6 +61,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: object
+                    required:
+                      - zones
                     properties:
                       zones:
                         type: array
@@ -78,7 +86,7 @@ paths:
         - $ref: '#/components/parameters/radius'
         - $ref: '#/components/parameters/include_geometry'
         - schema:
-            type: string
+            $ref: ../Shared Data Models/timestamp.yaml
           in: query
           name: time
           description: Only Curb Zone objects whose validity period includes this time will be returned; availability data (if supplied) will be returned as of this time
@@ -96,6 +104,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -113,6 +127,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: object
+                    required:
+                      - areas
                     properties:
                       areas:
                         type: array
@@ -145,6 +161,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -162,6 +184,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: object
+                    required:
+                      - spaces
                     properties:
                       spaces:
                         type: array
@@ -185,7 +209,7 @@ paths:
         - $ref: '#/components/parameters/lng'
         - $ref: '#/components/parameters/radius'
         - schema:
-            type: string
+            $ref: ../Shared Data Models/timestamp.yaml
           in: query
           name: time
           description: Availability data (if supplied) will be returned as of this time.
@@ -204,6 +228,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -221,6 +251,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: object
+                    required:
+                      - objects
                     properties:
                       objects:
                         type: array
@@ -263,6 +295,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -311,6 +349,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -328,6 +372,8 @@ paths:
                     $ref: ../Rest Responses/rest_response_license_url.yaml
                   data:
                     type: object
+                    required:
+                      - policies
                     properties:
                       policies:
                         type: array
@@ -366,6 +412,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -419,6 +471,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -462,6 +520,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -510,6 +574,12 @@ paths:
             application/json:
               schema:
                 type: object
+                required:
+                  - version
+                  - time_zone
+                  - last_updated
+                  - currency
+                  - data
                 properties:
                   version:
                     $ref: ../Rest Responses/rest_response_version.yaml
@@ -528,9 +598,9 @@ paths:
                   data:
                     $ref: ../Shared Data Models/curb_policy.yaml
         '501':
-          description: Not Implemented
+          description: NOT_IMPLEMENTED
       operationId: get-curbs-policy
-      description: Fetch a single Curb Policy by ID.
+      description: 'Fetch a single Curb Policy by ID. Optional endpoint. If not implemented, the server should reply with 501 Not Implemented.'
       parameters:
         - schema:
             type: string
@@ -592,7 +662,7 @@ components:
       required: false
       schema:
         type: number
-      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`'
     include_geometry:
       name: include_geometry
       in: query

@@ -2,14 +2,10 @@ title: Custom Attributes
 type: object
 description: >
   Implementation-specific custom attributes for this object.
-  Publishers MAY use any keys and value structures appropriate to their use case.
-  A simple `"key": "value"` structure is provided as an example only and does NOT
-  restrict the allowed shapes of `custom_attributes`.
-additionalProperties: true
+  Custom attributes are one or more JSON name/value pairs, and the values must be
+  strings.
+additionalProperties:
+  type: string
 examples:
   - color: "blue"
     kiosk_id: "K-1234"
-    internal_tag:
-      source: "legacy_system"
-      code: 42
-

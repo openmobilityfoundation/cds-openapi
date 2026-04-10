@@ -152,7 +152,7 @@ components:
       required: false
       schema:
         type: number
-      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lng` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`.'
+      description: 'Specifies a latitude and longitude bounding point and a radius away from that point. Must be used together with `lat` and `lng`. Returns only locations that are within radius centimeters of the point identified by lat/lng. Curb Zones in the response MUST be ordered ascending by distance from the center point. This parameter is incompatible with `min_lat`, `min_lng`, `max_lat`, and `max_lng`.'
     start_time:
       name: start_time
       in: query
