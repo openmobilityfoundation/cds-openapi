@@ -4,15 +4,16 @@ Read [AGENTS.MD](AGENTS.MD) for full project context, structure, conventions, an
 
 ## Quick Reference
 
-- **What this repo is:** OpenAPI 3.1 spec for the Curb Data Specification (CDS)
-- **Active branch:** `draft-v1.1`
-- **Implementation plan:** [V1.1_IMPLEMENTATION_PLAN.md](V1.1_IMPLEMENTATION_PLAN.md)
+- **What this repo is:** OpenAPI 3.1 specification for the Curb Data Specification (CDS), an open standard for curb data managed by the Open Mobility Foundation
+- **Versioning:** One branch per version (e.g., `v1.1`, `v1.2`). Version branches are independent.
 - **Upstream spec:** https://github.com/openmobilityfoundation/curb-data-specification
-- **Upstream PR for v1.1 changes:** https://github.com/openmobilityfoundation/curb-data-specification/pull/201
 
-## Before making any changes
+## Workflow
 
-1. Confirm you are on the `draft-v1.1` branch
-2. Read the relevant step in `V1.1_IMPLEMENTATION_PLAN.md`
-3. Cross-reference the upstream CDS spec for exact field definitions
-4. After editing, validate with the Spectral linter
+When making changes:
+
+1. Confirm which version branch the changes should be made to (e.g., `v1.1`, `v1.2`)
+2. Cross-reference the upstream CDS spec for exact field definitions
+3. Edit the YAML files, following the style conventions in [AGENTS.MD](AGENTS.MD)
+4. Run `npm install && spectral lint "APIs/*.yaml"` to validate your changes
+5. Open a pull request to the appropriate version branch with a conventional-commit style message
