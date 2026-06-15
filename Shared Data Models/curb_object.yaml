@@ -138,3 +138,32 @@ anyOf:
       - curb_zone_id
   - required:
       - curb_space_id
+examples:
+  - curb_object_id: 1f4e2d6a-9b3c-4f8a-bd21-7c5e9a0d3b62
+    geometry:
+      type: Point
+      coordinates:
+        - -73.982105
+        - 40.767932
+    curb_zone_id: a3b1c8d4-2e6f-4a90-9c11-5d7e8f2a4b06
+    curb_policy_id: 6d2f9c14-8b37-4e51-a0d9-1c4e7b8a52f3
+    lane_type: parking
+    object_type: signage
+    name: No Parking 8-10 AM sign
+    description: Pole-mounted regulatory sign at the upstream end of the loading zone.
+    owner: City Department of Transportation
+    operator: City Department of Transportation
+    linear_distance: 0
+    perpendicular_distance: 45
+    max_length: 30
+    max_depth: 30
+    max_height: 240
+    published_date: 1643130000000
+    last_updated_date: 1643130000000
+    external_references:
+      - reference_url: https://example.com/signs/no-parking-8-10
+        name: CDS
+        public: true
+        identifier_name: id
+        ids:
+          - sign_1234
