@@ -41,11 +41,6 @@
     },
     {
       "type": "item",
-      "title": "Curb Object",
-      "uri": "/Shared Data Models/curb_object.yaml"
-    },
-    {
-      "type": "item",
       "title": "Curb Policy",
       "uri": "/Shared Data Models/curb_policy.yaml"
     },
@@ -55,143 +50,148 @@
       "uri": "/Shared Data Models/curb_event.yaml"
     },
     {
+      "type": "item",
+      "title": "Curb Object",
+      "uri": "/Shared Data Models/curb_object.yaml"
+    },
+    {
       "type": "divider",
       "title": "Shared Models"
     },
-        {
-        "type": "item",
-        "title": "Aggregate",
-        "uri": "/Shared Data Models/aggregate.yaml"
+    {
+      "type": "item",
+      "title": "Aggregate",
+      "uri": "/Shared Data Models/aggregate.yaml"
     },
     {
-        "type": "item",
-        "title": "Custom Attributes",
-        "uri": "/Shared Data Models/custom_attributes.yaml"
+      "type": "item",
+      "title": "Custom Attributes",
+      "uri": "/Shared Data Models/custom_attributes.yaml"
     },
     {
-        "type": "item",
-        "title": "Coordinates",
-        "uri": "/Shared Data Models/coordinates.yaml"
+      "type": "item",
+      "title": "Coordinates",
+      "uri": "/Shared Data Models/coordinates.yaml"
     },
     {
-        "type": "item",
-        "title": "Curb Occupant",
-        "uri": "/Shared Data Models/curb_occupant.yaml"
+      "type": "item",
+      "title": "Curb Occupant",
+      "uri": "/Shared Data Models/curb_occupant.yaml"
     },
     {
-        "type": "item",
-        "title": "Curb Status",
-        "uri": "/Shared Data Models/curb_status.yaml"
+      "type": "item",
+      "title": "Curb Status",
+      "uri": "/Shared Data Models/curb_status.yaml"
     },
     {
-        "type": "item",
-        "title": "Data Source Type",
-        "uri": "/Shared Data Models/data_source_type.yaml"
+      "type": "item",
+      "title": "Data Source Type",
+      "uri": "/Shared Data Models/data_source_type.yaml"
     },
     {
-        "type": "item",
-        "title": "Enforcement",
-        "uri": "/Shared Data Models/enforcement.yaml"
+      "type": "item",
+      "title": "Enforcement",
+      "uri": "/Shared Data Models/enforcement.yaml"
     },
     {
-        "type": "item",
-        "title": "Event Purpose",
-        "uri": "/Shared Data Models/event_purpose.yaml"
+      "type": "item",
+      "title": "Event Purpose",
+      "uri": "/Shared Data Models/event_purpose.yaml"
     },
     {
-        "type": "item",
-        "title": "Event Type",
-        "uri": "/Shared Data Models/event_type.yaml"
+      "type": "item",
+      "title": "Event Type",
+      "uri": "/Shared Data Models/event_type.yaml"
     },
     {
-        "type": "item",
-        "title": "External Reference",
-        "uri": "/Shared Data Models/external_reference.yaml"
+      "type": "item",
+      "title": "External Reference",
+      "uri": "/Shared Data Models/external_reference.yaml"
     },
     {
-        "type": "item",
-        "title": "GeoJSON Point",
-        "uri": "/Shared Data Models/geoJSON_point.yaml"
+      "type": "item",
+      "title": "GeoJSON Point",
+      "uri": "/Shared Data Models/geoJSON_point.yaml"
     },
     {
-        "type": "item",
-        "title": "GeoJSON Polygon",
-        "uri": "/Shared Data Models/geoJSON_polygon.yaml"
+      "type": "item",
+      "title": "GeoJSON Polygon",
+      "uri": "/Shared Data Models/geoJSON_polygon.yaml"
     },
     {
-        "type": "item",
-        "title": "GeoJSON LineString",
-        "uri": "/Shared Data Models/geoJSON_linestring.yaml"
+      "type": "item",
+      "title": "GeoJSON LineString",
+      "uri": "/Shared Data Models/geoJSON_linestring.yaml"
     },
     {
-        "type": "item",
-        "title": "Lane Type",
-        "uri": "/Shared Data Models/lane_type.yaml"
+      "type": "item",
+      "title": "Lane Type",
+      "uri": "/Shared Data Models/lane_type.yaml"
     },
     {
-        "type": "item",
-        "title": "Latitude",
-        "uri": "/Shared Data Models/latitude.yaml"
+      "type": "item",
+      "title": "Latitude",
+      "uri": "/Shared Data Models/latitude.yaml"
     },
     {
-        "type": "item",
-        "title": "Longitude",
-        "uri": "/Shared Data Models/longitude.yaml"
+      "type": "item",
+      "title": "Longitude",
+      "uri": "/Shared Data Models/longitude.yaml"
     },
     {
-        "type": "item",
-        "title": "Operator ID",
-        "uri": "/Shared Data Models/operator_id.yaml"
+      "type": "item",
+      "title": "Operator ID",
+      "uri": "/Shared Data Models/operator_id.yaml"
     },
     {
-        "type": "item",
-        "title": "Payment Channel",
-        "uri": "/Shared Data Models/payment_channel.yaml"
+      "type": "item",
+      "title": "Payment Channel",
+      "uri": "/Shared Data Models/payment_channel.yaml"
     },
     {
-        "type": "item",
-        "title": "Payment Method",
-        "uri": "/Shared Data Models/payment_method.yaml"
+      "type": "item",
+      "title": "Payment Method",
+      "uri": "/Shared Data Models/payment_method.yaml"
     },
     {
-        "type": "item",
-        "title": "Propulsion Type",
-        "uri": "/Shared Data Models/propulsion_type.yaml"
+      "type": "item",
+      "title": "Propulsion Type",
+      "uri": "/Shared Data Models/propulsion_type.yaml"
     },
     {
-        "type": "item",
-        "title": "Rules",
-        "uri": "/Shared Data Models/rules.yaml"
+      "type": "item",
+      "title": "Rules",
+      "uri": "/Shared Data Models/rules.yaml"
     },
     {
-        "type": "item",
-        "title": "Session",
-        "uri": "/Shared Data Models/session.yaml"
+      "type": "item",
+      "title": "Session",
+      "uri": "/Shared Data Models/session.yaml"
     },
     {
-        "type": "item",
-        "title": "Time Spans",
-        "uri": "/Shared Data Models/time_spans.yaml"
+      "type": "item",
+      "title": "Time Spans",
+      "uri": "/Shared Data Models/time_spans.yaml"
     },
     {
-        "type": "item",
-        "title": "Timestamp",
-        "uri": "/Shared Data Models/timestamp.yaml"
+      "type": "item",
+      "title": "Timestamp",
+      "uri": "/Shared Data Models/timestamp.yaml"
     },
     {
-        "type": "item",
-        "title": "Unit of Time",
-        "uri": "/Shared Data Models/unit_of_time.yaml"
+      "type": "item",
+      "title": "Unit of Time",
+      "uri": "/Shared Data Models/unit_of_time.yaml"
     },
     {
-        "type": "item",
-        "title": "Vehicle Type",
-        "uri": "/Shared Data Models/vehicle_type.yaml"
+      "type": "item",
+      "title": "Vehicle Type",
+      "uri": "/Shared Data Models/vehicle_type.yaml"
     },
     {
-        "type": "item",
-        "title": "Violation",
-        "uri": "/Shared Data Models/violation.yaml"
+      "type": "item",
+      "title": "Violation",
+      "uri": "/Shared Data Models/violation.yaml"
     },
     {
       "type": "divider",
