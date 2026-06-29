@@ -2,6 +2,8 @@
 
 _Last updated 2026-06-02_
 
+CDS Version 1.1
+
 ---
 
 ## Overview
@@ -19,7 +21,7 @@ Interactive OpenAPI documentation is available on Stoplight at [OMF's Interactiv
 Each CDS version has its own branch. Version branches are independent — changes to one version do not affect another.
 
 - [v1.0](https://github.com/openmobilityfoundation/cds-openapi/tree/v1.0)
-- [v1.1](https://github.com/openmobilityfoundation/cds-openapi/tree/v1.1)
+- [v1.1](https://github.com/openmobilityfoundation/cds-openapi/tree/main)
 
 ## Reporting Issues
 
