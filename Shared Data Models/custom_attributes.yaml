@@ -1,0 +1,11 @@
+title: Custom Attributes
+type: object
+description: >
+  Implementation-specific custom attributes for this object.
+  Custom attributes are one or more JSON name/value pairs, and the values must be
+  strings.
+additionalProperties:
+  type: string
+examples:
+  - color: "blue"
+    kiosk_id: "K-1234"

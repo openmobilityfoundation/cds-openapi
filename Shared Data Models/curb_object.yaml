@@ -1,0 +1,169 @@
+title: Curb Object
+x-stoplight:
+  id: 2b5f7d9n1c4qa
+type: object
+description: |
+  Defines individual assets located adjacent to, overlapping, within, or associated with a Curb Space or Curb Zone. Important notes about Curb Objects:
+  * Curb Objects can be located anywhere within, beside, or overlapping with Curb Zones, Spaces, or other Curb Objects
+  * Curb Objects must be associated with either a Curb Space or Curb Zone
+  * Curb Objects do not typically have Curb Policies linked directly to them (unless the object is directly aligned with a single Policy, using the optional `curb_policy_id` field). Associated Curb Policies can be found by looking at the related Curb Zone, either directly or through the Curb Space.
+  * Unlike Zones and similar to Spaces, Objects may be updated as needed, with a new `curb_object_id` being optionally assigned by the city
+properties:
+  curb_object_id:
+    type: string
+    format: uuid
+    x-stoplight:
+      id: 6z1d4q8m2v7hy
+    description: The ID of the curb object.
+  geometry:
+    $ref: ./geoJSON_point.yaml
+    x-stoplight:
+      id: 1f8k3s9b6t2wr
+    description: The spatial location of this curb object location. This can represent the approximate center of the object, or the centroid location of the object, depending on its size and shape.
+  curb_zone_id:
+    type: string
+    format: uuid
+    x-stoplight:
+      id: 3v8m1q5d9n2kc
+    description: The ID of the Curb Zone this object is physically in or closest to. The geometry of the specified Curb Zone does not need to directly relate to the geometry of this object. Either a Zone or Space ID is required for an Object.
+  curb_space_id:
+    type: string
+    format: uuid
+    x-stoplight:
+      id: 5d1n8k3p7v2qx
+    description: The ID of the Curb Space this object is physically in or closest to. The geometry of the specified Curb Space does not need to directly relate to the geometry of this object. Either a Zone or Space ID is required for an Object.
+  curb_policy_id:
+    type: string
+    format: uuid
+    x-stoplight:
+      id: 2x7c4m9v1n6qd
+    description: ID of Policy object that is directly associated with this curb object. For example, `signage` or `paint` that relates to a single policy.
+  lane_type:
+    $ref: ./lane_type.yaml
+    x-stoplight:
+      id: 6q1v8n3c5m7px
+    description: The type of lane the curb object is primarily located in.
+  object_type:
+    type: string
+    x-stoplight:
+      id: 8c2m5n1p7v4qx
+    description: The category of the curb object. CDS includes well-known recommended values such as `signage`, `bus_stop`, `bike_rack`, `scooter_parking`, `ev_charging`, `ramp`, `meter`, `pay_station`, `paint`, `lighting`, `signal_cabinet`, `utility_box`, `fire_hydrant`, `surveillance_camera`, `barrier`, `bollard`, `street_trees`, `planter`, `drinking_fountain`, `toilet`, `bench`, `sculpture`, `art`, `fountain`, `solid_waste_bins`, `post_box`, `locker`, and `food_vendor`. The upstream list is intentionally not exhaustive, so additional local object types may be used when needed.
+    example: signage
+  name:
+    type: string
+    x-stoplight:
+      id: 4h9p2v6c1x8nd
+    description: A short name of this curb object for reference.
+  description:
+    type: string
+    x-stoplight:
+      id: 1c6m9q4v8n2px
+    description: A more detailed description of the object if needed.
+  owner:
+    type: string
+    x-stoplight:
+      id: 8m2q5v1n7c4pd
+    description: The name of the agency, department, or similar entity responsible for maintaining this object.
+  operator:
+    type: string
+    x-stoplight:
+      id: 4n8c1q7v5m2px
+    description: The name of the agency, department, or similar entity responsible for operating this object.
+  object_shape:
+    $ref: ./geoJSON_polygon.yaml
+    x-stoplight:
+      id: 7p1m4v8c2n6qd
+    description: A simplified geometric outline of this object. Recommended for objects that are an unusual shape and may affect curb activities.
+  object_line:
+    $ref: ./geoJSON_linestring.yaml
+    x-stoplight:
+      id: 3q6v1n8m5c2px
+    description: A simplified geometric line defining this object. Recommended for objects that may affect or help define curb activities, like `paint`.
+  linear_distance:
+    type: integer
+    x-stoplight:
+      id: 9n2c5m1q7v4pd
+    description: Parallel distance from the side of the object to the linear referencing start point of the curb, in centimeters.
+  perpendicular_distance:
+    type: integer
+    x-stoplight:
+      id: 2p7m4v8n1c6qx
+    description: Perpendicular distance from the front of the object to the curb edge start or end, in centimeters. This distance can be negative or positive, with the positive direction being from the curb toward the sidewalk.
+  max_length:
+    type: integer
+    x-stoplight:
+      id: 5m1q8v3n7c2pd
+    description: Maximum, bounding-box length of the object parallel to the curb, in centimeters.
+  max_depth:
+    type: integer
+    x-stoplight:
+      id: 1v6c9m4q8n2px
+    description: Maximum, bounding-box depth of the object perpendicular to the curb, in centimeters.
+  max_height:
+    type: integer
+    x-stoplight:
+      id: 8q3n5m1v7c2pd
+    description: Maximum, bounding-box height of the object from the sidewalk or street surface, in centimeters.
+  published_date:
+    $ref: ./timestamp.yaml
+    x-stoplight:
+      id: 7r3j6d1f8m2qp
+    description: The date/time that this curb object was first published in this data feed.
+  last_updated_date:
+    $ref: ./timestamp.yaml
+    x-stoplight:
+      id: 9k5n2b7t4c1sx
+    description: The date/time that the properties of this curb object were last updated. This helps consumers know that some fields may have changed.
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    x-stoplight:
+      id: 4m7q1n8v3c2px
+    description: Additional attributes (fields and data) to include in this endpoint.
+  external_references:
+    type: array
+    x-stoplight:
+      id: 6n2c5m1q8v4pd
+    description: One or more references to external data feeds impacting this Curb Object. References external data that is relevant to this Object now. If the external reference is temporary, it should be added, then removed when no longer relevant.
+    items:
+      $ref: ./external_reference.yaml
+required:
+  - curb_object_id
+  - geometry
+  - object_type
+  - name
+  - published_date
+  - last_updated_date
+anyOf:
+  - required:
+      - curb_zone_id
+  - required:
+      - curb_space_id
+examples:
+  - curb_object_id: 1f4e2d6a-9b3c-4f8a-bd21-7c5e9a0d3b62
+    geometry:
+      type: Point
+      coordinates:
+        - -73.982105
+        - 40.767932
+    curb_zone_id: a3b1c8d4-2e6f-4a90-9c11-5d7e8f2a4b06
+    curb_policy_id: 6d2f9c14-8b37-4e51-a0d9-1c4e7b8a52f3
+    lane_type: parking
+    object_type: signage
+    name: No Parking 8-10 AM sign
+    description: Pole-mounted regulatory sign at the upstream end of the loading zone.
+    owner: City Department of Transportation
+    operator: City Department of Transportation
+    linear_distance: 0
+    perpendicular_distance: 45
+    max_length: 30
+    max_depth: 30
+    max_height: 240
+    published_date: 1643130000000
+    last_updated_date: 1643130000000
+    external_references:
+      - reference_url: https://example.com/signs/no-parking-8-10
+        name: CDS
+        public: true
+        identifier_name: id
+        ids:
+          - sign_1234

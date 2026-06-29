@@ -1,0 +1,13 @@
+node_modules/
+
+# Development environments
+.claude/
+.codex/
+.vscode/
+.idea/
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*~

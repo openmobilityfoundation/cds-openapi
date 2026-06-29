@@ -1,0 +1,23 @@
+title: Violation
+type: object
+description: >
+  A violation associated with an enforcement action that can occur as a Curb Event.
+properties:
+  violation_code:
+    type: string
+    description: >
+      The unique code created by the municipality, city, county, state, federal,
+      or enforcement agency to identify the type of rule being enforced.
+  violation_name:
+    type: string
+    description: >
+      The city/municipal, county, state, provincial, or federal code that was
+      violated.
+  violation_cost:
+    type: string
+    description: The original cost associated with the violation.
+examples:
+  - violation_code: NO_PARKING
+    violation_name: No parking in loading zone
+    violation_cost: "6500"
+

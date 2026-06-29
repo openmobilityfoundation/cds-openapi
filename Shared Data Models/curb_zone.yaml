@@ -19,15 +19,21 @@ properties:
   curb_zone_id:
     type: string
     format: uuid
-    example: ' 0eaa505d-c9e1-49ad-9fac-3c745ba58676 '
+    example: '0eaa505d-c9e1-49ad-9fac-3c745ba58676'
   geometry:
-    $ref: ./geoJSON_polygon.yaml
-    description: The spatial extent of this Curb Zone.
+    oneOf:
+      - $ref: ./geoJSON_polygon.yaml
+      - $ref: ./geoJSON_linestring.yaml
+    description: The spatial extent of this curb zone. A new `curb_zone_id` is required if this geometry changes. A two-dimensional polygon is preferred, but a LineString is acceptable. Include the `width` field if known.
+  description:
+    type: string
+    description: A more detailed description of the zone if needed.
   curb_policy_ids:
     type: array
     description: 'An array of IDs of Policy objects. Together, these define the regulations of this Curb Zone.'
     items:
       type: string
+      format: uuid
   published_date:
     $ref: ./timestamp.yaml
   prev_policies:
@@ -52,6 +58,25 @@ properties:
         - end_date
   last_updated_date:
     $ref: ./timestamp.yaml
+  available:
+    type: boolean
+    description: If `true`, the curb zone is open for normal use. If `false`, the curb zone is closed and vehicles should look for alternative zones. Do not provide this field if the availability is unknown.
+  available_spaces:
+    type: integer
+    description: The number of curb spaces that are open for use within the Zone. Spaces could be a count of available marked or delineated spaces, or a count of the available CDS Curb Spaces.
+  jurisdiction_type:
+    type: string
+    enum:
+      - public
+      - private
+      - other
+    description: Describes the type of entity that has jurisdiction of this curb zone. Use `public` for curb zones maintained by a public sector agency, `private` for curb zones maintained by a private entity, or `other` for other cases.
+  owner_name:
+    type: string
+    description: Identifies the name of the owner of the curb zone.
+  address_number:
+    type: string
+    description: The address number, street number, civic number, or number range of the street that this Curb Zone is on.
   prev_curb_zone_ids:
     type: array
     description: An array of IDs of previous curb zone objects. They are listed in order with the most recent ones first.
@@ -161,12 +186,27 @@ properties:
     items:
       type: string
       format: uuid
+  curb_object_ids:
+    type: array
+    description: |-
+      The ID(s) of the Curb Objects that this Curb Zone is related to, in particular what Objects are in the Zone's areas of influence. For example, a pay station being used for multiple paid parking zones, a locker for a commercial loading zone, or a camera monitoring several zones. If specified, the objects identified MUST be retrievable through a Curbs API Objects endpoint.
+    items:
+      type: string
+      format: uuid
   curb_space_ids:
     type: array
     description: The ID(s) of the Curb Spaces that this Curb Zone contains.
     items:
       type: string
       format: uuid
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    description: Additional attributes (fields and data) to include in this endpoint.
+  external_references:
+    type: array
+    description: One or more references to external data feeds impacting this Curb Zone. The external reference should be relevant to this Zone now and may be updated without requiring a new `curb_zone_id`.
+    items:
+      $ref: ./external_reference.yaml
 required:
   - curb_zone_id
   - geometry

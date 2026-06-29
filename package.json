@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@stoplight/spectral-rulesets": "^1.22.0"
+  }
+}

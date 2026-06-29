@@ -19,16 +19,18 @@ properties:
 
       An integer representing a number of milliseconds since midnight, January 1st, 1970 UTC (the UNIX epoch)
   days_of_week:
-    type: string
-    enum:
-      - sun
-      - mon
-      - tue
-      - wed
-      - thu
-      - fri
-      - sat
+    type: array
     description: An array of days of the week when this time span applies.
+    items:
+      type: string
+      enum:
+        - sun
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+        - sat
   days_of_month:
     type: array
     description: An array of days of the month when this time span applies.
@@ -36,6 +38,16 @@ properties:
       type: integer
       minimum: 1
       maximum: 31
+  weeks_of_month:
+    type: array
+    description: >
+      An array of weeks of the month when this time span applies, specified as
+      integers (1-5), to represent ordinal weeks. E.g. "2" would be the 2nd
+      week of the month.
+    items:
+      type: integer
+      minimum: 1
+      maximum: 5
   months:
     type: array
     description: 'If specified, this time span applies only during these months (1=January, 12=December).'
@@ -51,12 +63,13 @@ properties:
     description: 'The local time that this time span stops applying, as 24-hour "HH:MM".'
   designated_period:
     type: string
-    enum:
-      - snow emergency
-      - holidays
-      - school days
-      - game days
-    description: 'A string representing an arbitrarily-named, externally-defined period of time.'
+    description: >
+      A string representing an arbitrarily-named, externally-defined period of
+      time. Any values MAY be specified but the following known values SHOULD be
+      used when possible.
   designated_period_except:
     type: boolean
-    description: 'If specified and true, this time span applies at all times not matching the named designated period.'
+    description: >
+      If specified and true, all fields in this Time Span are describing a
+      period in which the associated rule does not apply. This field takes
+      precedence over designated_period when present.

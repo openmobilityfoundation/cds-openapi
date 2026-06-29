@@ -1,0 +1,29 @@
+title: GeoJSON LineString
+type: object
+description: >
+  The spatial extent of this location represented as a GeoJSON geometry of type
+  "LineString" as defined in RFC 7946 3.1.4.
+properties:
+  type:
+    type: string
+    description: A GeoJSON type.
+    example: LineString
+  coordinates:
+    type: array
+    description: >
+      An array of positions for this geometry. Each position is an array of two
+      numbers representing longitude and latitude.
+    items:
+      type: array
+      items:
+        type: number
+required:
+  - type
+  - coordinates
+examples:
+  - type: LineString
+    coordinates:
+      - [-73.982105, 40.767932]
+      - [-73.973694, 40.764551]
+      - [-73.949318, 40.796918]
+

@@ -24,7 +24,7 @@ properties:
       x-stoplight:
         id: qskkkudk4ofyb
       type: number
-      example: '-73.982105,40.767932'
+      example: -73.982105
 required:
   - type
   - coordinates

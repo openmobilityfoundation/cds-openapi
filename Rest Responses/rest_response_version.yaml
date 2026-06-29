@@ -6,4 +6,4 @@ description: |-
   This is a standard value that must be returned in the body of all API endpoints.
 
   The version of CDS that the API conforms to.
-example: 1.0.0
+example: 1.1.0

@@ -1,0 +1,13 @@
+title: Custom Attributes Dictionary
+x-stoplight:
+  id: nq1l5v6u0c6hp
+type: string
+format: uri
+description: |-
+  This is a standard value that may be returned in the body of JSON API endpoints.
+
+  A URL to the data dictionary containing information about the fields and values
+  used in `custom_attributes`. This should describe the attribute name, data
+  type, associated CDS element if applicable, and what the attribute represents.
+  Use `custom_attributes_dictionary` consistently when this field is included.
+example: https://city.example.gov/cds/custom-attributes-dictionary.json

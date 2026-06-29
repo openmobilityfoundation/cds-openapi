@@ -38,7 +38,15 @@ properties:
     items:
       type: string
       format: uuid
-      example: ' 0eaa505d-c9e1-49ad-9fac-3c745ba58676 '
+      example: '0eaa505d-c9e1-49ad-9fac-3c745ba58676'
+  custom_attributes:
+    $ref: ./custom_attributes.yaml
+    description: Additional attributes (fields and data) to include in this endpoint.
+  external_references:
+    type: array
+    description: One or more references to external data feeds impacting this Curb Area. References external data that is relevant to this Area now. If the external reference is temporary, it should be added, then removed when no longer relevant.
+    items:
+      $ref: ./external_reference.yaml
 required:
   - curb_area_id
   - geometry
