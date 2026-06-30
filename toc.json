@@ -2,6 +2,11 @@
   "collapseTableOfContents": true,
   "items": [
     {
+      "type": "item",
+      "title": "Getting Started",
+      "uri": "README.md"
+    },
+    {
       "type": "divider",
       "title": "APIS"
     },
